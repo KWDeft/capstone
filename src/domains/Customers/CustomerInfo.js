@@ -48,6 +48,7 @@ const CustomerInfo = () => {
         navigate('/customers/paymentinfo', {
             state : {
                 id: id,
+                usernum: usernum,
                 sex: sex,
                 name: name,
                 phone: phone,

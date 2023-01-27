@@ -90,10 +90,13 @@ const EditCurriDetail = () => {
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        client.delete(`/api/course/${id}`);
+        client.delete(`/api/course/${id}`).then((res) => 
+        console.log(res)
+        );
+        alert("삭제완료");
+        navigate('/curriculum')
       },
     });
-    navigate('/curriculum');
   };
 
   
@@ -117,8 +120,8 @@ const EditCurriDetail = () => {
       .then((res) => 
          console.log(res)
          );
-
-     navigate('/curriculum');
+         alert("수정 완료");
+         window.location.reload();
     };
 
   const columns = [
@@ -185,11 +188,8 @@ const EditCurriDetail = () => {
               onChange={attachmentHandler}/>
               
           </form>
-            </Card>
-          <Comments
-            id = {id}
-          />
-        <Button type="primary" onClick={showModal}>
+          <br></br><br></br><br></br>
+          <Button type="primary" onClick={showModal}>
             수정
       </Button>
       <Modal
@@ -296,6 +296,10 @@ const EditCurriDetail = () => {
           </form>
         </Modal>
         <Button onClick={DeleteCurriculum}>삭제</Button>
+            </Card>
+        <Comments
+            id = {id}
+          />
     </>
   );
 };

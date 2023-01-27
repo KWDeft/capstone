@@ -1,10 +1,10 @@
-import { Col, Row, Input, Typography, Tag, Space, Table } from "antd";
+import { Col, Row, Input, Typography, Tag, Space, Table, Button} from "antd";
 
 import React, {useState, useEffect} from "react";
 import "./PaymentInfo.css";
 import {  PushpinFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
-
+import client from '../../lib/api/client';
 
 const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
@@ -14,42 +14,26 @@ const { Text } = Typography;
 const columns = [
     {
       title: '결제 일시',
-      dataIndex: 'date',
-      key: 'date',
+      dataIndex: 'pay_date',
+      key: 'pay_date',
       sorter: (a, b) => a.age - b.age,
     },
     {
         title: '상품 이름',
-        dataIndex: 'commodity',
-        key: 'commodity',
+        dataIndex: 'product',
+        key: 'product',
         render: (text) => <a>{text}</a>,
       },
     {
       title: '결제 금액',
-      dataIndex: 'payment',
-      key: 'payment',
+      dataIndex: 'pay_amount',
+      key: 'pay_amount',
     },
     {
-      
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 3 ? 'geekblue' : 'magenta';
-            if (tag === '실비') {
-              color = 'gold';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    
+      title: '결제 정보',
+      dataIndex: 'pay_method',
+      key: 'pay_method',
+    },    
   ];
   const data = [
     {
@@ -87,6 +71,7 @@ const PaymentInfo = () => {
     const location = useLocation();
     console.log('state', location.state);
     const userId = location.state.id;
+    const usernum = location.state.usernum;
     const name = location.state.name;
     const sex = location.state.sex;
     const phone = location.state.phone;
@@ -96,6 +81,30 @@ const PaymentInfo = () => {
     const inflow = location.state.inflow;
     const user_purpose = location.state.user_purpose;
 
+    const [state, setstate] = useState([]);
+    const [loading, setloading] = useState(true);
+    useEffect(() => {
+      getData();
+    }, []);
+
+    const getData = async () => {
+      await client.get(`/api/consumer/payment/user/${usernum}`).then(
+        res => {
+          setloading(false);
+          setstate(
+            res.data.map(row => ({
+              pay_amount: row.pay_amount,
+              usernum: row.usernum,
+              product: row.product,
+              pay_method: row.pay_method,
+              pay_date: row.pay_date,
+              id: row._id
+            }))
+          );
+        }
+      );
+    };
+  
     return(
       <>
         <Row>
@@ -140,7 +149,8 @@ const PaymentInfo = () => {
         <Row>
             <div className="con2">
                 <Text type="secondary">결제 정보</Text>
-                <Table columns={columns} dataSource={data} />
+                <Button type="link">결제정보 추가</Button>
+                <Table columns={columns} dataSource={state} />
             </div>
 
         </Row>

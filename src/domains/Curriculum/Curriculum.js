@@ -85,7 +85,7 @@ const Curriculum = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("커리큘럼 추가 성공");
+    
   
     let body = {
       title: title,
@@ -99,8 +99,8 @@ const Curriculum = () => {
       .then((res) => 
          console.log(res)
          );
-
-    getData();
+         alert("커리큘럼 등록 완료");
+         window.location.reload();
     };
 
   const columns = [

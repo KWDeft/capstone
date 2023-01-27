@@ -5,6 +5,7 @@ import NewCommodity from "./NewCommodity.js";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import client from '../../lib/api/client';
+import Detail from '../../components/product/Detail.js';
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
@@ -13,17 +14,7 @@ const columns = [
     key: "1",
     title: "상품 이름",
     dataIndex: "name"
-  },
-  {
-    key: "2",
-    title: "등록횟수",
-    dataIndex: "number"
-  },
-  {
-    key: "3",
-    title: "가격",
-    dataIndex: "price"
-  },
+  }
 ];
 const data = [
   {
@@ -118,8 +109,6 @@ const Commodity = () => {
         setState(
           res.data.map(row => ({
             name: row.name,
-            number: row.numAndPrice[0].num,
-            price: row.numAndPrice[0].price,
             id: row._id
           }))
         );
@@ -133,7 +122,7 @@ const Commodity = () => {
     console.log("상품 추가 성공");
   
     let body = {
-      name: name,
+      name: name
     };
   
     client
@@ -183,68 +172,7 @@ const Commodity = () => {
       </Form>
 
       <div>등록 횟수/가격</div>
-      <Form
-        name="dynamic_form_nest_item"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.List name="users">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Space
-                  key={key}
-                  style={{
-                    display: "flex",
-                    marginBottom: 8
-                  }}
-                  align="baseline"
-                >
-                  <Form.Item
-                    {...restField}
-                    name={[name, "first"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "등록 횟수를 입력해 주세요."
-                      }
-                    ]}
-                  >
-                    <Input 
-                      placeholder="횟수"
-                     />
-                  </Form.Item>
-                  <Form.Item
-                    {...restField}
-                    name={[name, "last"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "가격을 입력해 주세요."
-                      }
-                    ]}
-                  >
-                    <Input 
-                      placeholder="가격" 
-                      />
-                  </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  횟수/가격 추가
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </Form>
+      <Detail />
     </div>
         </Modal>
       </div>
@@ -263,23 +191,18 @@ const Commodity = () => {
          }} 
          onRow={(record, index) => {
           const name = record.name;
-          const number = record.number;
-          const price = record.price;
-          // return {
-          //   onClick: (e) => {
-          //     console.log(id);
-          //     navigate('/curriculum/edit', {
-          //         state: {
-          //           title: title,
-          //           detail: detail,
-          //           content: content,
-          //           effect: effect,
-          //           attachment: attachment,
-          //           id: id
-          //         },
-          //       });
-          //   }
-          // };
+          const id = record.id;
+          return {
+            onClick: (e) => {
+              console.log(id);
+              navigate('/commodity/detail', {
+                  state: {
+                    name: name,
+                    id: id
+                  },
+                });
+            }
+          };
         }}
         size="middle" 
       />

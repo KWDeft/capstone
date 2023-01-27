@@ -4,9 +4,6 @@ import React, { useState } from "react";
 import "./PasswordSetting.css";
 import axios from 'axios';
 
-
-
-
 const PasswordSetting = () => {
 const [username, SetUserName] = useState("");
 const [passwordOld, SetPasswordOld] = useState("");

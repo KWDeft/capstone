@@ -17,6 +17,7 @@ import Commodity from './domains/Commodity/Commodity.js';
 import Members from './domains/Members/Members.js';
 import NewCustomer from './domains/Customers/NewCustomer.js';
 import PaymentInfo from './domains/Customers/PaymentInfo.js';
+import ProductDetail from './components/product/Detail.js';
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/message" element={<Message />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/commodity" element={<Commodity />} />
+        <Route path="/commodity/detail" element={<ProductDetail/>} />
         <Route path="/members" element={<Members />} />
       </Route>
     </Routes>

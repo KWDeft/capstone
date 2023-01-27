@@ -44,6 +44,12 @@
         align-items: baseline;
         font-weight: 600;
       }
+      .comment-delete {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: baseline;
+        font-weight: 600;
+      }
   
     }
     .comments-footer{

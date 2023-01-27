@@ -1,68 +1,61 @@
 import React, {useCallback, useEffect, useState} from "react";
 import client from '../../lib/api/client';
-import moment from 'moment';
 import {Input, Button, Modal} from 'antd';
 import { useSelector } from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import {DeleteOutlined} from "@ant-design/icons";
-import "./Comment.scss";
 import { TextField } from "../../../node_modules/@material-ui/core/index";
-import { DatePicker } from "../../../node_modules/antd/es/index";
+import "../comment/Comment.scss";
 
-const Comment = () => {
+const Detail = () => {
     const location = useLocation();
-    const courseId = location.state.id;
+    const name = location.state.name;
+    const productId = location.state.id;
     const navigate = useNavigate();
-    const [commentList, setCommentList] = useState([]);
-    // 입력한 댓글 내용
-    const [content, setContent] = useState("");
-    const { user } = useSelector(({ user }) => ({ user: user.user }));
-    const userId = user.username;
+    const [detailList, setDetailList] = useState([]);
+    // 입력한 상품 detail 내용
+    const [count, setCount] = useState("");
+    const [price, setPrice] = useState("");
     
 
     const { TextArea } = Input;
     
     useEffect(() => {
-       getCommentList();
+       getProductList();
     }, []);
 
-    const getCommentList = async () => {
-        client.get(`/api/course/comment/${courseId}`).then(
-            res => {
-                setCommentList(
+    const getProductList = async () => {
+        client.get(`/api/product/detail/${productId}`)
+        .then(res => {
+                setDetailList(
                 res.data.map(row => ({
-                  userId: row.userId,
-                  content: row.content,
-                  date: row.date,
+                  count: row.count,
+                  price: row.price,
                   id: row._id
                 }))
               );
             }
           );
+          console.log(detailList);
     };
 
-    const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
-    
     const submit = (e) => {
         e.preventDefault();
 
         let body = {
-            content: content,
-            userId: userId,
-            courseId: courseId,
-            date: nowTime
+            count: count,
+            price: price,
+            productId: productId,
         }
 
-        client.post('/api/course/comment', body)
+        client.post('/api/product/detail', body)
         .then((res) => 
         console.log(res)
         );
         window.location.reload();
     };
 
-    console.log(commentList)
-
-    const DeleteComment = (params, e) => {
+    const DeleteProduct = (params, e) => {
         e.preventDefault();
         console.log(params);
 
@@ -71,7 +64,7 @@ const Comment = () => {
           okText: "Yes",
           okType: "danger",
           onOk: () => {
-            client.delete(`/api/course/comment/${params}`).then((res) => 
+            client.delete(`/api/product/detail/${params}`).then((res) => 
             console.log(res)
             );
             alert("삭제완료");
@@ -83,14 +76,21 @@ const Comment = () => {
     return ( 
         <div className="comments-wrapper">
             <div className="comments-header">
+               <TextField
+                    className="comments-header-testarea"
+                    onChange={(e) => {
+                        setCount(e.target.value)
+                    }}
+                    placeholder= "횟수"
+                />
                 <TextField
                     className="comments-header-testarea"
                     onChange={(e) => {
-                        setContent(e.target.value)
+                        setPrice(e.target.value)
                     }}
-                    placeholder= "댓글을 입력해주세요"
+                    placeholder= "가격"
                 />
-                {content !== "" ? (
+                {count !== "" ? (
                     <Button onClick={submit}>등록하기</Button>
                 ): (
                     <Button disabled={true}>
@@ -99,16 +99,11 @@ const Comment = () => {
                 )}
             </div>
             <div className="comments-body">
-                {commentList.map((item, index) => (
+                {detailList.map((item, index) => (
                     <div key={index} className="comments-comment">
-                        <div className="comment-username-date">
-                            <div className = "comment-date">
-                                {item.date}
-                            </div>
-                        </div>
-                        <div className="comment-content">{item.content}</div>
-                        <div className="comment-username">{item.userId}</div>
-                        <div className="comment-delete" onClick={(e) => {DeleteComment(item.id, e)}}><DeleteOutlined /></div>
+                        <div className="comment-content">{item.count}</div>
+                        <div className="comment-username">{item.price}</div>
+                        <div className="comment-delete" onClick={(e) => {DeleteProduct(item.id, e)}}><DeleteOutlined /></div>
                     </div>
                 ))}
 
@@ -117,5 +112,5 @@ const Comment = () => {
     );
   };
   
-  export default Comment;
+  export default Detail;
   
