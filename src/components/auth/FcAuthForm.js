@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import {Select} from 'antd';
 
 /**
  * 회원가입 또는 로그인 폼을 보여줍니다.
@@ -70,7 +69,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const FcAuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -104,23 +103,11 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             <StyledInput
               autoComplete="role"
               name="role"
-              placeholder="권한 | admin(관리자) / coach(코치) "
+              placeholder="권한"
               type="role"
               onChange={onChange}
-              value={form.role}
+              value="customer"
             />
-            {/* <Select
-              autoComplete="role"
-              name="role"
-              type="role"
-              onChange={onChange}
-              value={form.role}
-              options={[
-                { value: 'admin', label: '관리자' },
-                { value: 'coach', label: '코치' },
-                { value: '회원', label: '회원'},
-              ]}
-            /> */}
           </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -130,13 +117,13 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">회원가입</Link>
+          <Link to="/fc/register">회원가입</Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/fc/login">로그인</Link>
         )}
       </Footer>
     </AuthFormBlock>
   );
 };
 
-export default AuthForm;
+export default FcAuthForm;

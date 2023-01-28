@@ -1,10 +1,20 @@
-import { Col, Row, Input, Typography, Tag, Space, Table, Button} from "antd";
-
+import { 
+  Col,
+   Row, 
+   Input, 
+   Typography, 
+   Tag, 
+   Space, 
+   Table, 
+   Button,
+   InputNumber,
+   Modal} from "antd";
 import React, {useState, useEffect} from "react";
 import "./PaymentInfo.css";
-import {  PushpinFilled } from "@ant-design/icons";
-import { useLocation } from "react-router-dom";
+import {  PushpinFilled, PlusOutlined } from "@ant-design/icons";
+import { useLocation,useNavigate } from "react-router-dom";
 import client from '../../lib/api/client';
+import EditPaymentInfo from "./EditPaymentInfo";
 
 const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
@@ -13,64 +23,37 @@ const { Text } = Typography;
 
 const columns = [
     {
+      key: "1",
       title: '결제 일시',
       dataIndex: 'pay_date',
       key: 'pay_date',
       sorter: (a, b) => a.age - b.age,
     },
     {
+        key: "2",
         title: '상품 이름',
         dataIndex: 'product',
         key: 'product',
         render: (text) => <a>{text}</a>,
       },
     {
+      key: "3",
       title: '결제 금액',
       dataIndex: 'pay_amount',
       key: 'pay_amount',
     },
     {
+      key: "4",
       title: '결제 정보',
       dataIndex: 'pay_method',
       key: 'pay_method',
     },    
   ];
-  const data = [
-    {
-      key: '1',
-      date: '2023.01.21 12:50:12',
-      commodity: "A.P.T 5회",
-      payment: 250000,
-      tags: ['실비'],
-    },
-    {
-      key: '2',
-      date: '2023.01.18 10:50:12',
-      commodity: "A.P.T 5회",
-      payment: 250000,
-      tags: ['실비', '바우처'],
-    },
-    {
-      key: '3',
-      date: '2022.12.21 16:56:12',
-      commodity: "A.P.T 5회",
-      payment: 250000,
-      tags: ['바우처'],
-    },
-    {
-        key: '4',
-        date: '2022.11.15 12:50:12',
-        commodity: "A.P.T 2회",
-        payment: 100000,
-        tags: ['실비'],
-      },
-  ];
-
 
 const PaymentInfo = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     console.log('state', location.state);
-    const userId = location.state.id;
     const usernum = location.state.usernum;
     const name = location.state.name;
     const sex = location.state.sex;
@@ -80,9 +63,37 @@ const PaymentInfo = () => {
     const obstacle_type = location.state.obstacle_type;
     const inflow = location.state.inflow;
     const user_purpose = location.state.user_purpose;
-
     const [state, setstate] = useState([]);
-    const [loading, setloading] = useState(true);
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(10);
+
+    const [pay_amount, setPay_amount] = useState("");
+    const [product, setProduct] = useState("");
+    const [pay_method, setPay_method] = useState("");
+    const [pay_date, setPay_date] = useState("");
+
+    const pay_amountHandler = (e) => {
+      e.preventDefault();
+      setPay_amount(e.target.value);
+    };
+    const productHandler = (e) => {
+      e.preventDefault();
+      setProduct(e.target.value);
+    };
+    const pay_methodHandler = (e) => {
+      e.preventDefault();
+      setPay_method(e.target.value);
+    };
+    const pay_dateHandler = (e) => {
+      e.preventDefault();
+      setPay_date(e.target.value);
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+
     useEffect(() => {
       getData();
     }, []);
@@ -90,7 +101,6 @@ const PaymentInfo = () => {
     const getData = async () => {
       await client.get(`/api/consumer/payment/user/${usernum}`).then(
         res => {
-          setloading(false);
           setstate(
             res.data.map(row => ({
               pay_amount: row.pay_amount,
@@ -104,13 +114,34 @@ const PaymentInfo = () => {
         }
       );
     };
+
+    const handleOk = (e) => {
+      e.preventDefault();
+
+      let body = {
+        pay_amount: pay_amount,
+        usernum: usernum,
+        product: product,
+        pay_method: pay_method,
+        pay_date: pay_date,
+      }
+
+      client
+      .post("/api/consumer/payment/create", body)
+      .then((res) => 
+         console.log(res)
+         );
+          alert("등록 완료");
+          setIsModalOpen(false);
+          window.location.reload();
+      };
+
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
   
     return(
       <>
-        <Row>
-            <Search placeholder="조회할 회원의 이름을 입력하세요" onSearch={onSearch} style={{ width: 300 }} />
-        </Row>
-        <br></br>
         <Row>
             <div className="con1">
                 <Text type="secondary">회원 정보</Text>
@@ -149,12 +180,121 @@ const PaymentInfo = () => {
         <Row>
             <div className="con2">
                 <Text type="secondary">결제 정보</Text>
-                <Button type="link">결제정보 추가</Button>
-                <Table columns={columns} dataSource={state} />
+                <Button type="link" className="newMember" onClick={showModal}>
+                  <PlusOutlined />결제정보 추가
+                </Button>
+                          <Modal
+                          title="결제정보 추가"
+                          open={isModalOpen}
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                        >
+                                <Row gutter={16}>
+                                <Col>
+                                    상품이름
+                                  </Col>
+                                  <Col>
+                                    <Input
+                                      size="small"
+                                      placeholder="상품이름"
+                                      style={{ width: 150 }}
+                                      name="product"
+                                      value={product}
+                                      onChange={productHandler}
+                                    ></Input>
+                                </Col>
+                                <br></br><br></br>
+                                </Row>
+                                <Row gutter={16}>
+                                <Col>
+                                    결제금액
+                                </Col>
+                                <Col>
+                                      <Input
+                                      size="small"
+                                      placeholder="숫자만 입력해주세요"
+                                      style={{ width: 150 }}
+                                      name="pay_amount"
+                                      value={pay_amount}
+                                      onChange={pay_amountHandler}
+                                    />{" "}
+                                    원
+                                </Col>
+                                </Row>
+                                <br></br>
+                                <Row gutter={16}>
+                                <Col>
+                                  결제정보
+                                  </Col>
+                                  <Col>
+                                    <Input
+                                      size="small"
+                                      placeholder="결제정보"
+                                      style={{ width: 150 }}
+                                      name="pay_method"
+                                      value={pay_method}
+                                      onChange={pay_methodHandler}
+                                    ></Input>
+                                </Col>
+                                </Row>
+                                <br></br>
+                                <Row gutter={16}>
+                                <Col>
+                                    결제일시
+                                  </Col>
+                                  <Col>
+                                    <Input
+                                      size="small"
+                                      placeholder="YYYY-MM-DD"
+                                      style={{ width: 150 }}
+                                      name="pay_date"
+                                      value={pay_date}
+                                      onChange={pay_dateHandler}
+                                    ></Input>
+                                </Col>
+                              </Row>
+                        </Modal>
+                        <Table
+                        columns={columns}
+                        dataSource={state}
+                        pagination={{ 
+                          current:page,
+                          pageSize: pageSize,
+                          total:500,
+                          onChange: (page,pageSize)=>{
+                            setPage(page);
+                            setPageSize(pageSize)
+                          }
+                        }}
+                        onRow={(record, index) => {
+                          const usernum = record.usernum;
+                          const id = record.id;
+                          return {
+                            onClick: (e) => {
+                              console.log(usernum);
+                              console.log(id);
+                              navigate('/customers/paymentinfo/edit', {
+                                state: {
+                                  usernum: usernum,
+                                  id: id,
+                                  sex: sex,
+                                  name: name,
+                                  phone: phone,
+                                  birthday: birthday,
+                                  address: address,
+                                  obstacle_type: obstacle_type,
+                                  inflow: inflow,
+                                  user_purpose: user_purpose           
+                                },
+                              });
+                            }
+                          };
+                        }}
+                      />
             </div>
 
         </Row>
-      </>
+      </> 
       
     );
     

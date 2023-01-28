@@ -7,7 +7,7 @@ import Button from './Button';
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background: white;
+  background: dark;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
 
@@ -42,12 +42,12 @@ const UserInfo = styled.div`
   margin-right: 1rem;
 `;
 
-const Header = ({ user, onLogout }) => {
+const FcHeader = ({ user, onLogout }) => {
   return (
     <>
       <HeaderBlock>
         <Wrapper>
-          <Link to="/" className="logo">
+          <Link to="/fc" className="logo">
             adapfit
           </Link>
           {user ? (
@@ -67,4 +67,4 @@ const Header = ({ user, onLogout }) => {
   );
 };
 
-export default Header;
+export default FcHeader;

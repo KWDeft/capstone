@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import {DeleteOutlined} from "@ant-design/icons";
 import { TextField } from "../../../node_modules/@material-ui/core/index";
-import "../comment/Comment.scss";
+// import "../comment/Comment.scss";
 
 const Detail = () => {
     const location = useLocation();
@@ -24,19 +24,23 @@ const Detail = () => {
        getProductList();
     }, []);
 
+    console.log(productId);
+
+
+
     const getProductList = async () => {
-        client.get(`/api/product/detail/${productId}`)
-        .then(res => {
+        client.get(`/api/product/detail/${productId}`).then(
+            res => {
+                console.log(res);
                 setDetailList(
-                res.data.map(row => ({
-                  count: row.count,
-                  price: row.price,
-                  id: row._id
-                }))
-              );
+                    res.data.map(row => ({
+                        count: row.count,
+                        price: row.price,
+                        id: row._id
+                    }))
+                );
             }
-          );
-          console.log(detailList);
+        )
     };
 
     const submit = (e) => {
@@ -74,6 +78,8 @@ const Detail = () => {
       };
 
     return ( 
+        <>
+        <h3>{name}</h3>
         <div className="comments-wrapper">
             <div className="comments-header">
                <TextField
@@ -109,6 +115,7 @@ const Detail = () => {
 
             </div>
         </div>
+        </>
     );
   };
   

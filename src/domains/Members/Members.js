@@ -8,9 +8,9 @@ import client from '../../lib/api/client';
 import user from "../../modules/user";
 import MemberRegisterForm from "./MemberRegisterForm";
 import { SentimentSatisfiedOutlined } from "../../../node_modules/@material-ui/icons/index";
-const { Search } = Input;
-const onSearch = (value) => console.log(value);
 
+const onSearch = (value) => console.log(value);
+const { TextArea } = Input;
 
 
 const columns = [
@@ -140,7 +140,9 @@ const Members = () => {
   }
 
   const getAdminData = async () => {
-    await client.get("/api/member/admin").then(
+    await client
+    .get("/api/member/admin")
+    .then(
       res => {
         setloading(false);
         setAdmin(
@@ -158,6 +160,8 @@ const Members = () => {
       }
     );
   };
+
+  console.log(admin);
 
   const getCoachData = async () => {
     await client.get("/api/member/coach").then(
@@ -394,15 +398,7 @@ const Members = () => {
           </div>
           <br />
           <Table columns={columns} dataSource={admin} size="middle"
-          pagination={{ 
-            current:page,
-            pageSize: pageSize,
-            total:500,
-            onChange: (page,pageSize)=>{
-              setPage(page);
-              setPageSize(pageSize)
-            }
-          }} />
+            />
        </TabPane>
       <TabPane tab="코치" key="2"><div className="commoDiv1">
             <Button type="primary" onClick={showModal2}>
@@ -534,7 +530,7 @@ const Members = () => {
                     <h3>이력</h3>
                   </Col>
                   <Col span={10}>
-                    <Input
+                    <TextArea
                         autoComplete="record"
                         name="record"
                         value={record}
@@ -554,15 +550,7 @@ const Members = () => {
           </div>
           <br />
           <Table columns={columns} dataSource={coach} size="middle"
-          pagination={{ 
-            current:page,
-            pageSize: pageSize,
-            total:500,
-            onChange: (page,pageSize)=>{
-              setPage(page);
-              setPageSize(pageSize)
-            }
-          }} />
+           />
       </TabPane>
       </Tabs>
     </>

@@ -1,8 +1,9 @@
 import { Col, Typography , Select, Modal, Image, Row, Button, Radio, Checkbox} from "antd";
 import React from "react";
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import {  DeleteOutlined } from "@ant-design/icons";
+import {  DeleteOutlined, FileTextOutlined } from "@ant-design/icons";
 import './CustomerInfo.css';
+import client from "../../lib/api/client";
 const { Text } = Typography;
 
 const handleChange = (value: string) => {
@@ -36,10 +37,19 @@ const CustomerInfo = () => {
 
     const navigate = useNavigate();
 
-    const deleteInfo = () => {
-        Modal.error({
+    const deleteInfo = (e) => {
+        Modal.confirm({
           title: '삭제',
           content: '해당 회원 정보를 삭제하시겠습니까?',
+          onText: "Yes",
+          okType: "danger",
+          onOk: () => {
+            client.delete(`/api/consumer/info/${id}`).then((res) => 
+            console.log(res)
+            );
+            alert("삭제완료");
+            navigate('/customers');
+          }
         });
       };
 
@@ -60,6 +70,14 @@ const CustomerInfo = () => {
             }
         });
     };
+
+    const note = () => {
+        navigate('/journal', {
+            state: {
+                usernum: usernum,
+            }
+        })
+    }
 
     
     return(
@@ -84,6 +102,9 @@ const CustomerInfo = () => {
                             <Checkbox defaultChecked="true">계약서</Checkbox><br></br>
                             <Checkbox defaultChecked="true">개인정보수집이용동의서</Checkbox>
                             <br></br><br></br>
+                            <Row>
+                                <Button type="dashed" size="small" onClick={note}><FileTextOutlined />노트 조회</Button>
+                            </Row><br></br>
                             <Row gutter={16}>
                             <Col>
                                 <h4>결제정보</h4>
@@ -91,6 +112,7 @@ const CustomerInfo = () => {
                             <Col>
                                 <h4>{payment}</h4>
                             </Col>
+                            
                             </Row>
                             <Row gutter={16}>
                                 <Button type="link" onClick={move}>결제정보 확인</Button>
