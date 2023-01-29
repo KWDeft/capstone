@@ -65,7 +65,6 @@ const JournalTable = () => {
             purpose: purpose,
             manager: manager,
             contents: contents,
-            comments: comments,
             date_class: date_class,
             ndate_class: ndate_class,
             // attachment_class: attachment_class,
@@ -122,8 +121,8 @@ const JournalTable = () => {
     const contentsHandler = (e) => {
         e.preventDefault();
         setContents(e.target.value);
-    };
-    console.log(contents);
+      };
+      console.log(contents);
     const commentsHandler = (e) => {
         e.preventDefault();
         setComments(e.target.value);
@@ -366,7 +365,7 @@ const JournalTable = () => {
                                 </Row>
                                 <br></br>
                                 <Row>
-                                    <Col span={2}>
+                                <Col span={2}>
                                         <Text>수업 내용</Text>
                                     </Col>
                                     <Col span={11}>

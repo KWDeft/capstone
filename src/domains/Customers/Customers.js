@@ -8,6 +8,7 @@ import {
     Image, 
     Row,
     InputNumber,
+    Typography,
     Radio, Checkbox
   } from "antd";
   import React, { useState, useEffect } from "react";
@@ -16,6 +17,8 @@ import {
   import { SearchOutlined, PlusOutlined, DeleteOutlined  } from "@ant-design/icons";
   import { Link, useNavigate } from 'react-router-dom';
 
+  const { Text } = Typography;
+  const { TextArea } = Input;
   const onTextChange = (e) => {
     console.log(e);
   };
@@ -694,19 +697,20 @@ const today = () => {
         existence: existence,
         name: name,
         phone: phone,
-        // obstacle_type: obstacle_type,
-        // address: address,
-        // memo: memo,
+        obstacle_type: obstacle_type,
+        address: address,
+        memo: memo,
         manager: manager,
-        // payment: payment,
-        // inflow: inflow,
-        // statement: statement,
-        // date_signup: date_signup,
-        // birthday: birthday,
-        // membership: membership,
-        // user_purpose: user_purpose,
-        // vaccinate: vaccinate,
-        // category: category
+
+        payment: payment,
+        inflow: inflow,
+        statement: statement,
+        date_signup: date_signup,
+        birthday: birthday,
+        membership: membership,
+        user_purpose: user_purpose,
+        vaccinate: vaccinate,
+        category: category
       };
 
       client
@@ -715,7 +719,7 @@ const today = () => {
          console.log(res)
          );
          alert("등록 완료");
-        //  setIsModalOpen(false);
+         window.location.reload();
     };
     const handleCancel = () => {
       setIsModalOpen(false);
@@ -1143,6 +1147,24 @@ const today = () => {
                />
             </Col>
         </Row>
+        <br></br>
+                                <Row>
+                                    <Col span={2}>
+                                        <Text>메모</Text>
+                                    </Col>
+                                    <Col span={11}>
+                                    <TextArea
+                                        style={{width :550}}
+                                        autoSize={{
+                                        minRows: 4,
+                                        maxRows: 6,
+                                        }}
+                                        name="memo"
+                                        value={memo}
+                                        onChange={memoHandler}
+                                    />
+                                    </Col>
+                                </Row>
       </Col>
       </div>
   </Row>
