@@ -1,185 +1,377 @@
-import React from "react";
-import { Col, Row, Radio, AutoComplete, Input, Table } from "antd";
-import {
-  Dropdown,
-  Menu,
-  Space,
-  Typography,
-  DatePicker,
-  TimePicker
-} from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { UserOutlined } from "@ant-design/icons";
-import moment from "moment";
-import "./NewCalendar.css";
-import CustomerSearch from "../Customers/CustomerSearch.js";
+// import React from "react";
+// import { Col, Row, Radio, Select, AutoComplete, Input, Table } from "antd";
+// import {
+//   Dropdown,
+//   Menu,
+//   Space,
+//   Typography,
+//   DatePicker,
+//   TimePicker
+// } from "antd";
+// import { DownOutlined } from "@ant-design/icons";
+// import { UserOutlined } from "@ant-design/icons";
+// import moment from "moment";
+// import "./NewCalendar.css";
+// import CustomerSearch from "../Customers/CustomerSearch.js";
+// import { SwapRightOutlined } from '@ant-design/icons';
 
-const NewCalendar = () => (
-  <div className="Div">
-    <Row gutter={[32, 16]}>
-      <div className="div1">
-        <Col>
-          <Title level={4}>회원 검색 </Title>
-          <CustomerSearch />
-        </Col>
-      </div>
+// import dayjs from 'dayjs';
+// import customParseFormat from 'dayjs/plugin/customParseFormat'
 
-      <div className="div2">
-        <Col>
-          <Title level={4}>일정</Title>
-          <Title level={5}>수업 일시</Title>
+// const NewCalendar = () => (
+//   <div className="Div">
+//     <Row gutter={[100, 16]}>
 
-          <Space direction="vertical" size={20}>
-            <DatePicker
-              defaultValue={moment("2022/11/3", dateFormat)}
-              format={dateFormat}
-            />
-          </Space>
-          <div>
-            {" "}
-            <br></br>{" "}
-          </div>
-          <TimePicker.RangePicker />
+// <Col>
+// <Title level={4}>회원 검색</Title>
+// <CustomerSearch />
+// </Col>
 
-          <div>
-            {" "}
-            <br></br>{" "}
-          </div>
-          <Title level={5}>기타 메모</Title>
+// <Col>
+//   <Title level={4}>수업 일시</Title>
+//     <Row >
+//       <h4>날짜</h4>
+//     </Row>
+//     <Space direction="vertical" size={20}>
+//     <DatePicker 
+//       onChange={onChange2}                        
+//       />
+//     </Space>
+//     <div>
+//       {" "}
+//       <br></br>{" "}
+//     </div>
+//     {/* <TimePicker.RangePicker /> */}
+//     <Select
+//       name="startHour"
+//       showSearch
+//       placeholder="00시"
+//       optionFilterProp="starthour"
+//       value={startHour}
+//       onChange={startHour}
+//       onSearch={onSearch}
+//       filterOption={(input, option) =>
+//         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+//       }
+//       options={[
+//         {
+//           value: '1시',
+//           label: '1시',
+//         },
+//         {
+//           value: '2시',
+//           label: '2시',
+//         },
+//         {
+//           value: '3시',
+//           label: '3시',
+//         },
+//         {
+//           value: '4시',
+//           label: '4시',
+//         },
+//         {
+//           value: '5시',
+//           label: '5시',
+//         },
+//         {
+//           value: '6시',
+//           label: '6시',
+//         },
+//         {
+//           value: '7시',
+//           label: '7시',
+//         },
+//         {
+//           value: '8시',
+//           label: '8시',
+//         },
+//         {
+//           value: '9시',
+//           label: '9시',
+//         },
+//         {
+//           value: '10시',
+//           label: '10시',
+//         },
+//         {
+//           value: '11시',
+//           label: '11시',
+//         },
+//         {
+//           value: '12시',
+//           label: '12시',
+//         },
+//         {
+//           value: '13시',
+//           label: '13시',
+//         },
+//         {
+//           value: '14시',
+//           label: '14시',
+//         },
+//         {
+//           value: '15시',
+//           label: '15시',
+//         },
+//         {
+//           value: '16시',
+//           label: '16시',
+//         },
+//         {
+//           value: '17시',
+//           label: '17시',
+//         },
+//         {
+//           value: '18시',
+//           label: '18시',
+//         },
+//         {
+//           value: '19시',
+//           label: '19시',
+//         },
+//         {
+//           value: '20시',
+//           label: '20시',
+//         },
+//         {
+//           value: '21시',
+//           label: '21시',
+//         },
+//         {
+//           value: '22시',
+//           label: '22시',
+//         },
+//         {
+//           value: '23시',
+//           label: '23시',
+//         },
+//         {
+//           value: '24시',
+//           label: '24시',
+//         },
+//       ]}
+//     />
+//     <Select
+//       name="startMinute"
+//       showSearch
+//       placeholder="00분"
+//       optionFilterProp="startminute"
+//       value={startMinute}
+//       onChange={startMinuteHandler}
+//       onSearch={onSearch}
+//       filterOption={(input, option) =>
+//         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+//       }
+//       options={[
+//         {
+//           value: '00분',
+//           label: '00분',
+//         },
+//         {
+//           value: '10분',
+//           label: '10분',
+//         },
+//         {
+//           value: '20분',
+//           label: '20분',
+//         },
+//         {
+//           value: '30분',
+//           label: '30분',
+//         },
+//         {
+//           value: '40분',
+//           label: '40분',
+//         },
+//         {
+//           value: '50분',
+//           label: '50분',
+//         },
+//       ]}
+//     />
+//     <SwapRightOutlined />
 
-          <TextArea rows={4} placeholder="메모를 작성하세요." maxLength={50} />
-        </Col>
-      </div>
-    </Row>
-  </div>
-);
+//     <Select
+//       name="endHour"
+//       showSearch
+//       placeholder="00시"
+//       optionFilterProp="endhour"
+//       value={endHour}
+//       onChange={endHourHandler}
+//       onSearch={onSearch}
+//       filterOption={(input, option) =>
+//         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+//       }
+//       options={[
+//         {
+//           value: '1시',
+//           label: '1시',
+//         },
+//         {
+//           value: '2시',
+//           label: '2시',
+//         },
+//         {
+//           value: '3시',
+//           label: '3시',
+//         },
+//         {
+//           value: '4시',
+//           label: '4시',
+//         },
+//         {
+//           value: '5시',
+//           label: '5시',
+//         },
+//         {
+//           value: '6시',
+//           label: '6시',
+//         },
+//         {
+//           value: '7시',
+//           label: '7시',
+//         },
+//         {
+//           value: '8시',
+//           label: '8시',
+//         },
+//         {
+//           value: '9시',
+//           label: '9시',
+//         },
+//         {
+//           value: '10시',
+//           label: '10시',
+//         },
+//         {
+//           value: '11시',
+//           label: '11시',
+//         },
+//         {
+//           value: '12시',
+//           label: '12시',
+//         },
+//         {
+//           value: '13시',
+//           label: '13시',
+//         },
+//         {
+//           value: '14시',
+//           label: '14시',
+//         },
+//         {
+//           value: '15시',
+//           label: '15시',
+//         },
+//         {
+//           value: '16시',
+//           label: '16시',
+//         },
+//         {
+//           value: '17시',
+//           label: '17시',
+//         },
+//         {
+//           value: '18시',
+//           label: '18시',
+//         },
+//         {
+//           value: '19시',
+//           label: '19시',
+//         },
+//         {
+//           value: '20시',
+//           label: '20시',
+//         },
+//         {
+//           value: '21시',
+//           label: '21시',
+//         },
+//         {
+//           value: '22시',
+//           label: '22시',
+//         },
+//         {
+//           value: '23시',
+//           label: '23시',
+//         },
+//         {
+//           value: '24시',
+//           label: '24시',
+//         },
+//       ]}
+//     />
+//     <Select
+//       name="endMinute"
+//       value={endMinute}
+//       onChange={endMinuteHandler}
+//       showSearch
+//       placeholder="00분"
+//       optionFilterProp="endminute"
+//       onSearch={onSearch}
+//       filterOption={(input, option) =>
+//         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+//       }
+//       options={[
+//         {
+//           value: '00분',
+//           label: '00분',
+//         },
+//         {
+//           value: '10분',
+//           label: '10분',
+//         },
+//         {
+//           value: '20분',
+//           label: '20분',
+//         },
+//         {
+//           value: '30분',
+//           label: '30분',
+//         },
+//         {
+//           value: '40분',
+//           label: '40분',
+//         },
+//         {
+//           value: '50분',
+//           label: '50분',
+//         },
+//       ]}
+//     />
+//     </Col>
+//   <Col>
+//   <Title level={4}>기타 메모</Title>
+//   <TextArea  rows={10} placeholder="메모를 작성하세요." maxLength={100} 
+// showCount/>             
+// </Col>
+// </Row>
+//   </div>
+// );
 
-const menu = (
-  <Menu
-    selectable
-    defaultSelectedKeys={["3"]}
-    items={[
-      {
-        key: "1",
-        label: "통합"
-      },
-      {
-        key: "2",
-        label: "회원번호"
-      },
-      {
-        key: "3",
-        label: "이름"
-      }
-    ]}
-  />
-);
 
-const renderTitle = (title: string) => (
-  <span>
-    {title}
-    <a
-      style={{ float: "right" }}
-      href="https://www.google.com/search?q=antd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      more
-    </a>
-  </span>
-);
 
-const renderItem = (title: string, count: number) => ({
-  value: title,
-  label: (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between"
-      }}
-    >
-      {title}
-      <span>
-        <UserOutlined /> {count}
-      </span>
-    </div>
-  )
-});
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  disability: string;
-  phonenum: string;
-  coach: string;
-  signup_date: Date;
-}
+// const dateNow = new Date();
+// const today = dateNow.toISOString().slice(0, 10);
 
-const columns: ColumnsTypeDataType = [
-  {
-    title: "회원번호",
-    dataIndex: "key"
-  },
-  {
-    title: "이름",
-    dataIndex: "name"
-  },
-  {
-    title: "장애유무",
-    dataIndex: "disability"
-  },
-  {
-    title: "전화번호",
-    dataIndex: "phonenum"
-  },
-  {
-    title: "코치",
-    dataIndex: "coach"
-  },
-  {
-    title: "등록일자",
-    dataIndex: "singup_date"
-  }
-];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "홍길동",
-    disability: "유",
-    phonenum: "010-1234-5678",
-    coach: "문하늘",
-    singup_date: "2022-09-01"
-  },
-  {
-    key: "2",
-    name: "홍길동",
-    disability: "무",
-    phonenum: "010-1234-5678",
-    coach: "문하늘",
-    singup_date: "2022-09-11"
-  },
-  {
-    key: "3",
-    name: "홍길동",
-    disability: "무",
-    phonenum: "010-1234-5678",
-    coach: "김지수",
-    singup_date: "2022-10-29"
-  }
-];
+// const dateFormat = "YYYY-MM-DD";
+// const { RangePicker } = DatePicker;
 
-const { RangePicker } = DatePicker;
-const dateFormat = "YYYY/MM/DD";
-const weekFormat = "MM/DD";
-const monthFormat = "YYYY/MM";
-const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
-const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
-const customWeekStartEndFormat = (value) =>
-  `${moment(value).startOf("week").format(weekFormat)} ~ ${moment(value)
-    .endOf("week")
-    .format(weekFormat)}`;
-const { TextArea } = Input;
-const { Title } = Typography;
+// const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
 
-export default NewCalendar;
+// const { TextArea } = Input;
+// const { Title } = Typography;
+
+// dayjs.extend(customParseFormat);
+// const onChange = (time) => {
+//   console.log("Time : ", time);
+// };
+// const onChange2 = (date) => {
+//   console.log('Date: ', date);
+// };
+// const onSearch = (value) => console.log(value);
+
+// export default NewCalendar;

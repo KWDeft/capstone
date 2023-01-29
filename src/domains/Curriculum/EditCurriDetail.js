@@ -28,6 +28,7 @@ const EditCurriDetail = () => {
   }, []);
 
   const getCurriculumById = id => {
+    console.log(id);
     client.get(`/api/course/${id}`)
       .then(d => {
         let curriculum = d.data;

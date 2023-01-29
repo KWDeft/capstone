@@ -5,6 +5,9 @@ import {  PushpinFilled } from "@ant-design/icons";
 import Customers from "../Customers/Customers";
 import DBChart from "./DBChart";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+
 
 const Dashboard = () => {
   const { user } = useSelector(({ user }) => ({ user: user.user }));
@@ -41,9 +44,9 @@ const Dashboard = () => {
             lg={{
               span: 6,
             }}
-          >
+          > <body style={{height:"100vh", width:"45vh"}}>
             <Row>
-              <div className="container1">
+              <div className="container1" style={{height:"100vh", width:"45vh"}}>
               <h3><PushpinFilled /> {username} 님, 오늘의 일정({today()})</h3>
               <List
                 size="small"
@@ -53,6 +56,7 @@ const Dashboard = () => {
               />
               </div>
             </Row>
+            </body>
             <br/>
             
           </Col>

@@ -36,10 +36,10 @@ const CustomerInfo = () => {
 
     const navigate = useNavigate();
 
-    const deleteInfo = () => {
+    const deleteSchedule = () => {
         Modal.error({
           title: '삭제',
-          content: '해당 회원 정보를 삭제하시겠습니까?',
+          content: '해당 일정을 삭제하시겠습니까?',
         });
       };
 
@@ -245,8 +245,8 @@ const CustomerInfo = () => {
                             </Row>
                             <br></br><br></br>
                             <div className="btns">
-                                <Button type="primary" href="/customers/infoedit">수정</Button>
-                                <Button type="primary" danger onClick={deleteInfo}>삭제</Button>
+                                <Button type="primary" href="">수정</Button>
+                                <Button type="primary" danger onClick={deleteSchedule}>삭제</Button>
                             </div>
                         </Col>
                         </div>
