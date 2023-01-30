@@ -873,24 +873,23 @@ const today = () => {
             <h4>성별</h4>
         </Col>
         <Col>
-        {/* <Radio.Group
-          value={sex}
-          onChange={sexHandler}>
-            <Radio 
-                value="남">남</Radio>
-            <Radio 
-                value="여">여</Radio>
-            </Radio.Group> */}
-            <Select
-              defaultValue="오프라인" 
-              size="small" 
-              value={sex}
-              onChange={sexHandler}
-              options={[
-                { value: '남', label: '남' },
-                { value: '여', label: '여' },
-              ]}
-            />
+          {/* <Radio.Group
+            value={sex}
+            onChange={sexHandler}>
+              <Radio 
+                  value="남">남</Radio>
+              <Radio 
+                  value="여">여</Radio>
+              </Radio.Group> */}
+              <Select
+                defaultValue="남" 
+                value={sex}
+                onChange={sexHandler}
+                options={[
+                  { value: '남', label: '남' },
+                  { value: '여', label: '여' },
+                ]}
+              />
         </Col>
       </Row><br></br>
       <Row gutter={16}>

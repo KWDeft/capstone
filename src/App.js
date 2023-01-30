@@ -17,6 +17,8 @@ import Message from "./domains/Message/Message.js";
 import Dashboard from './domains/Dashboard/Dashboard.js';
 import Commodity from './domains/Commodity/Commodity.js';
 import Members from './domains/Members/Members.js';
+import MemberInfo from './domains/Members/MemberInfo.js';
+import CoachInfo from './domains/Members/CoachInfo.js';
 import NewCustomer from './domains/Customers/NewCustomer.js';
 import PaymentInfo from './domains/Customers/PaymentInfo.js';
 import ProductDetail from './components/product/Detail.js';
@@ -60,6 +62,8 @@ const App = () => {
         <Route path="/commodity" element={<Commodity />} />
         <Route path="/commodity/detail" element={<ProductDetail/>} />
         <Route path="/members" element={<Members />} />        
+        <Route path="/members/info" element={<MemberInfo />} />
+        <Route path="/members/coachinfo" element={<CoachInfo />} />
       </Route>
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />

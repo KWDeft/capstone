@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Table, Modal, Input, Tabs } from "antd";
+import {useNavigate} from 'react-router';
 import "./Members.css";
 import NewMember from "./NewMember.js";
 import { Link, Outlet } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined,} from "@ant-design/icons";
 import client from '../../lib/api/client';
 import user from "../../modules/user";
-import MemberRegisterForm from "./MemberRegisterForm";
-import { SentimentSatisfiedOutlined } from "../../../node_modules/@material-ui/icons/index";
 
 const onSearch = (value) => console.log(value);
 const { TextArea } = Input;
@@ -16,7 +15,55 @@ const { TextArea } = Input;
 const columns = [
   {
     title: "이름",
-    dataIndex: "name"
+    dataIndex: "name",
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => {
+      return (
+        <>
+          <Input
+            autoFocus
+            placeholder="Type text here"
+            value={selectedKeys[0]}
+            onChange={(e) => {
+              setSelectedKeys(e.target.value ? [e.target.value] : []);
+              confirm({ closeDropdown: false });
+            }}
+            onPressEnter={() => {
+              confirm();
+            }}
+            onBlur={() => {
+              confirm();
+            }}
+          ></Input>
+          <Button
+            onClick={() => {
+              confirm();
+            }}
+            type="primary"
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => {
+              clearFilters();
+            }}
+            type="danger"
+          >
+            Reset
+          </Button>
+        </>
+      );
+    },
+    filterIcon: () => {
+      return <SearchOutlined />;
+    },
+    onFilter: (value, record) => {
+      return record.name == value;
+    },
   },
   {
     title: "연락처",
@@ -59,6 +106,7 @@ const Members = () => {
   const[coachnum, setCoachnum] = useState([]);
 
   const TabPane = Tabs.TabPane;
+  const navigate = useNavigate();
 
   function callback(key) {
     console.log(key);
@@ -397,7 +445,37 @@ const Members = () => {
             </Modal>
           </div>
           <br />
-          <Table columns={columns} dataSource={admin} size="middle"
+          <Table 
+            columns={columns} 
+            dataSource={admin} 
+            size="middle"
+            onRow={(a, index) => {
+              const name = a.name;
+              const phone = a.phone;
+              const username = a.username;
+              const password = a.password;
+              const email = a.email;
+              const job = a.job;
+              const position = a.position;
+              const id = a.id;
+              return {
+                onClick: (e) => {
+                  console.log(username);
+                  navigate('/members/info', {
+                    state: {
+                      name: name,
+                      phone: phone,
+                      username: username,
+                      password: password,
+                      email: email,
+                      position: position,
+                      job: job,
+                      id: id,
+                    },
+                  });
+                }
+              };
+            }}
             />
        </TabPane>
       <TabPane tab="코치" key="2"><div className="commoDiv1">
@@ -513,7 +591,7 @@ const Members = () => {
                 </Row> */}
                 <Row>
                 <Col span={6}>
-                    <h3>관리자 번호</h3>
+                    <h3>코치 번호</h3>
                   </Col>
                   <Col span={10}>
                     <Input
@@ -549,7 +627,39 @@ const Members = () => {
             </Modal>
           </div>
           <br />
-          <Table columns={columns} dataSource={coach} size="middle"
+          <Table 
+             columns={columns} 
+             dataSource={coach} 
+             size="middle"
+             onRow={(c, index) => {
+              const name = c.name;
+              const phone = c.phone;
+              const username = c.username;
+              const password = c.password;
+              const email = c.email;
+              const job = c.job;
+              const record = c.record;
+              const coachnum = c.coachnum;
+              const id = c.id;
+              return {
+                onClick: (e) => {
+                  console.log(username);
+                  navigate('/members/coachinfo', {
+                    state: {
+                      name: name,
+                      phone: phone,
+                      username: username,
+                      password: password,
+                      email: email,
+                      job: job,
+                      record: record,
+                      coachnum: coachnum,
+                      id: id,
+                    },
+                  });
+                }
+              };
+            }}
            />
       </TabPane>
       </Tabs>
