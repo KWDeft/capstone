@@ -167,6 +167,7 @@ const JournalTable = () => {
                         subject: row.subject,
                         classname: row.classname,
                         date_class: row.date_class,
+                        id : row._id,
                     }))
                 );
                 console.log(res);
@@ -408,7 +409,42 @@ const JournalTable = () => {
             </Row>   
             <br></br>
                 <Table
-                    columns={columns} dataSource={classList} style={{width:900}}
+                    columns={columns} 
+                    dataSource={classList} 
+                    style={{width:900}}
+                    onRow={(record, index) => {
+                        const times = record.times;
+                        const remains = record.remains;
+                        const classname = record.classname;
+                        const subject = record.subject;
+                        const purpose = record.purpose;
+                        const manager = record.manager;
+                        const contents = record.contents;
+                        const date_class = record.date_class;
+                        const ndate_class = record.ndate_clas;
+                        const id = record.id;
+                        // const attachment = record.ndate_attachment;
+                        return {
+                          onClick: (e) => {
+                            console.log(usernum);
+                            navigate('/journal/edit', {
+                                state: {
+                                    times: times,
+                                    remains: remains,
+                                    usernum: usernum,
+                                    classname: classname,
+                                    subject: subject,
+                                    purpose: purpose,
+                                    manager: manager,
+                                    contents: contents,
+                                    date_class: date_class,
+                                    ndate_class: ndate_class,
+                                    id: id,
+                                },
+                              });
+                          }
+                        };
+                      }}
                     />
         </>
     );

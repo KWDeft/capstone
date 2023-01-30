@@ -352,7 +352,6 @@ const ConsultTable = () => {
                     dataSource={counselList}
                     style={{width:900}}
                     onRow={(record, index) => {
-                        const usernum = record.usernum;
                         const purpose = record.purpose;
                         const manager = record.manager;
                         const method = record.method;
