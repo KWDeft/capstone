@@ -56,7 +56,6 @@ const FcJournalView = () => {
                 contents: row.contents,
                 date_class: row.date_class,
                 ndate_class: row.ndate_class,
-                //attachment_counsel: counsel.attachment_counsel,
               })
               console.log(d);
             }

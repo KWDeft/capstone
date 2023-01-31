@@ -13,7 +13,6 @@ import {
 import { Layout, Menu, Card, Col, Row, Button } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import Dashboard from "../domains/Dashboard/Dashboard.js";
-import { Navigate } from '../../node_modules/react-router-dom/index';
 import {useNavigate} from 'react-router-dom'
 
 const { Header, Content, Sider } = Layout;
@@ -39,11 +38,6 @@ const menuItems = [
     label: <Link to="/curriculum">커리큘럼</Link>,
     key: "커리큘럼",
     icon: <ProfileOutlined />
-  },
-  {
-    label: <Link to="/message">문자메세지</Link>,
-    key: "문자메세지",
-    icon: <MessageOutlined />
   },
   {
     label: <Link to="/members">구성원</Link>,

@@ -5,7 +5,6 @@ import './MemberInfo.css';
 import {useLocation} from 'react-router-dom';
 import client from '../../lib/api/client';
 import {useNavigate} from 'react-router';
-import { Navigate } from "../../../node_modules/react-router-dom/index";
 
 
 

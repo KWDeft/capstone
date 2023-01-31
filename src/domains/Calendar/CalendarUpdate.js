@@ -27,6 +27,8 @@ const onSearch = (value) => console.log(value);
 
 
 const CalendarUpdate = () => {
+  const navigate = useNavigate();
+
 const location = useLocation();
 // console.log('state', location.state);
 const id = location.state.id;
@@ -112,19 +114,28 @@ console.log("스케줄", stateCust);
         //  window.location.reload();
     };
     console.log("수정된 것",stateCust);
-  const deleteInfo = () => {
-    Modal.error({
-      title: '삭제',
-      content: '해당 회원 정보를 삭제하시겠습니까?',
-    });
-  };
+    const deleteInfo = (e) => {
+      Modal.confirm({
+        title: '삭제',
+        content: '해당 회원 정보를 삭제하시겠습니까?',
+        onText: 'Yes',
+        okType: 'danger',
+        onOk: () => {
+          client
+            .delete(`/api/schedule/admin/${id}`)
+            .then((res) => console.log(res));
+          alert('삭제완료');
+          navigate('/calendar');
+        },
+      });
+    };
 
   return(
     <Space direction="vertical">
          
 
          
-        <Row gutter={[400, 16]} style={{"width":"900vh"}}>
+         <Row gutter={[100, 16]} style={{"width":"900vh"}}>
          <div className="Col1">
               <Col span>
                 <Title level={4}>회원 정보</Title>
@@ -631,7 +642,6 @@ console.log("스케줄", stateCust);
            
          <br></br><br></br>
          <div className="btns" style={{float:"left"}}>
-             <Button type="primary" onclick={submitHandler} href="/calendar/update">수정</Button>
              <Button type="primary" danger onClick={deleteInfo}>삭제</Button>
          </div>
        </Space>

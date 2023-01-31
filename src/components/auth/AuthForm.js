@@ -79,7 +79,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="전화번호"
+          placeholder="아이디"
           onChange={onChange}
           value={form.username}
         />

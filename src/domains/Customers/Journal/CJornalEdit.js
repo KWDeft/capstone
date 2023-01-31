@@ -51,7 +51,6 @@ const CJournalEdit = () => {
                 detail: counsel.detail,
                 date_counsel: counsel.date_counsel,
                 ndate_counsel: counsel.ndate_counsel,
-                //attachment_counsel: counsel.attachment_counsel,
               })
               console.log(d);
             }

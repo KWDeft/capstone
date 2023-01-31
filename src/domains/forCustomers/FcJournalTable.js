@@ -103,7 +103,6 @@ const FcJournalTable = () => {
                         const date_class = record.date_class;
                         const ndate_class = record.ndate_clas;
                         const id = record.id;
-                        // const attachment = record.ndate_attachment;
                         return {
                           onClick: (e) => {
                             console.log(usernum);

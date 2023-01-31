@@ -69,7 +69,6 @@ const ConsultTable = () => {
             detail: detail,
             date_counsel: date_counsel,
             ndate_counsel: ndate_counsel,
-            //attachment_counsel: attachment_counsel,
         };
 
         client 
@@ -92,7 +91,6 @@ const ConsultTable = () => {
       const [detail, setDetail] = useState("");
       const [date_counsel, setDate_counsel] = useState("");
       const [ndate_counsel, setNdate_counsel] = useState("");
-      const [attachment, setAttachment] = useState("");
 
       const purposeHandler = (e) => {
         setPurpose(e);
@@ -120,10 +118,6 @@ const ConsultTable = () => {
       const ndate_counselHandler = (e) =>{
         e.preventDefault();
         setNdate_counsel(e.target.value);
-      };
-      const attachmentHandler = (e) => {
-        e.preventDefault();
-        setAttachment(e.target.value);
       };
 
       const [counselList, setCounselList] = useState([]);
@@ -326,20 +320,6 @@ const ConsultTable = () => {
                                     </Col>
                                 </Row>
                                 <br></br>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>첨부파일</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Upload {...props}>
-                                            <Button size="small" icon={<UploadOutlined />}>Click to Upload</Button>
-                                        </Upload>
-                                        <div>
-
-                                        </div>
-                                    </Col>
-                                
-                                </Row>
                             </>
                         </Modal>
                 </Col>
@@ -360,7 +340,6 @@ const ConsultTable = () => {
                         const date_counsel = record.date_counsel;
                         const ndate_counsel = record.ndate_counsel;
                         const id = record.id;
-                        // const attachment = record.ndate_attachment;
                         return {
                           onClick: (e) => {
                             console.log(usernum);

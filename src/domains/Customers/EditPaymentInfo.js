@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {DeleteOutlined} from "@ant-design/icons";
 import {Row, Col, Button, Modal, Divider, Input, Card} from 'antd';
-import { recordExpression } from '../../../../../../../../../../../AppData/Local/Microsoft/TypeScript/4.9/node_modules/@babel/types/lib/index';
 
 const EditPaymentInfo = () => {
   const location = useLocation();

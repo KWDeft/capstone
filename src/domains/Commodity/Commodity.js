@@ -4,27 +4,6 @@ import "./Commodity.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import client from '../../lib/api/client';
-import Detail from '../../components/product/Detail.js';
-
-const { TextArea } = Input;
-const onSearch = (value) => console.log(value);
-const data = [
-  {
-    name: "APT 1:1",
-    number: "10회",
-    price: "100,000원",
-  },
-  {
-    name: "APT 1:1",
-    number: "10회",
-    price: "100,000원",
-  },
-  {
-    name: "APT 1:1",
-    number: "10회",
-    price: "100,000원",
-  }
-];
 
 const Commodity = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,6 +90,11 @@ const Commodity = () => {
         dataIndex: "name"
       }
     ];
+
+    const user = localStorage.getItem('user');
+    if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
 
 
   return (

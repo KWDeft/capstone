@@ -3,57 +3,26 @@ import React from "react";
 import {useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import client from '../../lib/api/client'
+import {  PushpinFilled } from "@ant-design/icons";
 
-const getListData = (value) => {
-    let listData;
-    switch (value.date()) {
-      case 7:
-        listData = [
-          {
-            type: "warning",
-            content: "1시 홍길동"
-          },
-        ];
-        break;
-        case 10:
-            listData = [
-                {
-                type: "warning",
-                content: "3시 홍길동"
-                },
-            ];
-            break;
-      case 14:
-        listData = [
-          {
-            type: "warning",
-            content: "1시 홍길동"
-          },
-        ];
-        break;
-      case 21:
-        listData = [
-          {
-            type: "warning",
-            content: "1시 홍길동"
-          },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
-  };
+
+
 
 const FcDashboard = () => {
     const { user } = useSelector(({ user }) => ({ user: user.user }));
-
+    console.log("출력", user);
     const usernum = user.username;
-
+    // const name = user.name;
     const [journalList, setJournalList] = useState([]);
+    const [scheduleList, setScheduleList] = useState([]);
+    const [getcoachname, setCoachname] = useState([]);
+
 
     useEffect(() => {
       getClassData();
       getConsultData();
+      getScheduleData();
+      getCoachNamadata();
     }, []);
 
     const getClassData = async () => {
@@ -73,6 +42,50 @@ const FcDashboard = () => {
         }
       );
     };
+    
+    const getScheduleData = async () => {
+      await client.get(`/api/schedule/consumer/${usernum}`)
+      .then (
+        res => {
+          setScheduleList(
+            res.data.map(row => ({
+                  id : row._id,
+                  title: row.name,
+                  usernum: row.usernum,
+                  manager: row.manager,
+                  date : row.date,
+                  startHour : row.startHour,
+                  startMinute : row.startMinute,
+                  endHour : row.endHour,
+                  endMinute : row.endMinute,
+                  memo : row.memo,
+            }))
+          );
+        }
+      );
+    };
+
+    console.log(usernum,"의 모든 일정", scheduleList);
+
+    // const coachNum = scheduleList[0].manager;
+    // console.log(coachNum);
+
+    const getCoachNamadata = async () => {
+      // await client.get(`/api/member/coach/coachnum/${coachNum}`)
+      // .then (
+      //   res => {
+      //     setCoachname(
+      //       res.data.map(row => ({
+      //             coachname : row.name
+      //       }))
+      //     );
+      //   }
+      // );
+
+    }
+     
+    
+    console.log("코치 이름 : ", getcoachname);
 
     const getConsultData = async () => {
       await client
@@ -91,7 +104,18 @@ const FcDashboard = () => {
         }
       );
     };
-    
+
+
+
+    // 오늘 날짜 
+
+      let now = new Date();
+      let todayyear = now.getFullYear();
+      let todayMonth = now.getMonth() +1;
+      let todayDate = now.getDate();
+      let format =  todayyear+"-"+(("00"+todayMonth.toString()).slice(-2))+"-"+(("00"+todayDate.toString()).slice(-2));
+
+
     const columns = [
         {
           title: '날짜',
@@ -107,71 +131,67 @@ const FcDashboard = () => {
           dataIndex: 'subject',
         },
         ];
-        const data = [
-          {
-            key: '3',
-            date: '2023-1-11 23:12:00',
-            class: '입문자PT',
-            title: '2회차 수업', 
-          },
-          {
-            key: '2',
-            date: '2023-1-10 23:12:00',
-            class: '입문자PT',
-            title: '1회차 수업',  
-          },
-          {
-            key: '1',
-            date: '2023-1-8 23:12:00',
-            class: '입문자PT',
-            title: '0회차 상담일지',  
-          },
-        ];
 
-        const dateCellRender = (value) => {
-            const listData = getListData(value);
-            return (
-              <ul className="events">
-                {listData.map((item) => (
-                  <li key={item.content}>
-                    <Badge status={item.type} text={item.content} />
-                  </li>
-                ))}
-              </ul>
-            );
-          };
 
+       
+
+    //       const data2 = [
+    //   '9:00  유시영 PT',
+    //   '10:00  김지수 상담예약',
+    //   '11:00  문하늘 PT',
+    //   '12:00  이유민 PT',
+     
+    // ];
+    
+
+    let scheduledata = [];
+    for (let i =0; i < scheduleList.length;i++){
+      let sliceDate = scheduleList[i].date.slice(0,10);
+      if (sliceDate == format){
+        let time = scheduleList[i].startHour.concat(scheduleList[i].startMinute);
+        scheduledata.push(time);
+      }
+      
+    }
+
+    // console.log("회원이름", scheduleList[0].title);
     return(
       <>
-        <Row gutter={12}>
-            <Col span={9}>
-                <Row>
-                    <Col span={18}>
-                        <div className="회원 이름">
-                        <h2>곰도리 님, 안녕하세요!</h2>
-                    </div>
-                    </Col>
-                    <Col span={6}>
-                        <h4>회원번호</h4>
-                        <h2>{usernum}</h2>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Table
-                        columns={columns}
-                        dataSource={journalList}
-                    />
-                </Row>
-            </Col>
-            <Col span={15}>
-                <Calendar
-                    dateCellRender={dateCellRender}
+      <Row gutter={20}>
+        <Col span>
+           <div className="회원 이름">
+              <h2>회원님, 안녕하세요!</h2>
+            </div>
+            <Row>
+              <Col>
+              <div className="container1" style={{height:"100vh", width:"45vh"}}>
+                <h3><PushpinFilled /> 오늘의 일정  </h3>
+                <List
+                  size="small"
+                  bordered
+                  dataSource={scheduledata}
+                  renderItem={
+                    (item) => <List.Item >{item}</List.Item>}
                 />
+              </div>
             </Col>
-        </Row>
+            </Row>
+        </Col>
+
+        <Col style={{"margin-top" : "63px", width:"800px"}} >
+            <Col>
+            <Table
+               columns={columns}
+               dataSource={journalList}
+            />
+            </Col>
+ 
+        </Col>
+
+      </Row>
+        {/*  */}
             
-      </>
+    </>
       
     );
 

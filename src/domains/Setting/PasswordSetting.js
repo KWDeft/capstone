@@ -63,7 +63,7 @@ const submitHandler = (e) => {
                 name="username"
                 value={username}
                 onChange={usernameHandler}
-                placeholder="사용자 전화번호" />
+                placeholder="아이디" />
               </td>
             </tr>
             <tr>

@@ -13,7 +13,6 @@ import {
   } from "antd";
   import React, { useState } from "react";
   import { DeleteOutlined } from "@ant-design/icons";
-  //import './NewCustomer.css';
   const { Text } = Typography;
   
   const handleChange = (value: string) => {

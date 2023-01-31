@@ -295,58 +295,6 @@ import moment from "moment";
         },
       },
       {
-        title: "소개정보",
-        dataIndex: "inflow",
-        filterDropdown: ({
-          setSelectedKeys,
-          selectedKeys,
-          confirm,
-          clearFilters,
-        }) => {
-          return (
-            <>
-              <Input
-                autoFocus
-                placeholder="Type text here"
-                value={selectedKeys[0]}
-                onChange={(e) => {
-                  setSelectedKeys(e.target.value ? [e.target.value] : []);
-                  confirm({ closeDropdown: false });
-                }}
-                onPressEnter={() => {
-                  confirm();
-                }}
-                onBlur={() => {
-                  confirm();
-                }}
-              ></Input>
-              <Button
-                onClick={() => {
-                  confirm();
-                }}
-                type="primary"
-              >
-                Search
-              </Button>
-              <Button
-                onClick={() => {
-                  clearFilters();
-                }}
-                type="danger"
-              >
-                Reset
-              </Button>
-            </>
-          );
-        },
-        filterIcon: () => {
-          return <SearchOutlined />;
-        },
-        onFilter: (value, record) => {
-          return record.inflow == value;
-        },
-      },
-      {
         title: "결제정보",
         dataIndex: "payment",
         filters:[
@@ -408,58 +356,6 @@ import moment from "moment";
         },
         onFilter: (value, record) => {
           return record.obstacle_type == value;
-        },
-      },
-      {
-        title: "소개정보",
-        dataIndex: "inflow",
-        filterDropdown: ({
-          setSelectedKeys,
-          selectedKeys,
-          confirm,
-          clearFilters,
-        }) => {
-          return (
-            <>
-              <Input
-                autoFocus
-                placeholder="Type text here"
-                value={selectedKeys[0]}
-                onChange={(e) => {
-                  setSelectedKeys(e.target.value ? [e.target.value] : []);
-                  confirm({ closeDropdown: false });
-                }}
-                onPressEnter={() => {
-                  confirm();
-                }}
-                onBlur={() => {
-                  confirm();
-                }}
-              ></Input>
-              <Button
-                onClick={() => {
-                  confirm();
-                }}
-                type="primary"
-              >
-                Search
-              </Button>
-              <Button
-                onClick={() => {
-                  clearFilters();
-                }}
-                type="danger"
-              >
-                Reset
-              </Button>
-            </>
-          );
-        },
-        filterIcon: () => {
-          return <SearchOutlined />;
-        },
-        onFilter: (value, record) => {
-          return record.inflow == value;
         },
       },
       {
@@ -830,7 +726,11 @@ import moment from "moment";
         }
       );
     };
-    
+
+    const user = localStorage.getItem('user');
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
 
     return (
       <div>

@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
 import client from '../../lib/api/client';
 import {Input, Button, Modal} from 'antd';
-import { useSelector } from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import {DeleteOutlined} from "@ant-design/icons";
 import { TextField } from "../../../node_modules/@material-ui/core/index";
-// import "../comment/Comment.scss";
 
 const Detail = () => {
     const location = useLocation();
@@ -16,6 +14,7 @@ const Detail = () => {
     // 입력한 상품 detail 내용
     const [count, setCount] = useState("");
     const [price, setPrice] = useState("");
+    
     
 
     const { TextArea } = Input;
@@ -77,6 +76,21 @@ const Detail = () => {
         });
       };
 
+      const Delete = (e) => {
+        Modal.confirm({
+            title: "정말로 삭제하시겠습니까?",
+            okText: "Yes",
+            okType: "danger",
+            onOk: () => {
+              client.delete(`/api/product/${productId}`).then((res) => 
+              console.log(res)
+              );
+              alert("삭제완료");
+              navigate('/commodity');
+            },
+          });
+       };
+
     return ( 
         <>
         <h3>{name}</h3>
@@ -88,14 +102,14 @@ const Detail = () => {
                         setCount(e.target.value)
                     }}
                     placeholder= "횟수"
-                />
+                /> 
                 <TextField
                     className="comments-header-testarea"
                     onChange={(e) => {
                         setPrice(e.target.value)
                     }}
                     placeholder= "가격"
-                />
+                /> 
                 {count !== "" ? (
                     <Button onClick={submit}>등록하기</Button>
                 ): (
@@ -107,13 +121,14 @@ const Detail = () => {
             <div className="comments-body">
                 {detailList.map((item, index) => (
                     <div key={index} className="comments-comment">
-                        <div className="comment-content">{item.count}</div>
-                        <div className="comment-username">{item.price}</div>
+                        <div>{item.count}회</div>
+                        <div>{item.price}원</div>
                         <div className="comment-delete" onClick={(e) => {DeleteProduct(item.id, e)}}><DeleteOutlined /></div>
                     </div>
                 ))}
 
             </div>
+            <Button onClick={Delete}>삭제</Button>
         </div>
         </>
     );

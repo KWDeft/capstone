@@ -102,7 +102,6 @@ const FcConsultTable = () => {
                         const date_counsel = record.date_counsel;
                         const ndate_counsel = record.ndate_counsel;
                         const id = record.id;
-                        // const attachment = record.ndate_attachment;
                         return {
                           onClick: (e) => {
                             console.log(usernum);

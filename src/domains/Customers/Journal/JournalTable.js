@@ -67,7 +67,6 @@ const JournalTable = () => {
             contents: contents,
             date_class: date_class,
             ndate_class: ndate_class,
-            // attachment_class: attachment_class,
         };
 
         client 
@@ -93,7 +92,6 @@ const JournalTable = () => {
     const [date_class, setDate_class] = useState("");
     const [subject, setSubject] = useState("");
     const [ndate_class, setNdate_class] = useState("");
-    const [attachment_class, setAttachment_class] = useState("");
 
     const timesHandler = (e) => {
         setTimes(e);
@@ -142,11 +140,6 @@ const JournalTable = () => {
         e.preventDefault();
         setNdate_class(e.target.value);
     };
-    const attachment_classHandler = (e) =>{
-        e.preventDefault();
-        setAttachment_class(e.target.value);
-    };
-
   
 
     const [classList, setClassList] = useState([]);
@@ -383,25 +376,6 @@ const JournalTable = () => {
                                     </Col>
                                 </Row>
                                 <br></br>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>첨부파일</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Upload {...props}>
-                                            <Button size="small" icon={<UploadOutlined />}>Click to Upload</Button>
-                                        </Upload>
-                                        <div>
-
-                                        </div>
-                                    </Col>
-                                
-                                </Row>
-                                <div className="btn">
-                                    <Button type="primary">확인</Button>
-                                    <Button type="primary">취소</Button>
-                                    <Button type="primary" danger>삭제</Button>
-                                </div>
                             </>
                         </Modal>
                 </Col>
@@ -423,7 +397,6 @@ const JournalTable = () => {
                         const date_class = record.date_class;
                         const ndate_class = record.ndate_clas;
                         const id = record.id;
-                        // const attachment = record.ndate_attachment;
                         return {
                           onClick: (e) => {
                             console.log(usernum);

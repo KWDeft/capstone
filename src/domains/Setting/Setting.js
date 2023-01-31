@@ -64,6 +64,11 @@ const submitHandler = (e) => {
     .then((res) => console.log(res));
   };
 
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
+
   return (
     <>
       <div id='settingBox'>
@@ -84,7 +89,7 @@ const submitHandler = (e) => {
                             name="username"
                             value={username}
                             onChange={usernameHandler}
-                            placeholder="사용자 전화번호" />
+                            placeholder="아이디" />
                           </td>
                         </tr>
                         <tr>

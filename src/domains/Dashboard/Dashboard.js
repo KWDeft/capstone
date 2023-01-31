@@ -1,15 +1,18 @@
 import {  Row, Col, DatePicker, List } from "antd";
-import React from "react";
+import React, {useEffect} from "react";
 import "./Dashboard.css";
 import {  PushpinFilled } from "@ant-design/icons";
 import Customers from "../Customers/Customers";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
-
+import { useNavigate } from "react-router";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user } = useSelector(({ user }) => ({ user: user.user }));
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
 
   const username = user.username;
     

@@ -18,7 +18,6 @@ const Curriculum = () => {
   const [detail, SetDetail] = useState("");
   const [content, SetContent] = useState("");
   const [effect, SetEffect] = useState("");
-  const [attachment, SetAttachment] = useState("");
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
@@ -52,13 +51,6 @@ const Curriculum = () => {
     e.preventDefault();
     SetEffect(e.target.value);
   };
-
-  const attachmentHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target.files[0]);
-    SetAttachment(e.target.files[0]);
-  };
-
   const [state, setstate] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
@@ -75,7 +67,6 @@ const Curriculum = () => {
             Detail: row.detail,
             Content: row.content,
             Effect: row.effect,
-            Attachment: row.attachment,
             id: row._id
           }))
         );
@@ -126,6 +117,11 @@ const Curriculum = () => {
     },
   ];
 
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
+
   return (
     <div>
       <br />
@@ -175,19 +171,6 @@ const Curriculum = () => {
             value={effect}
             onChange={effectHandler}
           />
-          <Divider orientation="left" orientationMargin="0">
-            첨부파일
-          </Divider>
-          {/* <UploadFile /> */}
-          <form>
-            <label htmlFor="profile-upload" />
-            <input 
-              type="file" 
-              id="profile-upload" 
-              accept="image/*" 
-              name="attachment"
-              onChange={attachmentHandler}/>
-          </form>
         </Modal>
       {loading ? (
         "Loading"
@@ -201,9 +184,7 @@ const Curriculum = () => {
             const detail = record.Detail;
             const content = record.Content;
             const effect = record.Effect;
-            const attachment = record.Attachment;
             const id = record.id;
-            console.log("하ㅏㅎ", record);
             return {
               onClick: (e) => {
                 console.log(id);
@@ -213,7 +194,6 @@ const Curriculum = () => {
                       detail: detail,
                       content: content,
                       effect: effect,
-                      attachment: attachment,
                       id: id
                     },
                   });

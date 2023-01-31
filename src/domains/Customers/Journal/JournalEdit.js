@@ -56,7 +56,6 @@ const JournalEdit = () => {
                 contents: row.contents,
                 date_class: row.date_class,
                 ndate_class: row.ndate_class,
-                //attachment_counsel: counsel.attachment_counsel,
               })
               console.log(d);
             }
@@ -499,21 +498,6 @@ const JournalEdit = () => {
                                     />
                                     </Col>
                                 </Row>
-                                {/* <br></br> */}
-                                {/* <Row>
-                                    <Col span={2}>
-                                        <Text>첨부파일</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Upload {...props}>
-                                            <Button size="small" icon={<UploadOutlined />}>Click to Upload</Button>
-                                        </Upload>
-                                        <div>
-
-                                        </div>
-                                    </Col>
-                                
-                                </Row> */}
                             </>
                         </Modal>
                             <Button type="primary" danger onClick={DeleteClass}>삭제</Button>

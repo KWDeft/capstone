@@ -13,7 +13,6 @@ import CustomerInfo from "./domains/Customers/CustomerInfo.js";
 import CustomerEdit from "./domains/Customers/CustomerEdit.js";
 import Journal from "./domains/Customers/Journal/Journal.js";
 import JournalEdit from "./domains/Customers/Journal/JournalEdit.js";
-import Message from "./domains/Message/Message.js";
 import Dashboard from './domains/Dashboard/Dashboard.js';
 import Commodity from './domains/Commodity/Commodity.js';
 import Members from './domains/Members/Members.js';
@@ -22,7 +21,6 @@ import CoachInfo from './domains/Members/CoachInfo.js';
 import NewCustomer from './domains/Customers/NewCustomer.js';
 import PaymentInfo from './domains/Customers/PaymentInfo.js';
 import ProductDetail from './components/product/Detail.js';
-import CalendarJisoo from './domains/Calendar/CalendarJisoo.js';
 import FcHome from './pages/FcHome.js';
 import FcDashboard from './domains/forCustomers/FcDashboard.js';
 import FcLoginPage from './pages/FcLoginPage';
@@ -47,7 +45,6 @@ const App = () => {
         <Route path="/calendar" element={<CalendarMain />}/>
         <Route path="/calendar/update" element={<CalendarUpdate />} />
         <Route path="/calendar/new" element={<NewCalendar />} />
-        <Route path="/calendar/jisoo" element={<CalendarJisoo />} />
         <Route path="/customers" element={<Customers />} />
         <Route path="/customers/info" element={<CustomerInfo />} />
         <Route path="/customers/infoedit" element={<CustomerEdit />} />
@@ -59,7 +56,6 @@ const App = () => {
         <Route path="/journal" element={<Journal />} />
         <Route path="/journal/edit" element={<JournalEdit/>} />
         <Route path="/journal/counseledit" element={<CJournalEdit />} />
-        <Route path="/message" element={<Message />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/commodity" element={<Commodity />} />
         <Route path="/commodity/detail" element={<ProductDetail/>} />

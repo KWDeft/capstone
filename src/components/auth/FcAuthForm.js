@@ -100,14 +100,17 @@ const FcAuthForm = ({ type, form, onChange, onSubmit, error }) => {
               onChange={onChange}
               value={form.passwordConfirm}
             />
-            <StyledInput
+            <br></br><br></br>
+            <div 
               autoComplete="role"
               name="role"
+              id="role"
               placeholder="권한"
-              type="role"
+              value={form.role}
               onChange={onChange}
-              value="customer"
-            />
+              >
+                    <input type="radio" value="user" name="role"/> 회원
+            </div>
           </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}

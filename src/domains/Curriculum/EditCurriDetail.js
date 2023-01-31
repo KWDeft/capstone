@@ -16,7 +16,6 @@ const EditCurriDetail = () => {
   const [detail, SetDetail] = useState("");
   const [content, SetContent] = useState("");
   const [effect, SetEffect] = useState("");
-  const [attachment, SetAttachment] = useState("");
 
   const location = useLocation();
   console.log('state', location.state);
@@ -38,7 +37,6 @@ const EditCurriDetail = () => {
           detail: curriculum.detail,
           content: curriculum.content,
           effect: curriculum.effect,
-          attachment: curriculum.attachment
         });
       })
       .catch(err => alert(err));
@@ -47,43 +45,9 @@ const EditCurriDetail = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  const titleHandler = (e) => {
-    e.preventDefault();
-    SetTitle(e.target.value);
-  };
-  
-  const detailHandler = (e) =>{
-    e.preventDefault();
-    SetDetail(e.target.value);
-  };
-
-  const contentHandler = (e) =>{
-    e.preventDefault();
-    SetContent(e.target.value);
-  };
-
-  const effectHandler = (e) =>{ 
-    e.preventDefault();
-    SetEffect(e.target.value);
-  };
-
-  const attachmentHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target.files[0]);
-    SetAttachment(e.target.files[0]);
-  };
-
-//   const DeleteCurriculum = (e) => {
-//     client.delete(`/api/course/${id}`)
-//     .then(console.log('삭제 완료'));
-//   };
 
   const DeleteCurriculum = (e) => {
     Modal.confirm({
@@ -99,19 +63,6 @@ const EditCurriDetail = () => {
       },
     });
   };
-
-  
-  const onChangeImg = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    
-    if(e.target.files){
-      const attachment = e.target.files[0]
-      formData.append('file',attachment)
-      SetAttachment(attachment)
-      console.log(attachment)
-    }
-  }
 
   const submitHandler = (e) => {
     console.log(stateCust);
@@ -148,6 +99,11 @@ const EditCurriDetail = () => {
     },
   ];
 
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
+
   return (
     <>
           <Card
@@ -175,20 +131,6 @@ const EditCurriDetail = () => {
       <p>
         {stateCust.effect}
       </p>
-      <Divider orientation="left" orientationMargin="0">
-        <h5>첨부파일</h5>
-      </Divider>
-            <form>
-            <label htmlFor="profile-upload" />
-            <input 
-              type="file" 
-              id="profile-upload" 
-              accept="image/*" 
-              name="attachment"
-              value={attachment}
-              onChange={attachmentHandler}/>
-              
-          </form>
           <br></br><br></br><br></br>
           <Button type="primary" onClick={showModal}>
             수정
@@ -214,7 +156,6 @@ const EditCurriDetail = () => {
                 detail: stateCust.detail,
                 content: stateCust.content,
                 effect: stateCust.effect,
-                attachment: stateCust.attachment
               });
             }}
           />
@@ -232,7 +173,6 @@ const EditCurriDetail = () => {
                 detail: value,
                 content: stateCust.content,
                 effect: stateCust.effect,
-                attachment: stateCust.attachment
               });
             }}
           />
@@ -250,7 +190,6 @@ const EditCurriDetail = () => {
                 detail: stateCust.detail,
                 content: value,
                 effect: stateCust.effect,
-                attachment: stateCust.attachment
               });
             }}
           />
@@ -268,33 +207,9 @@ const EditCurriDetail = () => {
                 detail: stateCust.detail,
                 content: stateCust.content,
                 effect: value,
-                attachment: stateCust.attachment
               });
             }}
           />
-          <Divider orientation="left" orientationMargin="0">
-            첨부파일
-          </Divider>
-                  
-          <form>
-            <label htmlFor="profile-upload" />
-            <input 
-              type="file" 
-              id="profile-upload" 
-              accept="image/*" 
-              name="attachment"
-              value={stateCust.attachment}
-              onChange={e => {
-              let value = e.target.value;
-              setstateCust({
-                title: stateCust.title,
-                detail: stateCust.detail,
-                content: stateCust.content,
-                effect: stateCust.effect,
-                attachment: value
-              });
-            }}/>
-          </form>
         </Modal>
         <Button onClick={DeleteCurriculum}>삭제</Button>
             </Card>

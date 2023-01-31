@@ -132,20 +132,6 @@ const NewJournal = () => {
                 </Col>
             </Row>
             <br></br>
-            <Row>
-                <Col span={2}>
-                    <Text>첨부파일</Text>
-                </Col>
-                <Col span={3}>
-                    <Upload {...props}>
-                        <Button size="small" icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                    <div>
-
-                    </div>
-                </Col>
-            
-            </Row>
             <div className="btn">
                 <Button type="primary">확인</Button>
                 <Button type="primary">취소</Button>
