@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import {Select} from 'antd';
 
 /**
  * 회원가입 또는 로그인 폼을 보여줍니다.
@@ -70,7 +69,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const FcAuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -79,7 +78,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="전화번호"
+          placeholder="회원번호"
           onChange={onChange}
           value={form.username}
         />
@@ -101,18 +100,14 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               onChange={onChange}
               value={form.passwordConfirm}
             />
-            <br></br><br></br>
-            <div 
+            <StyledInput
               autoComplete="role"
               name="role"
-              id="role"
               placeholder="권한"
-              value={form.role}
+              type="role"
               onChange={onChange}
-              >
-                    <input type="radio" value="admin" name="role"/> 관리자
-                    <input type="radio" value="coach" name="role"/> 코치
-            </div>
+              value="customer"
+            />
           </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -122,13 +117,13 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">회원가입</Link>
+          <Link to="/fc/register">회원가입</Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/fc/login">로그인</Link>
         )}
       </Footer>
     </AuthFormBlock>
   );
 };
 
-export default AuthForm;
+export default FcAuthForm;

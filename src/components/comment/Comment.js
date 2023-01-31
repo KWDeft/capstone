@@ -29,6 +29,7 @@ const Comment = () => {
     const getCommentList = async () => {
         client.get(`/api/course/comment/${courseId}`).then(
             res => {
+                console.log(res);
                 setCommentList(
                 res.data.map(row => ({
                   userId: row.userId,

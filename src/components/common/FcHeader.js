@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Responsive from './Responsive';
 import Button from './Button';
-
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
@@ -45,17 +44,12 @@ const UserInfo = styled.div`
   margin-right: 1rem;
   
 `;
-
-// Button = styled.div`
-//   float:right;
-// `;
-
-const Header = ({ user, onLogout }) => {
+const FcHeader = ({ user, onLogout }) => {
   return (
     <>
       <HeaderBlock>
         <Wrapper>
-          <Link to="/" className="logo">
+          <Link to="/fc" className="logo">
             adapfit
           </Link>
           {user ? (
@@ -65,7 +59,7 @@ const Header = ({ user, onLogout }) => {
             </div>
           ) : (
             <div className="right">
-              <Button to="/login">로그인</Button>
+              <Button to="/fc/login">로그인</Button>
             </div>
           )}
         </Wrapper>
@@ -75,4 +69,4 @@ const Header = ({ user, onLogout }) => {
   );
 };
 
-export default Header;
+export default FcHeader;

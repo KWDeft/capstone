@@ -1,36 +1,38 @@
 import {
-  Button,
-  Modal,
-  Table,
-  Input,
-  Col, 
-  Select, 
-  Image, 
-  Row,
-  InputNumber,
-  Typography,
-  Radio, Checkbox
-} from "antd";
-import React, { useState, useEffect } from "react";
-import NewCustomer from "./NewCustomer.js";
-import client from '../../lib/api/client';
-import { SearchOutlined, PlusOutlined, DeleteOutlined  } from "@ant-design/icons";
-import { Link, useNavigate } from 'react-router-dom';
+    Button,
+    Modal,
+    Table,
+    Input,
+    Col, 
+    Select, 
+    Image, 
+    Row,
+    InputNumber,
+    Typography,
+    Radio, Checkbox
+  } from "antd";
+  import React, { useState, useEffect } from "react";
+  import NewCustomer from "./NewCustomer.js";
+  import client from '../../lib/api/client';
+  import { SearchOutlined, PlusOutlined, DeleteOutlined  } from "@ant-design/icons";
+  import { Link, useNavigate } from 'react-router-dom';
 
-const { Text } = Typography;
-const { TextArea } = Input;
-const onTextChange = (e) => {
-  console.log(e);
-};
+  const { Text } = Typography;
+  const { TextArea } = Input;
+  const onTextChange = (e) => {
+    console.log(e);
+  };
 
-// 오늘 날짜 
+  // 오늘 날짜 
 const today = () => {
-let now = new Date();
-let thisyear = now.getFullYear();
-let todayMonth = now.getMonth() +1;
-let todayDate = now.getDate();
-return thisyear + ". " + todayMonth + ". " + todayDate;
+  let now = new Date();
+  let thisyear = now.getFullYear();
+  let todayMonth = now.getMonth() +1;
+  let todayDate = now.getDate();
+  return thisyear + ". " + todayMonth + ". " + todayDate;
 }
+
+
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);

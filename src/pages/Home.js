@@ -10,11 +10,14 @@ import {
   CalendarOutlined,
   SettingOutlined
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Card, Col, Row, Button } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import Dashboard from "../domains/Dashboard/Dashboard.js";
+import { Navigate } from '../../node_modules/react-router-dom/index';
+import {useNavigate} from 'react-router-dom'
 
 const { Header, Content, Sider } = Layout;
+
 
 const menuItems = [
   {
@@ -60,6 +63,17 @@ const menuItems = [
 ];
 
 const PostListPage = () => {
+  
+  const navigate = useNavigate();
+
+  
+  const move = () => {
+    navigate('/login');
+  }
+
+  const customermove = () => {
+    navigate('/fc/login');
+  }
   const activeStyle = {
     color: "green",
     fontSize: "2rem"
@@ -94,7 +108,22 @@ const PostListPage = () => {
                 margin: 0,
                 minHeight: 280
               }}
-            >
+            > 
+              <div className="site-card-wrapper">
+              <Row gutter={16}>
+                <Col span={2}>
+                  <Button bordered={true} onClick={customermove}>
+                     회원 홈페이지
+                  </Button>
+                  </Col>
+                  <Col span={2}>
+                  <Button bordered={true} onClick={move}>
+                  대시보드
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+            <br></br>
               <Outlet />
             </Content>
           </Layout>

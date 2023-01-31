@@ -124,10 +124,6 @@ const Curriculum = () => {
       title: "Effect",
       dataIndex: "Effect",
     },
-    // {
-    //   title : "ID",
-    //   dataIndex: "id",
-    // },
   ];
 
   return (
@@ -190,7 +186,6 @@ const Curriculum = () => {
               id="profile-upload" 
               accept="image/*" 
               name="attachment"
-              value={attachment}
               onChange={attachmentHandler}/>
           </form>
         </Modal>
@@ -201,15 +196,6 @@ const Curriculum = () => {
         <Table
           columns={columns}
           dataSource={state}
-          pagination={{ 
-            current:page,
-            pageSize: pageSize,
-            total:500,
-            onChange: (page,pageSize)=>{
-              setPage(page);
-              setPageSize(pageSize)
-            }
-           }}
           onRow={(record, index) => {
             const title = record.Title;
             const detail = record.Detail;

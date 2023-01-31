@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
+import FcAuthForm from '../../components/auth/FcAuthForm';
 import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = () => {
+const FcRegisterForm = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -30,6 +30,7 @@ const RegisterForm = () => {
 
   // 폼 등록 이벤트 핸들러
   const onSubmit = (e) => {
+    e.preventDefault();
     const { username, password, passwordConfirm, role } = form;
     // 하나라도 비어있다면
     if ([username, password, passwordConfirm, role].includes('')) {
@@ -70,6 +71,7 @@ const RegisterForm = () => {
       console.log('회원가입 성공');
       console.log(auth);
       dispatch(check());
+      navigate('/fc');
     }
   }, [auth, authError, dispatch]);
 
@@ -86,7 +88,7 @@ const RegisterForm = () => {
   }, [navigate, user]);
 
   return (
-    <AuthForm
+    <FcAuthForm
       type="register"
       form={form}
       onChange={onChange}
@@ -96,4 +98,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default FcRegisterForm;

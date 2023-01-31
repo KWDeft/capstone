@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeField, initializeForm, login } from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
+import FcAuthForm from '../../components/auth/FcAuthForm';
 import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+const FcLoginForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/dashboard');
+      navigate('/fc/dashboard');
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
@@ -64,7 +64,7 @@ const LoginForm = () => {
   }, [navigate, user]);
 
   return (
-    <AuthForm
+    <FcAuthForm
       type="login"
       form={form}
       onChange={onChange}
@@ -74,4 +74,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default FcLoginForm;

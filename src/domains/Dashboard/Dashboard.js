@@ -3,7 +3,6 @@ import React from "react";
 import "./Dashboard.css";
 import {  PushpinFilled } from "@ant-design/icons";
 import Customers from "../Customers/Customers";
-import DBChart from "./DBChart";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
