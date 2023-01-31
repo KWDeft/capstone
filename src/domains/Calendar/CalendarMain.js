@@ -1,7 +1,7 @@
 
-import { Badge, Calendar, Button, Modal,Table, Input, Divider,Select  } from "antd";
+import { Badge, Calendar, Radio,Button, Modal,Table, Input, Divider,Select  } from "antd";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,  } from "react";
 // import "./CalendarMain.css";
 import {useNavigate} from 'react-router';
 import { PlusOutlined } from "@ant-design/icons";
@@ -10,7 +10,7 @@ import client from '../../lib/api/client';
 import { startLoading } from "../../modules/loading";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { SwapRightOutlined,DownOutlined  } from '@ant-design/icons';
+import { SearchOutlined,SwapRightOutlined,DownOutlined  } from '@ant-design/icons';
 
 import { EdgesensorHighOutlined } from "../../../node_modules/@mui/icons-material/index";
 import { memo } from "react";
@@ -27,7 +27,6 @@ import {
     
 } from "antd";
 import moment from "moment";
-import CustomerSearch from "../Customers/CustomerCalendar";
 
 
 
@@ -46,20 +45,549 @@ import CustomerSearch from "../Customers/CustomerCalendar";
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10);
     const navigate = useNavigate();
-
+    const [customers, setCustomers] = useState([{ }]);
+    for (let i=0; i < customers.length; i++){
+      customers[i].key = i;
+    }
     const {TextArea} = Input;
-  
+    const [selectionType, setSelectionType] = useState('radio');
+
     const [managerData, SetManagerData] = useState("");
+    const [managerSchedule, SetmanagerSchedule] = useState("");
 
     const [state, setstate] = useState([]);
     const [managerfilter, setmanagerfilter] = useState([]);
     const [loading, setloading] = useState(true);
 
+    const columns = [
+      {
+        title: "번호",
+        dataIndex: "usernum"
+      },
+      {
+        title: "성명",
+        dataIndex: "name",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.name == value;
+        },
+      },
+      {
+        title: "장애",
+        dataIndex: "existence",
+        filters:[
+          {text:'유', value:'유'},
+          {text:'무', value:'무'}
+        ],
+        onFilter:(value, record)=>{
+          return record.existence === value
+        }
+      },
+      {
+        title: "성별",
+        dataIndex: "sex",
+        filters:[
+          {text:'남', value:'남'},
+          {text:'여', value:'여'}
+        ],
+        onFilter:(value, record)=>{
+          return record.sex === value
+        }
+      },
+      {
+        title: "담당자",
+        dataIndex: "manager",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.manager == value;
+        },
+      },
+      {
+        title: "소개정보",
+        dataIndex: "inflow",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.inflow == value;
+        },
+      },
+      {
+        title: "전화번호",
+        dataIndex: "phone",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.phone == value;
+        },
+      },
+      {
+        title: "소개정보",
+        dataIndex: "inflow",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.inflow == value;
+        },
+      },
+      {
+        title: "결제정보",
+        dataIndex: "payment",
+        filters:[
+          {text:'실비', value:'실비'},
+          {text:'바우처+실비', value:'바우처+실비'},
+          {text:'바우처', value:'바우처'}
+        ],
+        onFilter:(value, record)=>{
+          return record.payment === value
+        }
+      },
+      {
+        title: "장애유형",
+        dataIndex: "obstacle_type",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.obstacle_type == value;
+        },
+      },
+      {
+        title: "소개정보",
+        dataIndex: "inflow",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.inflow == value;
+        },
+      },
+      {
+        title: "회원권",
+        dataIndex: "membership",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.membership == value;
+        },
+      },
+      {
+        title: "운동목적",
+        dataIndex: "user_purpose",
+        filterDropdown: ({
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+        }) => {
+          return (
+            <>
+              <Input
+                autoFocus
+                placeholder="Type text here"
+                value={selectedKeys[0]}
+                onChange={(e) => {
+                  setSelectedKeys(e.target.value ? [e.target.value] : []);
+                  confirm({ closeDropdown: false });
+                }}
+                onPressEnter={() => {
+                  confirm();
+                }}
+                onBlur={() => {
+                  confirm();
+                }}
+              ></Input>
+              <Button
+                onClick={() => {
+                  confirm();
+                }}
+                type="primary"
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                }}
+                type="danger"
+              >
+                Reset
+              </Button>
+            </>
+          );
+        },
+        filterIcon: () => {
+          return <SearchOutlined />;
+        },
+        onFilter: (value, record) => {
+          return record.user_purpose == value;
+        },
+      },
+      {
+        title: "상태",
+        dataIndex: "statement",
+        filters:[
+          {text:'이용중', value:'이용중'},
+          {text:'휴면고객', value:'휴면고객'},
+          {text:'상담예정', value:'상담예정'},
+          {text:'상담완료', value:'상담완료'},
+          {text:'단순문의', value:'단순문의'}
+        ],
+        onFilter:(value, record)=>{
+          return record.statement === value
+        }
+      },
+    ];
+    
+
     const manager = "박코치";
     useEffect(() => {
       getData();
       getManagerData();
-      getManagerScheduleData(manager);
+      getCustomData();
     }, []);
     
     const showModal = () => {
@@ -73,60 +601,85 @@ import CustomerSearch from "../Customers/CustomerCalendar";
     };
   
   
-  
-    const usernumHandler = (e) => {
-      console.log("회원번호 : ", e);   
-      SetUsernum(e);
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows,
+        'usernum: ', selectedRows[0].usernum);
+        SetUsernum(selectedRows[0].usernum);
+
+      },
+      getCheckboxProps: (record) => ({
+        disabled: record.name === 'Disabled User',
+        // Column configuration not to be checked
+        name: record.name,
+      }),
     };
+
+    let postdata = {
+      usernum: 0,
+        date: '',
+        startHour: '',
+        startMinute: '',
+        endHour: '',
+        endMinute: '',
+        memo: '',
+    }
+
+    // const usernumHandler = (e) => {
+    //   console.log("회원번호 : ", e);   
+    //   SetUsernum(e);
+
+    // };
     
-    const idHandler = (e) => {
-      console.log("id값 : ", e);   
-      SetId(e);
-    };
+    // const idHandler = (e) => {
+    //   console.log("id값 : ", e);   
+    //   SetId(e);
+    // };
 
 
     
     const dateHandler = (e) => {
-      console.log("날짜 : ", e.$d);       
+      console.log("날짜 : ", e);       
         SetDate(e);
     }
     
-    let managerName = "";
-    const managerHandler = (e) => {
-      console.log("코치 : ", e);   
-      managerName = e;  
-        SetDate(e);
-    }
-    console.log("매니저 이름", managerName);
+    
 
     const startHourHandler = (e) =>{
       console.log("시작시간 : ", e);
+      
         SetStartHour(e);
       };
     
     const startMinuteHandler = (e) =>{
       console.log("시작분 : ", e);
+      
         SetStartMinute(e);
       };
     
     const endHourHandler = (e) =>{
       console.log("종료시간 : ", e);
+      
         SetEndHour(e);
       };
     
       const endMinuteHandler = (e) =>{
         console.log("종료분 : ", e);     
+        
         SetEndMinute(e);
       };
 
       const memoHandler = (e) =>{
         console.log("메모 : ", e.target.value);
+        e.preventDefault();
         SetMemo(e.target.value);
       };
   
 
   
+      
     
+
     const getData = async () => {
       await client.get("/api/schedule/admin/list").then(
         res => {
@@ -166,31 +719,6 @@ import CustomerSearch from "../Customers/CustomerCalendar";
       };
 
 
-      const getManagerScheduleData = manager  =>{
-        console.log(manager);
-        client.get(`/api/schedule/admin/manager/${manager}`).then(
-          res => {
-            setloading(false);
-            setmanagerfilter(
-              res.data.map( row => ({
-                id : row._id,
-                title: row.name,
-                usernum: row.usernum,
-                manager: row.manager,
-                date : row.date,
-                startHour : row.startHour,
-                startMinute : row.startMinute,
-                endHour : row.endHour,
-                endMinute : row.endMinute,
-                memo : row.memo,
-                managername : row.name
-              }))
-            );
-          }
-        )
-      };
-      console.log("코치의 일정", managerfilter);
-
       console.log('코치들 ', managerData);
       let managerList = [];
       for (let i=0; i<managerData.length; i++){
@@ -199,10 +727,49 @@ import CustomerSearch from "../Customers/CustomerCalendar";
         op.label = managerData[i].managername;
         managerList.push(op);
       }
+      managerList.push({"value": "전체", "label ": "전체"});
       console.log("managerlist임", managerList);
 
 
-      
+      const managerHandler = async (e) => {
+        console.log("코치 : ", e);   
+          SetmanagerSchedule(e);
+          console.log("제발", managerData);
+          for(let i=0;i<managerData.length;i++){
+            if(managerData[i].managername == e){
+              e = managerData[i].manager;
+            }
+          }
+          console.log("코치 고유번호", e);
+          if (e == "전체"){
+            getData();
+          }
+
+          await client.get(`/api/schedule/admin/manager/${e}`).then(
+            res => {
+              setloading(false);
+              setstate(
+                res.data.map(row => ({
+                  id : row._id,
+                  title: row.name,
+                  usernum: row.usernum,
+                  manager: row.manager,
+                  date : row.date,
+                  startHour : row.startHour,
+                  startMinute : row.startMinute,
+                  endHour : row.endHour,
+                  endMinute : row.endMinute,
+                  memo : row.memo,
+  
+                }))
+              );
+            }
+          );
+          
+          
+      };
+  
+      console.log("매니저의 스케줄", state);
 
       const submitHandler = (e) => {
         e.preventDefault();
@@ -231,7 +798,38 @@ import CustomerSearch from "../Customers/CustomerCalendar";
     console.log("체크",state.manager);
 
 
-
+    const getCustomData = async () => {
+      await client.get("/api/consumer/info").then(
+        res => {
+          setloading(false);
+          setCustomers(
+            res.data.map(row => ({
+              usernum: row.usernum,
+              userheight: row.userheight,
+              userwidth: row.userwidth,
+              sex: row.sex,
+              existence: row.existence,
+              name: row.name,
+              obstacle_type: row.obstacle_type,
+              phone: row.phone,
+              address: row.address,
+              memo: row.memo,
+              manager: row.manager,
+              payment: row.payment,
+              inflow: row.inflow,
+              statement: row.statement,
+              date_signup: row.date_signup,
+              birthday: row.birthday,
+              membership: row.membership,
+              user_purpose: row.user_purpose,
+              vaccinate: row.vaccinate,
+              category: row.category,
+              id: row._id
+            }))
+          );
+        }
+      );
+    };
     
 
     return (
@@ -253,8 +851,53 @@ import CustomerSearch from "../Customers/CustomerCalendar";
 
 <Col>
 <Title level={4}>회원 검색</Title>
-<CustomerSearch
-  name="usernum" />
+<Radio.Group
+          onChange={({ target: { value } }) => {
+            setSelectionType(value);
+          }}
+          value={selectionType}
+        >
+          {/* <Radio value="checkbox">Checkbox</Radio>
+          <Radio value="radio">radio</Radio> */}
+</Radio.Group>
+
+
+<Table
+          rowSelection={{
+            type: selectionType,
+            ...rowSelection,
+          }}
+  
+          columns={columns}
+          dataSource={customers}
+          onRow={(record, index) => {
+            const usernum = record.usernum;
+            const userheight = record.userheight;
+            const userwidth = record.userwidth;
+            const sex = record.sex;
+            const existence = record.existence;
+            const name = record.name;
+            const obstacle_type = record.obstacle_type;
+            const phone = record.phone;
+            const address = record.address;
+            const memo = record.memo;
+            const manager = record.manager;
+            const payment = record.payment;
+            const inflow = record.inflow;
+            const statement = record.statement;
+            const birthday = record.birthday;
+            const user_purpose = record.user_purpose;
+            const vaccinate = record.vaccinate;
+            const category = record.category;
+            const date_signup = record.date_signup;
+            const membership = record.membership;
+            const id = record.id;
+  
+           
+            
+          }}
+        />
+        
 </Col>
 
 <Col>
@@ -262,7 +905,7 @@ import CustomerSearch from "../Customers/CustomerCalendar";
     <Space direction="vertical" size={20}>
     <DatePicker 
       name="date"
-      onChange={dateHandler}                        
+      onChange={dateHandler}      
       />
     </Space>
     <div>
@@ -598,11 +1241,15 @@ showCount/>
             options={managerList}
             />
     
+            
+          
+            
           <FullCalendar
 
           
             plugins={[ dayGridPlugin ]}
             initialView = 'dayGridMonth'
+            displayEventTime = {false}
             events={state}
             dayMaxEvents = {true}
             moreLinkClick = "popover"
@@ -610,44 +1257,18 @@ showCount/>
             eventDisplay = 'list-item'
             eventBackgroundColor = "#1864ab"
             locale = "ko"
-            
-            eventClick={
-              
-             (record, index) => {
-                const id = record.id;
-                const name = record.name;
-                const usernum = record.usernum
-                const manager = record.manager;
-                const date = record.date;
-                const startHour = record.startHour;
-                const startMinute = record.startMinute;
-                const endHour = record.endHour;
-                const endMinute = record.endMinute;
-                const memo = record.memo;
-
-                
-                
+            eventClick = {
+              function(info){
+                // alert('Event : ' + info.event.title);
+                console.log(info.event.id);
                 navigate('/calendar/update', {
-                  state: {
-                    id : id,
-                    usernum: usernum,
-                    name: name,
-                    date: date,
-                    manager: manager,
-                    startHour : startHour,
-                    startMinute : startMinute,
-                    endHour : endHour,
-                    endMinute : endMinute,
-                    memo : memo,
-                  },
-                  
-                });
-                
-                
+                  state:{
+                    id : info.event.id
+                  }
+                })
               }
-              
             }
-            
+           
          />
           </>
         )}
@@ -657,14 +1278,12 @@ showCount/>
     );
   };
 
-  const dateNow = new Date();
-  const today = dateNow.toISOString().slice(0, 10);
-  
-  
-  const dateFormat = "YYYY-MM-DD";
+
+
+  const format = "YYYY-MM-DD";
   const { RangePicker } = DatePicker;
   
-  const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
+  const customFormat = (value) => `custom format: ${value.format(format)}`;
   
   const { TextArea } = Input;
   const { Title } = Typography;

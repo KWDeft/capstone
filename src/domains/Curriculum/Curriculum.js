@@ -217,6 +217,7 @@ const Curriculum = () => {
             const effect = record.Effect;
             const attachment = record.Attachment;
             const id = record.id;
+            console.log("하ㅏㅎ", record);
             return {
               onClick: (e) => {
                 console.log(id);

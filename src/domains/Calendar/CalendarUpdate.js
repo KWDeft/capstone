@@ -11,9 +11,10 @@ import {
     TimePicker, Select
 } from "antd";
   import moment from "moment";
+  import { useLocation} from 'react-router-dom';
 
-import { useLocation, Link, useNavigate } from 'react-router-dom';
-import React, {useEffect,useState} from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 import "./CalendarUpdate.css";
 import { SwapRightOutlined } from '@ant-design/icons';
 import client from '../../lib/api/client';
@@ -26,24 +27,30 @@ const onSearch = (value) => console.log(value);
 
 
 const CalendarUpdate = () => {
-  const location = useLocation();
-console.log('state', location.state);
+const location = useLocation();
+// console.log('state', location.state);
 const id = location.state.id;
 
-
 const [stateCust, setstateCust] = useState({});
+const [stateinfo, setstateinfo] = useState({});
+const [stateCoach, setstateCoach] = useState({});
+
+
+
+// let consNum=0;
 
 useEffect(() => {
   getscheduleById(id);
+  // getInfo();
 }, []);
 
 const getscheduleById = id => {
-  console.log(id);
+  // console.log("아이디:",id);
   client.get(`/api/schedule/admin/id/${id}`)
     .then(d => {
       let schedule = d.data;
       setstateCust({
-        id: schedule.id,
+        id: schedule._id,
         name : schedule.name,
         usernum : schedule.usernum,
         manager : schedule.manager,
@@ -52,22 +59,59 @@ const getscheduleById = id => {
         startMinute : schedule.startMinute,
         endHour : schedule.endHour,
         endMinute : schedule.endMinute,
+        memo : schedule.memo,
+        completeCheck : schedule.completeCheck,
         
       });
     })
     .catch(err => alert(err));
+    
 };
-  // const location = useLocation();
-  // console.log('state', location.state);
-  // const name = location.state.name;
-  // const usernum = location.state.usernum
-  // const manager = location.state.manager;
-  // const date = location.state.date;
-  // const startHour = location.state.startHour;
-  // const startMinute = location.state.startMinute;
-  // const endHour = location.state.endHour;
-  // const endMinute = location.state.endMinute;
+const consNum = stateCust.usernum;
+// console.log("이거", consNum);
+const manNum = stateCust.manager;
+const beforeupdate = stateCust.date;
 
+
+    client.get(`/api/consumer/info/usernum/${consNum}`)
+    .then(d => {
+      let consumerdata = d.data;
+      setstateinfo({
+        obstacle_type : consumerdata.obstacle_type,
+        phone : consumerdata.phone,
+
+        
+      });
+    })
+
+
+    client.get(`/api/member/coach/coachnum/${manNum}`)
+    .then(d => {
+      let managerdata = d.data;
+      setstateCoach({
+        coachname : managerdata.name,
+
+        
+      });
+    })
+
+
+console.log("스케줄", stateCust);
+// console.log("추가 회원 정보", stateinfo);
+
+
+  const submitHandler = (e) => {
+    
+
+    client
+      .put(`/api/schedule/admin/${id}`, stateCust)
+      .then((res) => 
+         console.log(res)
+         );
+         alert("수정 완료");
+        //  window.location.reload();
+    };
+    console.log("수정된 것",stateCust);
   const deleteInfo = () => {
     Modal.error({
       title: '삭제',
@@ -85,44 +129,44 @@ const getscheduleById = id => {
               <Col span>
                 <Title level={4}>회원 정보</Title>
                 <Space direction="vertical" size={20}>
-                  <Row >
+                  <Row gutter={20}>
                     <Col>
-                      <h4>회원번호</h4>
+                      <h3>회원번호</h3>
                     </Col>
                     <Col>
-                      {/* <h4>{usernum}</h4> */}
-                    </Col>
-                  </Row>
-                  <Row >
-                    <Col>
-                      <h4>이름</h4>
-                    </Col>
-                    <Col>
-                      {/* <h4>{name}</h4> */}
+                      <h4>{stateCust.usernum}</h4>
                     </Col>
                   </Row>
-                  <Row >
+                  <Row gutter={20}>
                     <Col>
-                      <h4>장애유형</h4>
+                      <h3>이름</h3>
                     </Col>
                     <Col>
-                      <h4>{}</h4>
-                    </Col>
-                  </Row>
-                  <Row >
-                    <Col>
-                      <h4>전화번호</h4>
-                    </Col>
-                    <Col>
-                      <h4>{}</h4>
+                      <h4>{stateCust.name}</h4>
                     </Col>
                   </Row>
-                  <Row >
+                  <Row gutter={20}>
                     <Col>
-                      <h4>담당자</h4>
+                      <h3>장애유형</h3>
                     </Col>
                     <Col>
-                      {/* <h4>{manager}</h4> */}
+                      <h4>{stateinfo.obstacle_type}</h4>
+                    </Col>
+                  </Row>
+                  <Row gutter={20}>
+                    <Col>
+                      <h3>전화번호</h3>
+                    </Col>
+                    <Col>
+                      <h4>{stateinfo.phone}</h4>
+                    </Col>
+                  </Row>
+                  <Row gutter={20}>
+                    <Col>
+                      <h3>담당자</h3>
+                    </Col>
+                    <Col>
+                      <h4>{stateCoach.coachname}</h4>
                     </Col>
                   </Row>
                 </Space>
@@ -130,8 +174,29 @@ const getscheduleById = id => {
                 <br></br><br></br>
             <Title level={4}>진행 여부</Title>
             <br></br>
-             <Checkbox onChange={onChange2}>수업 완료</Checkbox>
-                
+             {/* <Checkbox onChange={onChange2}>수업 완료</Checkbox> */}
+             <Checkbox 
+             checked = {stateCust.completeCheck}
+             onChange={e => {
+              let value = e.target.checked;
+              setstateCust({
+                usernum : stateCust.usernum,
+                date : stateCust.date,
+                name : stateCust.name,
+                phone : stateinfo.phone,
+                coachname : stateCoach.name,
+                obstacle_type : stateinfo.obstacle_type,
+                startHour : stateCust.startHour,
+                startMinute : stateCust.startMinute,
+                endHour : stateCust.endHour,
+                endMinute : stateCust.endMinute,
+                memo : stateCust.memo,
+                completeCheck : value, 
+              });
+            }}>수업 완료</Checkbox>
+
+
+
               </Col>
            </div>
 
@@ -139,13 +204,32 @@ const getscheduleById = id => {
           
           <div className="Col2">
           <Col>
-            <Title level={4}>수업 일시</Title>
-                <Row >
-                  <h4>날짜</h4>
-                </Row>
+            <Title level={4} style={{"margin-bottom" : "4vh"}}>수업 일시</Title>
+               
                 <Space direction="vertical" size={20}>
                   <DatePicker
-                    onChange={onChange2}                        
+                  // defaultValue ={dayjs(stateCust.date)}
+                  placeholder ={stateCust.date}
+
+                  format={dateFormat}
+                  onChange={e => {
+                    
+                    let value = e;
+                    setstateCust({
+                      usernum : stateCust.usernum,
+                      name : stateCust.name,
+                      date : value,
+                      phone : stateinfo.phone,
+                      coachname : stateCoach.name,
+                      obstacle_type : stateinfo.obstacle_type,
+                      startHour : stateCust.startHour,
+                      startMinute : stateCust.startMinute,
+                      endHour : stateCust.endHour,
+                      endMinute : stateCust.endMinute,
+                      memo : stateCust.memo,
+                      completeCheck : stateCust.completeCheck, 
+                  });
+                  }}                        
                     />
                 </Space>
                 <div>
@@ -157,9 +241,7 @@ const getscheduleById = id => {
                 <Row >
                 <Select
                   showSearch
-                  placeholder="00시"
-                  optionFilterProp="starthour"
-                  onChange={onChange}
+                  placeholder = {stateCust.startHour}
                   onSearch={onSearch}
                   filterOption={(input, option) =>
                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -262,12 +344,29 @@ const getscheduleById = id => {
                       label: '24시',
                     },
                   ]}
+                  onChange={e => {
+                    console.log("이이이ㅣㅇ",typeof(stateCust.startHour) );
+                    let value = e;
+                    setstateCust({
+                      usernum : stateCust.usernum,
+                      date : stateCust.date,
+                      name : stateCust.name,
+                      phone : stateinfo.phone,
+                      coachname : stateCoach.name,
+                      obstacle_type : stateinfo.obstacle_type,
+                      startHour : value,
+                      startMinute : stateCust.startMinute,
+                      endHour : stateCust.endHour,
+                      endMinute : stateCust.endMinute,
+                      memo : stateCust.memo,
+                      completeCheck : stateCust.completeCheck, 
+                  });
+                  }}
                 />
                 <Select
                   showSearch
-                  placeholder="00분"
+                  placeholder= {stateCust.startMinute}
                   optionFilterProp="startminute"
-                  onChange={onChange}
                   onSearch={onSearch}
                   filterOption={(input, option) =>
                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -298,14 +397,31 @@ const getscheduleById = id => {
                       label: '50분',
                     },
                   ]}
+                  defaultValue = {stateCust.startMinute}
+                  onChange={e => {
+                    let value = e;
+                    setstateCust({
+                      usernum : stateCust.usernum,
+                      date : stateCust.date,
+                      name : stateCust.name,
+                      phone : stateinfo.phone,
+                      coachname : stateCoach.name,
+                      obstacle_type : stateinfo.obstacle_type,
+                      startHour : stateCust.startHour,
+                      startMinute : value,
+                      endHour : stateCust.endHour,
+                      endMinute : stateCust.endMinute,
+                      memo : stateCust.memo,
+                      completeCheck : stateCust.completeCheck, 
+                  });
+                  }}
                 />
                 <SwapRightOutlined />
 
                 <Select
                   showSearch
-                  placeholder="00시"
+                  placeholder={stateCust.endHour}
                   optionFilterProp="endhour"
-                  onChange={onChange}
                   onSearch={onSearch}
                   filterOption={(input, option) =>
                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -408,12 +524,29 @@ const getscheduleById = id => {
                       label: '24시',
                     },
                   ]}
+                  defaultValue = {stateCust.endHour}
+                  onChange={e => {
+                    let value = e;
+                    setstateCust({
+                      usernum : stateCust.usernum,
+                      date : stateCust.date,
+                      name : stateCust.name,
+                      phone : stateinfo.phone,
+                      coachname : stateCoach.name,
+                      obstacle_type : stateinfo.obstacle_type,
+                      startHour : stateCust.startHour,
+                      startMinute : stateCust.startMinute,
+                      endHour : value,
+                      endMinute : stateCust.endMinute,
+                      memo : stateCust.memo,
+                      completeCheck : stateCust.completeCheck, 
+                  });
+                  }}
                 />
                 <Select
                   showSearch
-                  placeholder="00분"
+                  placeholder={stateCust.endMinute}
                   optionFilterProp="endminute"
-                  onChange={onChange}
                   onSearch={onSearch}
                   filterOption={(input, option) =>
                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -444,11 +577,49 @@ const getscheduleById = id => {
                       label: '50분',
                     },
                   ]}
+                  defaultValue = {stateCust.endMinute}
+                  onChange={e => {
+                    let value = e;
+                    setstateCust({
+                      usernum : stateCust.usernum,
+                      name : stateCust.name,
+                      date : stateCust.date,
+                      phone : stateinfo.phone,
+                      coachname : stateCoach.name,
+                      obstacle_type : stateinfo.obstacle_type,
+                      startHour : stateCust.startHour,
+                      startMinute : stateCust.startMinute,
+                      endHour : stateCust.endHour,
+                      endMinute : value,
+                      memo : stateCust.memo,
+                      completeCheck : stateCust.completeCheck, 
+                  });
+                  }}
                 />
                 </Row>
                 <br></br><br></br><br></br>
             <Title level={4}>기타 메모</Title>
-            <TextArea  rows={10} placeholder="메모를 작성하세요." maxLength={100} 
+            <TextArea  rows={10} 
+            value = {stateCust.memo}
+              maxLength={100} 
+              name="memo"
+              onChange={e => {
+                let value = e.target.value;
+                setstateCust({
+                  usernum : stateCust.usernum,
+                  name : stateCust.name,
+                  date : stateCust.date,
+                  phone : stateinfo.phone,
+                  coachname : stateCoach.name,
+                  obstacle_type : stateinfo.obstacle_type,
+                  startHour : stateCust.startHour,
+                  startMinute : stateCust.startMinute,
+                  endHour : stateCust.endHour,
+                  endMinute : stateCust.endMinute,
+                  memo : value,
+                  completeCheck : stateCust.completeCheck, 
+                  });
+              }}
             showCount/>
         
 
@@ -460,7 +631,7 @@ const getscheduleById = id => {
            
          <br></br><br></br>
          <div className="btns" style={{float:"left"}}>
-             <Button type="primary" href="/customers/infoedit">수정</Button>
+             <Button type="primary" onclick={submitHandler} href="/calendar/update">수정</Button>
              <Button type="primary" danger onClick={deleteInfo}>삭제</Button>
          </div>
        </Space>
@@ -470,7 +641,7 @@ const getscheduleById = id => {
 
 
 const onChange2 = (checkedValues) => {
-  console.log('checked = ', checkedValues);
+  console.log('checked = ', checkedValues.target.checked);
 };
 
 ;
@@ -479,7 +650,11 @@ const onChange = (time, timeString) => {
   console.log(time, timeString);
 };
 
+const onChange3 = (date) => {
+  console.log('Date: ', date);
+  console.log('날짜변환: ', date.$y, "년",date.$M + 1 ,"월", date.$D, "일");
 
+};
 
 const dateNow = new Date();
 const today = dateNow.toISOString().slice(0, 10);
