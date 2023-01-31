@@ -186,7 +186,6 @@ const Curriculum = () => {
               id="profile-upload" 
               accept="image/*" 
               name="attachment"
-              value={attachment}
               onChange={attachmentHandler}/>
           </form>
         </Modal>
