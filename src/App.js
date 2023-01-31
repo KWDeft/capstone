@@ -32,6 +32,8 @@ import JournalTable from "./domains/Customers/Journal/JournalTable";
 import NewJournal from "./domains/Customers/Journal/NewJournal.js";
 import EditPaymentInfo from "./domains/Customers/EditPaymentInfo";
 import CJournalEdit from "./domains/Customers/Journal/CJornalEdit";
+import FcJournalView from "./domains/forCustomers/FcJournalView";
+import FcConsultView from "./domains/forCustomers/FcCousultView";
 
 const App = () => {
   return (
@@ -64,10 +66,13 @@ const App = () => {
         <Route path="/members" element={<Members />} />        
         <Route path="/members/info" element={<MemberInfo />} />
         <Route path="/members/coachinfo" element={<CoachInfo />} />
+        
       </Route>
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />
         <Route path="/fc/journal" element={<FcJournal />} />
+        <Route path="/fc/journal/view" element={<FcJournalView />} />
+        <Route path="/fc/journal/consultview" element={<FcConsultView />} />
         <Route path="/fc/login" element={<FcLoginPage />} />
         <Route path="/fc/register" element={<FcRegisterPage />} />
       </Route>

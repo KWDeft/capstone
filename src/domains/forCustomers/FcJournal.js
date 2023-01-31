@@ -1,75 +1,38 @@
-import {  Row, Col, Button, Typography, Input, } from "antd";
-import React, {useState} from "react";
+import {  Row, Col, Button, Typography, Input, Modal, Tabs } from "antd";
+import React, {useState, useEffect} from "react";
+import './NewJournal.css';
+import JournalTable from "./FcJournalTable";
+import ConsultTable from "./FcConsultTable";
+import {useLocation} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import FcJournalTable from './FcJournalTable';
+import FcConsultTable from './FcConsultTable';
+
 const { Text} = Typography;
 const { TextArea } = Input;
 
-
 const FcJournal = () => {
-    const [value, setValue] = useState('');
+    const location = useLocation();
+    const TabPane = Tabs.TabPane;
+    const { user } = useSelector(({ user }) => ({ user: user.user }));
+    const usernum = user.username;
+
+    function callback(key) {
+        console.log(key);
+      }
+    console.log(usernum);
 
     return(
         <>
-            <br></br>
-            <h2>수업 일지</h2>
-            <Row>
-                <Col span={2}>
-                    <Text>수업 이름</Text>
-                </Col>
-                <Col span={3}>
-                    <Text strong>입문자PT</Text>
-                </Col>
-                <Col span={2}>
-                    <Text>운동목적</Text>
-                </Col>
-                <Col span={3}>
-                    <Text strong>근력강화</Text>
-                </Col>
-                <Col span={1}>
-                    <Text>날짜</Text>
-                </Col>
-                <Col span={3}>
-                    <Text strong>2022.12.27</Text>
-                </Col>
-            </Row>
-            <br></br>
-            <Row>
-                <Col span={2}>
-                    <Text>수업 제목</Text>
-                </Col>
-                <Col span={10}>
-                    <Text strong>1회차 수업 | 라운드 숄더 완화 스트레칭</Text>
-                </Col>
-            </Row>
-            <br></br>
-            <Row>
-                <Col span={2}>
-                    <Text>수업 내용</Text>
-                </Col>
-                <Col span={11}>
-                <TextArea
-                    value={"굽은 어깨 교정을 위한 기본 자세 알려드림"}
-                    style={{width :550}}
-                    onChange={(e) => setValue(e.target.value)}
-                    autoSize={{
-                    minRows: 4,
-                    maxRows: 6,
-                    }}
-                />
-                </Col>
-            </Row>
-            <br></br>
-            <Row>
-                <Col span={2}>
-                    <Text>첨부파일</Text>
-                </Col>
-                <Col span={3}>
-                    
-                    <div>
-
-                    </div>
-                </Col>
+            <Tabs defaultActiveKey="1" onChange={callback}>
+                <TabPane tab="수업일지" key="1">
+                        <FcJournalTable />
+                </TabPane>
+                <TabPane tab="상담일지" key="2">
+                        <FcConsultTable />
+                </TabPane>
+            </Tabs>
             
-            </Row>
         </>
     )
 

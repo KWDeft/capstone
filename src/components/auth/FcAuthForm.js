@@ -78,7 +78,7 @@ const FcAuthForm = ({ type, form, onChange, onSubmit, error }) => {
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="아이디"
+          placeholder="회원번호"
           onChange={onChange}
           value={form.username}
         />

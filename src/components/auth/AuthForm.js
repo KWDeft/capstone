@@ -79,7 +79,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="아이디"
+          placeholder="전화번호"
           onChange={onChange}
           value={form.username}
         />
@@ -101,26 +101,18 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               onChange={onChange}
               value={form.passwordConfirm}
             />
-            <StyledInput
+            <br></br><br></br>
+            <div 
               autoComplete="role"
               name="role"
-              placeholder="권한 | admin(관리자) / coach(코치) "
-              type="role"
-              onChange={onChange}
+              id="role"
+              placeholder="권한"
               value={form.role}
-            />
-            {/* <Select
-              autoComplete="role"
-              name="role"
-              type="role"
               onChange={onChange}
-              value={form.role}
-              options={[
-                { value: 'admin', label: '관리자' },
-                { value: 'coach', label: '코치' },
-                { value: '회원', label: '회원'},
-              ]}
-            /> */}
+              >
+                    <input type="radio" value="admin" name="role"/> 관리자
+                    <input type="radio" value="coach" name="role"/> 코치
+            </div>
           </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}

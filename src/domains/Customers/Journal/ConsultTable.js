@@ -355,7 +355,7 @@ const ConsultTable = () => {
                         const purpose = record.purpose;
                         const manager = record.manager;
                         const method = record.method;
-                        const recetprion = record.reception;
+                        const reception = record.reception;
                         const detail = record.detail;
                         const date_counsel = record.date_counsel;
                         const ndate_counsel = record.ndate_counsel;

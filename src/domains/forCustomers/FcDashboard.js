@@ -1,6 +1,8 @@
-import {  Row, Col, Button, Table, Badge, Calendar } from "antd";
+import {  Row, Col, Button, Table, Badge, Calendar, List } from "antd";
 import React from "react";
-import './FcDashboard.css';
+import {useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import client from '../../lib/api/client'
 
 const getListData = (value) => {
     let listData;
@@ -43,6 +45,53 @@ const getListData = (value) => {
   };
 
 const FcDashboard = () => {
+    const { user } = useSelector(({ user }) => ({ user: user.user }));
+
+    const usernum = user.username;
+
+    const [journalList, setJournalList] = useState([]);
+
+    useEffect(() => {
+      getClassData();
+      getConsultData();
+    }, []);
+
+    const getClassData = async () => {
+      await client
+      .get(`/api/consumer/note/class/user/${usernum}`)
+      .then(
+          res => {
+          setJournalList(
+              res.data.map(row => ({
+                  subject: row.subject,
+                  class: row.classname,
+                  date: row.date_class,
+                  id : row._id,
+              }))
+          );
+          console.log(res);
+        }
+      );
+    };
+
+    const getConsultData = async () => {
+      await client
+      .get(`/api/consumer/note/counsel/user/${usernum}`)
+      .then(
+          res => {
+          setJournalList(
+              res.data.map(row => ({
+                  class: row.detail,
+                  date: row.date_counsel,
+                  subject: row.method,
+                  id: row._id,
+              }))
+          );
+          console.log(res);
+        }
+      );
+    };
+    
     const columns = [
         {
           title: '날짜',
@@ -50,12 +99,12 @@ const FcDashboard = () => {
           sorter: (a, b) => a.age - b.age,
         },
         {
-          title: '수업',
+          title: '설명',
           dataIndex: 'class',
         },
         {
           title: '제목',
-          dataIndex: 'title',
+          dataIndex: 'subject',
         },
         ];
         const data = [
@@ -103,17 +152,15 @@ const FcDashboard = () => {
                     </div>
                     </Col>
                     <Col span={6}>
-                        <h4>남은 수업 횟수</h4>
-                        <h2>9회</h2>
-                        <Button type="primary">연장 결제</Button>
+                        <h4>회원번호</h4>
+                        <h2>{usernum}</h2>
                     </Col>
                 </Row>
                 <br></br>
                 <Row>
                     <Table
                         columns={columns}
-                        dataSource={data}
-                        className="table1"
+                        dataSource={journalList}
                     />
                 </Row>
             </Col>

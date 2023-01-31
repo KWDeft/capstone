@@ -610,7 +610,6 @@ const today = () => {
   const categoryHandler = (e) => {
     setCategory(e);
   };
-  console.log(category);
 
   const usernumHandler = (e) =>{ 
     setUsernum(e);
@@ -622,10 +621,10 @@ const today = () => {
     setUserwidth(e);
   };
   const sexHandler = (e) =>{ 
-    setSex(e);
+    setSex(e.target.value);
   };
   const existenceHandler = (e) =>{ 
-    setExistence(e);
+    setExistence(e.target.value);
   };
   const nameHandler = (e) =>{ 
     e.preventDefault();
@@ -653,16 +652,13 @@ const today = () => {
   const paymentHandler = (e) =>{ 
     setPayment(e);
   };
-  console.log(payment);
   
   const inflowHandler = (e) =>{
     setInflow(e);
   };
-  console.log(inflow);
   const statementHandler = (e) =>{ 
     setStatement(e);
   };
-  console.log(statement);
   const date_signupHandler = (e) =>{ 
     e.preventDefault();
     setDate_signup(e.target.value);
@@ -671,13 +667,11 @@ const today = () => {
   const birthdayHandler = (e) =>{ 
     setBirthday(e.target.value);
   };
-  console.log(birthday);
   const membershipHandler = (e) =>{ 
     setMembership(e);
   };
-  console.log(membership);
   const vaccinateHandler = (e) =>{ 
-    setVaccinate(e);
+    setVaccinate(e.target.value);
   };
   console.log(vaccinate);
 
@@ -825,7 +819,6 @@ const today = () => {
             <Select
               value = {payment}
               defaultValue="결제정보" 
-              size="small" 
               onChange={paymentHandler}
               options={[
                 { value: '바우처', label: '바우처' },
@@ -873,23 +866,15 @@ const today = () => {
             <h4>성별</h4>
         </Col>
         <Col>
-          {/* <Radio.Group
-            value={sex}
-            onChange={sexHandler}>
-              <Radio 
-                  value="남">남</Radio>
-              <Radio 
-                  value="여">여</Radio>
-              </Radio.Group> */}
-              <Select
-                defaultValue="남" 
-                value={sex}
-                onChange={sexHandler}
-                options={[
-                  { value: '남', label: '남' },
-                  { value: '여', label: '여' },
-                ]}
-              />
+        <div autoComplete="sex"
+        name="sex"
+        id="sex"
+        value={sex}
+        onChange={sexHandler}
+        >
+              <input type="radio" value="남" name="sex"/> 남
+              <input type="radio" value="여" name="sex"/> 여
+       </div>
         </Col>
       </Row><br></br>
       <Row gutter={16}>
@@ -930,20 +915,14 @@ const today = () => {
             <h4>장애 유무</h4>
         </Col>
         <Col>
-        {/* <Radio.Group value ={existence} onChange={existenceHandler}>
-            <Radio value="disablity">유</Radio>
-            <Radio value="normal">무</Radio>
-            </Radio.Group> */}
-            <Select
-              defaultValue="장애" 
-              size="small" 
-              value={existence}
-              onChange={existenceHandler}
-              options={[
-                { value: '유', label: '유' },
-                { value: '무', label: '무' },
-              ]}
-            />
+        <div autoComplete="무"
+                name="existence"
+                id="existence"
+                value={existence}
+                onChange={existenceHandler}>
+                      <input type="radio" value="유" name="existence"/> 유
+                      <input type="radio" value="무" name="existence"/> 무
+              </div>
         </Col>
       </Row><br></br>
       <Row gutter={16}>
@@ -964,15 +943,15 @@ const today = () => {
             <h4>예방접종</h4>
         </Col>
         <Col>
-        <Select
-              defaultValue="예방접종" 
-              value={vaccinate}
-              onChange={vaccinateHandler}
-              options={[
-                { value: '유', label: '유' },
-                { value: '무', label: '무' },
-              ]}
-            />
+        <div autoComplete="vaccinate"
+        name="vaccinate"
+        id="vaccinate"
+        value={vaccinate}
+        onChange={vaccinateHandler}
+        >
+              <input type="radio" value="유" name="vaccinate"/> 유
+              <input type="radio" value="무" name="vaccinate"/> 무
+       </div>
         </Col>
       </Row><br></br>
       <Row gutter={10}>

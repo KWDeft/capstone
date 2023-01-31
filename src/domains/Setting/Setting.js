@@ -76,7 +76,7 @@ const submitHandler = (e) => {
                   <table>
                   <tbody>
                         <tr>
-                          <td>아이디</td>
+                          <td>전화번호</td>
                           <td width="2px"></td>
                           <td>
                             <Input
@@ -84,7 +84,7 @@ const submitHandler = (e) => {
                             name="username"
                             value={username}
                             onChange={usernameHandler}
-                            placeholder="사용자 아이디" />
+                            placeholder="사용자 전화번호" />
                           </td>
                         </tr>
                         <tr>

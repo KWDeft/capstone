@@ -54,7 +54,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/dashboard');
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {

@@ -30,7 +30,6 @@ const RegisterForm = () => {
 
   // 폼 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    e.preventDefault();
     const { username, password, passwordConfirm, role } = form;
     // 하나라도 비어있다면
     if ([username, password, passwordConfirm, role].includes('')) {

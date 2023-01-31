@@ -364,7 +364,7 @@ const Members = () => {
                   <br></br>
                   <Row>
                     <Col span={4}>
-                      <h3>아이디</h3>
+                      <h3>전화번호</h3>
                     </Col>
                     <Col span={10}>
                       <Input 
@@ -555,7 +555,7 @@ const Members = () => {
                 <br></br>
                 <Row>
                   <Col span={6}>
-                    <h3>아이디</h3>
+                    <h3>전화번호</h3>
                   </Col>
                   <Col span={10}>
                     <Input 

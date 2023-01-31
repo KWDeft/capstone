@@ -71,6 +71,7 @@ const FcRegisterForm = () => {
       console.log('회원가입 성공');
       console.log(auth);
       dispatch(check());
+      navigate('/fc');
     }
   }, [auth, authError, dispatch]);
 
