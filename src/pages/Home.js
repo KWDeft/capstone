@@ -110,11 +110,6 @@ const PostListPage = () => {
                      회원 홈페이지
                   </Button>
                   </Col>
-                  <Col span={2}>
-                  <Button bordered={true} onClick={move}>
-                  대시보드
-                  </Button>
-                </Col>
               </Row>
             </div>
             <br></br>

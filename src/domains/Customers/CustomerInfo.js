@@ -327,7 +327,7 @@ const CustomerInfo = () => {
                       수정
                     </Button>
                     <Modal
-                      title="관리자 정보 수정"
+                      title="회원 정보 수정"
                       open={isModalOpen}
                       onOk={editHandler}
                       onCancel={handleCancel}
