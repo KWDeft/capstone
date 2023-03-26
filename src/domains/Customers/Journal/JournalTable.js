@@ -400,7 +400,7 @@ const JournalTable = () => {
                         return {
                           onClick: (e) => {
                             console.log(usernum);
-                            navigate('/journal/edit', {
+                            navigate('/home/journal/edit', {
                                 state: {
                                     times: times,
                                     remains: remains,

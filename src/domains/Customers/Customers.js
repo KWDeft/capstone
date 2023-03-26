@@ -903,7 +903,7 @@ const Customers = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              navigate('/customers/info', {
+              navigate('/home/customers/info', {
                 state: {
                   usernum: usernum,
                   sex: sex,

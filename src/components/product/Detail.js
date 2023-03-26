@@ -86,7 +86,7 @@ const Detail = () => {
               console.log(res)
               );
               alert("삭제완료");
-              navigate('/commodity');
+              navigate('/home/commodity');
             },
           });
        };

@@ -1161,7 +1161,7 @@ showCount/>
               function(info){
                 // alert('Event : ' + info.event.title);
                 console.log(info.event.id);
-                navigate('/calendar/update', {
+                navigate('/home/calendar/update', {
                   state:{
                     id : info.event.id
                   }

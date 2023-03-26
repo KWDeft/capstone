@@ -543,7 +543,7 @@ showCount/>
 
                 
                 
-                navigate('/calendar/update', {
+                navigate('/home/calendar/update', {
                   state: {
                     id : id,
                     usernum: usernum,

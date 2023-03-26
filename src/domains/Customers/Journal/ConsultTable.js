@@ -343,7 +343,7 @@ const ConsultTable = () => {
                         return {
                           onClick: (e) => {
                             console.log(usernum);
-                            navigate('/journal/counseledit', {
+                            navigate('/home/journal/counseledit', {
                                 state: {
                                   usernum: usernum,
                                   purpose: purpose,

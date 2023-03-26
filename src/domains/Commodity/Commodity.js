@@ -148,7 +148,7 @@ const Commodity = () => {
             onClick: (e) => {
               console.log(id);
               console.log(name);
-              navigate('/commodity/detail', {
+              navigate('/home/commodity/detail', {
                   state: {
                     name: name,
                     id: id

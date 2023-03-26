@@ -59,7 +59,7 @@ const EditCurriDetail = () => {
         console.log(res)
         );
         alert("삭제완료");
-        navigate('/curriculum')
+        navigate('/home/curriculum')
       },
     });
   };

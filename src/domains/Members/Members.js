@@ -7,6 +7,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import client from '../../lib/api/client';
 import user from '../../modules/user';
+import { useSelector } from "react-redux";
 
 const onSearch = (value) => console.log(value);
 const { TextArea } = Input;
@@ -305,6 +306,11 @@ const Members = () => {
     setIsModalOpen2(false);
   };
 
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+  }
+
   return (
     <>
       <Tabs defaultActiveKey="1" onChange={callback}>
@@ -407,7 +413,7 @@ const Members = () => {
               return {
                 onClick: (e) => {
                   console.log(username);
-                  navigate('/members/info', {
+                  navigate('/home/members/info', {
                     state: {
                       name: name,
                       phone: phone,
@@ -531,7 +537,7 @@ const Members = () => {
               return {
                 onClick: (e) => {
                   console.log(username);
-                  navigate('/members/coachinfo', {
+                  navigate('/home/members/coachinfo', {
                     state: {
                       name: name,
                       phone: phone,

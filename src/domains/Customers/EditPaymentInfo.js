@@ -109,7 +109,7 @@ const EditPaymentInfo = () => {
         console.log(res)
         );
         alert("삭제완료");
-        navigate('/customers/paymentinfo', { state : 
+        navigate('/home/customers/paymentinfo', { state : 
                 {usernum: usernum,
                 id: id,
                 sex: sex,

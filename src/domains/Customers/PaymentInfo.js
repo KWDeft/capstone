@@ -273,7 +273,7 @@ const PaymentInfo = () => {
                             onClick: (e) => {
                               console.log(usernum);
                               console.log(id);
-                              navigate('/customers/paymentinfo/edit', {
+                              navigate('/home/customers/paymentinfo/edit', {
                                 state: {
                                   usernum: usernum,
                                   id: id,

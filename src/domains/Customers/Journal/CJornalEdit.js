@@ -67,7 +67,7 @@ const CJournalEdit = () => {
           console.log(res)
           );
           alert("삭제완료");
-          navigate('/journal', 
+          navigate('/home/journal', 
           {
             state: {
                 usernum: usernum,

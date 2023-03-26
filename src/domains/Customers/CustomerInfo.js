@@ -74,14 +74,14 @@ const CustomerInfo = () => {
           .delete(`/api/consumer/info/${id}`)
           .then((res) => console.log(res));
         alert('삭제완료');
-        navigate('/customers');
+        navigate('/home/customers');
       },
     });
   };
 
   // id, 이름, 성별, 전화번호, 생년월일, 주소, 장애유형, 유입경로, 운동목적 전달
   const move = () => {
-    navigate('/customers/paymentinfo', {
+    navigate('/home/customers/paymentinfo', {
       state: {
         id: customer.id,
         usernum: customer.usernum,
@@ -98,7 +98,7 @@ const CustomerInfo = () => {
   };
 
   const note = () => {
-    navigate('/journal', {
+    navigate('/home/journal', {
       state: {
         usernum: customer.usernum,
       },

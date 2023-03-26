@@ -22,6 +22,8 @@ const Curriculum = () => {
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
 
+  const {TextArea} = Input;
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -188,7 +190,7 @@ const Curriculum = () => {
             return {
               onClick: (e) => {
                 console.log(id);
-                navigate('/curriculum/edit', {
+                navigate('/home/curriculum/edit', {
                     state: {
                       title: title,
                       detail: detail,

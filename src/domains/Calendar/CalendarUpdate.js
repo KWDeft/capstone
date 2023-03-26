@@ -125,7 +125,7 @@ console.log("스케줄", stateCust);
             .delete(`/api/schedule/admin/${id}`)
             .then((res) => console.log(res));
           alert('삭제완료');
-          navigate('/calendar');
+          navigate('/home/calendar');
         },
       });
     };

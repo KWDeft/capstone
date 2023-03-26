@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import FirstPage from './pages/FirstPage';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -35,35 +36,38 @@ import FcConsultView from "./domains/forCustomers/FcCousultView";
 
 const App = () => {
   return (
+       
     <Routes>
-      <Route path="/" element={<Home />} >
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/curriculum/edit" element={<EditCurriDetail />} />
-        <Route path="/curriculum" element={<Curriculum />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/calendar" element={<CalendarMain />}/>
-        <Route path="/calendar/update" element={<CalendarUpdate />} />
-        <Route path="/calendar/new" element={<NewCalendar />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/customers/info" element={<CustomerInfo />} />
-        <Route path="/customers/infoedit" element={<CustomerEdit />} />
-        <Route path="/customers/new" element={<NewCustomer />} />
-        <Route path="/customers/paymentinfo" element={<PaymentInfo />} />
-        <Route path="/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
-        <Route path="/journaltable" element={<JournalTable />} />
-        <Route path="/newjournal" element={<NewJournal />} />
-        <Route path="/journal" element={<Journal />} />
-        <Route path="/journal/edit" element={<JournalEdit/>} />
-        <Route path="/journal/counseledit" element={<CJournalEdit />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/commodity" element={<Commodity />} />
-        <Route path="/commodity/detail" element={<ProductDetail/>} />
-        <Route path="/members" element={<Members />} />        
-        <Route path="/members/info" element={<MemberInfo />} />
-        <Route path="/members/coachinfo" element={<CoachInfo />} />
+      <Route path="/" element={<FirstPage />} />
+      <Route path="/home" element={<Home />} >
+        <Route path="/home/login" element={<LoginPage />} />
+        <Route path="/home/register" element={<RegisterPage />} />
+        <Route path="/home/curriculum/edit" element={<EditCurriDetail />} />
+        <Route path="/home/curriculum" element={<Curriculum />} />
+        <Route path="/home/setting" element={<Setting />} />
+        <Route path="/home/calendar" element={<CalendarMain />}/>
+        <Route path="/home/calendar/update" element={<CalendarUpdate />} />
+        <Route path="/home/calendar/new" element={<NewCalendar />} />
+        <Route path="/home/customers" element={<Customers />} />
+        <Route path="/home/customers/info" element={<CustomerInfo />} />
+        <Route path="/home/customers/infoedit" element={<CustomerEdit />} />
+        <Route path="/home/customers/new" element={<NewCustomer />} />
+        <Route path="/home/customers/paymentinfo" element={<PaymentInfo />} />
+        <Route path="/home/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
+        <Route path="/home/journaltable" element={<JournalTable />} />
+        <Route path="/home/newjournal" element={<NewJournal />} />
+        <Route path="/home/journal" element={<Journal />} />
+        <Route path="/home/journal/edit" element={<JournalEdit/>} />
+        <Route path="/home/journal/counseledit" element={<CJournalEdit />} />
+        <Route path="/home/dashboard" element={<Dashboard />} />
+        <Route path="/home/commodity" element={<Commodity />} />
+        <Route path="/home/commodity/detail" element={<ProductDetail/>} />
+        <Route path="/home/members" element={<Members />} />        
+        <Route path="/home/members/info" element={<MemberInfo />} />
+        <Route path="/home/members/coachinfo" element={<CoachInfo />} />
         
       </Route>
+
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />
         <Route path="/fc/journal" element={<FcJournal />} />

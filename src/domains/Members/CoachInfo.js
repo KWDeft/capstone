@@ -59,7 +59,7 @@ const CoachInfo = () => {
               console.log(res)
               );
               alert("삭제완료");
-              navigate('/members'); 
+              navigate('/home/members'); 
             },
           });
     };

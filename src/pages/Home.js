@@ -20,37 +20,37 @@ const { Header, Content, Sider } = Layout;
 
 const menuItems = [
   {
-    label: <Link to="/dashboard">대시보드</Link>,
+    label: <Link to="/home/dashboard">대시보드</Link>,
     key: "대시보드",
     icon: <HomeOutlined />
   },
   {
-    label: <Link to="/customers">회원</Link>,
+    label: <Link to="/home/customers">회원</Link>,
     key: "회원",
     icon: <UserOutlined />
   },
   {
-    label: <Link to="/commodity">상품</Link>,
+    label: <Link to="/home/commodity">상품</Link>,
     key: "상품",
     icon: <ShoppingOutlined />
   },
   {
-    label: <Link to="/curriculum">커리큘럼</Link>,
+    label: <Link to="/home/curriculum">커리큘럼</Link>,
     key: "커리큘럼",
     icon: <ProfileOutlined />
   },
   {
-    label: <Link to="/members">구성원</Link>,
+    label: <Link to="/home/members">구성원</Link>,
     key: "구성원",
     icon: <TeamOutlined />,
   },
   {
-    label: <Link to="/calendar">일정</Link>,
+    label: <Link to="/home/calendar">일정</Link>,
     key: "일정",
     icon: <CalendarOutlined />
   },
   {
-    label: <Link to="/setting">설정</Link>,
+    label: <Link to="/home/setting">설정</Link>,
     key: "설정",
     icon: <SettingOutlined/>
   }
@@ -62,7 +62,7 @@ const PostListPage = () => {
 
   
   const move = () => {
-    navigate('/login');
+    navigate('/home/login');
   }
 
   const customermove = () => {
@@ -112,7 +112,7 @@ const PostListPage = () => {
                   </Col>
                   <Col span={2}>
                   <Button bordered={true} onClick={move}>
-                  대시보드
+                  테스트
                   </Button>
                 </Col>
               </Row>

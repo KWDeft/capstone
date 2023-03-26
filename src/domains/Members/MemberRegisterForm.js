@@ -77,7 +77,7 @@ const MemberRegisterForm = () => {
   // user 값이 잘 설정되었는지 확인
   useEffect(() => {
     if (user) {
-      navigate('/members'); // 홈 화면으로 이동
+      navigate('/home/members'); // 홈 화면으로 이동
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {

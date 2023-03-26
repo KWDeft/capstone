@@ -47,7 +47,7 @@ const Client = (props) => {
     console.log(data);
 
     const move = () => {
-        navigate('/customers/info', {
+        navigate('/home/customers/info', {
             state: {
                 id: data[0].id
             }
