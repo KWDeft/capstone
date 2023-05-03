@@ -1,9 +1,7 @@
 import { Button, Modal, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import React, { useState, useEffect } from 'react';
-import PasswordSetting from './PasswordSetting.js';
+import React, { useState } from 'react';
 import './Setting.css';
-import axios from 'axios';
 import client from '../../lib/api/client';
 
 const Setting = () => {
@@ -140,6 +138,12 @@ const submitHandler = (e) => {
                   </table>
                 </Space>
           </Modal>
+      </div>
+      <div id='settingBox'>
+        <h3>작성한 댓글</h3>
+        <Button type="default" href="/mycomments">
+            확인하기
+          </Button>
       </div>
     </>
   );

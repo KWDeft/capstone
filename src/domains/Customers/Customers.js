@@ -13,7 +13,6 @@ import {
   Checkbox,
 } from 'antd';
 import React, { useState, useEffect } from 'react';
-import NewCustomer from './NewCustomer.js';
 import client from '../../lib/api/client';
 import {
   SearchOutlined,
@@ -594,7 +593,7 @@ const Customers = () => {
         user_purpose,
       ].includes('')
     ) {
-      alert('빈 칸을 모두 입력하세요.');
+      alert('빈칸을 모두 입력하세요.');
       return;
     }
 
@@ -695,6 +694,7 @@ const Customers = () => {
         <PlusOutlined />
         신규회원 등록
       </Button>
+      <br/><br/>
       <Modal
         title="신규회원 추가"
         open={isModalOpen}
@@ -710,7 +710,8 @@ const Customers = () => {
                   height={150}
                   src="https://pbs.twimg.com/profile_images/1459562606956793856/rMEpug4T_400x400.jpg"
                 />
-                <br></br>
+                <br></br><br></br>
+                <Button size="small">사진 추가/변경</Button><Button size="small"><DeleteOutlined /></Button>
                 <br></br>
               </Col>
             </div>
@@ -719,7 +720,7 @@ const Customers = () => {
               <Col>
                 <Row gutter={16}>
                   <Col>
-                    <h4>회원번호</h4>
+                    <div>회원번호</div>
                   </Col>
                   <Col>
                     <InputNumber
@@ -734,7 +735,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>이름</h4>
+                  <div>이름</div>
                   </Col>
                   <Col>
                     <Input
@@ -749,7 +750,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>성별</h4>
+                  <div>성별</div>
                   </Col>
                   <Col>
                     <div
@@ -767,7 +768,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>생년월일</h4>
+                  <div>생년월일</div>
                   </Col>
                   <Col>
                     <Input
@@ -782,7 +783,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>장애 유무</h4>
+                  <div>장애 유무</div>
                   </Col>
                   <Col>
                     <div
@@ -800,7 +801,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={10}>
                   <Col>
-                    <h4>전화번호</h4>
+                  <div>전화번호</div>
                   </Col>
                   <Col>
                     <Input
@@ -821,7 +822,7 @@ const Customers = () => {
               <Col>
                 <Row gutter={16}>
                   <Col>
-                    <h4>담당자</h4>
+                  <div>담당자</div>
                   </Col>
                   <Col>
                     <InputNumber
@@ -837,7 +838,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>운동목적</h4>
+                  <div>운동목적</div>
                   </Col>
                   <Col>
                     <Select
@@ -866,7 +867,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                    <h4>가입날짜</h4>
+                  <div>가입날짜</div>
                   </Col>
                   <Col>
                     <Input

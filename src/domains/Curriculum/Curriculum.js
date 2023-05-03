@@ -172,6 +172,7 @@ const Curriculum = () => {
             onChange={effectHandler}
           />
         </Modal>
+        <br></br><br></br>
       {loading ? (
         "Loading"
       ) : (

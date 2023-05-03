@@ -18,7 +18,6 @@ import Commodity from './domains/Commodity/Commodity.js';
 import Members from './domains/Members/Members.js';
 import MemberInfo from './domains/Members/MemberInfo.js';
 import CoachInfo from './domains/Members/CoachInfo.js';
-import NewCustomer from './domains/Customers/NewCustomer.js';
 import PaymentInfo from './domains/Customers/PaymentInfo.js';
 import ProductDetail from './components/product/Detail.js';
 import FcHome from './pages/FcHome.js';
@@ -32,6 +31,8 @@ import EditPaymentInfo from "./domains/Customers/EditPaymentInfo";
 import CJournalEdit from "./domains/Customers/Journal/CJornalEdit";
 import FcJournalView from "./domains/forCustomers/FcJournalView";
 import FcConsultView from "./domains/forCustomers/FcCousultView";
+import MyComments from "./domains/Comments/MyComments";
+import MCdetail from "./domains/Comments/MCdetail";
 
 const App = () => {
   return (
@@ -48,7 +49,6 @@ const App = () => {
         <Route path="/customers" element={<Customers />} />
         <Route path="/customers/info" element={<CustomerInfo />} />
         <Route path="/customers/infoedit" element={<CustomerEdit />} />
-        <Route path="/customers/new" element={<NewCustomer />} />
         <Route path="/customers/paymentinfo" element={<PaymentInfo />} />
         <Route path="/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
         <Route path="/journaltable" element={<JournalTable />} />
@@ -62,7 +62,9 @@ const App = () => {
         <Route path="/members" element={<Members />} />        
         <Route path="/members/info" element={<MemberInfo />} />
         <Route path="/members/coachinfo" element={<CoachInfo />} />
-        
+        <Route path="/mycomments" element={<MyComments />} />
+        <Route path="/mycomments/detail" element={<MCdetail/>} />
+
       </Route>
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />
