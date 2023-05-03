@@ -160,7 +160,7 @@ const CustomerInfo = () => {
                 </Col>
               </div>
 
-              <div className="Col2">
+              {/* <div className="Col2">
                 <Col>
                   <Row gutter={16}>
                     <Col>
@@ -244,10 +244,10 @@ const CustomerInfo = () => {
                   </Row>
                   <br></br>
                 </Col>
-              </div>
+              </div> */}
               <div className="Col3">
                 <Col>
-                  <Row gutter={16}>
+                  {/* <Row gutter={16}>
                     <Col>
                       <h4>유형</h4>
                     </Col>
@@ -320,33 +320,11 @@ const CustomerInfo = () => {
                       <h4>{customer.address}</h4>
                     </Col>
                   </Row>
-                  <br></br>
+                  <br></br> */}
                   <br></br>
                   <div className="btns">
-                    <Button type="primary" onClick={showModal}>
-                      수정
-                    </Button>
-                    <Modal
-                      title="관리자 정보 수정"
-                      open={isModalOpen}
-                      onOk={editHandler}
-                      onCancel={handleCancel}
-                      width={1000}
-                    >
                       <div className="Div">
                         <Row gutter={[32, 16]}>
-                          <div className="Col1">
-                            <Col>
-                              <Image
-                                width={150}
-                                height={150}
-                                src="https://pbs.twimg.com/profile_images/1459562606956793856/rMEpug4T_400x400.jpg"
-                              />
-                              <br></br>
-                              <br></br>
-                            </Col>
-                          </div>
-
                           <div className="Col2">
                             <Col>
                               <Row gutter={16}>
@@ -1198,18 +1176,27 @@ const CustomerInfo = () => {
                           </div>
                         </Row>
                       </div>
-                    </Modal>
-                    <Button type="primary" danger onClick={deleteInfo}>
-                      삭제
-                    </Button>
                   </div>
                 </Col>
               </div>
             </Row>
           </div>
         </Col>
-        <Col span={4}></Col>
       </Row>
+      <Row>
+        <Col span={4}></Col>
+        <Col span={4}></Col>
+        <Col span={4}></Col>
+        <Col span={4}>
+        <Button type="primary" onClick={editHandler}>
+                          수정
+                          </Button>
+                        {/* </Modal> */}
+                        <Button type="primary" danger onClick={deleteInfo}>
+                          삭제
+                        </Button>
+        </Col>
+        </Row>
     </>
   );
 };

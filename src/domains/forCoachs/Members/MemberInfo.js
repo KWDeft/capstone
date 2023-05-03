@@ -1,10 +1,9 @@
 import {  Row, Col, Button, Typography, Input, Modal, InputNumber } from "antd";
 import React, {useState, useEffect} from "react";
-import Client from "./Client.js";
 import './MemberInfo.css';
 import {useNavigate} from 'react-router';
 import {useLocation} from 'react-router-dom';
-import client from '../../lib/api/client';
+import client from '../../../lib/api/client';
 
 const {Text} = Typography;
 const {TextArea} = Input;
@@ -39,39 +38,7 @@ const MemberInfo = () => {
         );
       };
 
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const showModal = () => {
-        setIsModalOpen(true);
-      };
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
 
-    const Delete = (e) => {
-        Modal.confirm({
-            title: "정말로 삭제하시겠습니까?",
-            okText: "Yes",
-            okType: "danger",
-            onOk: () => {
-              client.delete(`/api/member/admin/${id}`).then((res) => 
-              console.log(res)
-              );
-              alert("삭제완료");
-              navigate('/home/members'); 
-            },
-          });
-    };
-
-    const editHandler = (e) => {
-        client
-            .patch(`/api/member/admin/${id}`, adminList)
-            .then((res) =>
-                console.log(res)
-            );
-            alert("수정 완료");
-            window.location.reload();
-       };    
-    
     
     return( 
     <>
@@ -79,6 +46,8 @@ const MemberInfo = () => {
         <Col span={12}>
             <br></br>
             <h2 className="name">{adminList.name}</h2>
+           
+            <div className="div1">
                     <>
                         <Col span={10}>
                         <br></br>
@@ -216,6 +185,7 @@ const MemberInfo = () => {
                         </Row>
                         </Col> 
                     </>
+            </div>
         </Col>
         <Col span={12}></Col>
       </Row>

@@ -34,6 +34,18 @@ import CJournalEdit from "./domains/Customers/Journal/CJornalEdit";
 import FcJournalView from "./domains/forCustomers/FcJournalView";
 import FcConsultView from "./domains/forCustomers/FcCousultView";
 
+import CoachHome from "./pages/CoachHome";
+import CoachCommodity from "./domains/forCoachs/Commodity/CoachCommodity";
+import CoachProductDetail from "./components/product/CoachDetail";
+import CoachCurriculum from './domains/forCoachs/Curriculum/CoachCurriculum';
+import CoachEditCurriDetail from "./domains/forCoachs/Curriculum/CoachEditCurriDetail";
+import CoachMembers from "./domains/forCoachs/Members/Members";
+import CoachMemberInfo from "./domains/forCoachs/Members/MemberInfo";
+import CoachInfoforCoach from './domains/forCoachs/Members/CoachInfo';
+import CalendarCoach from './domains/Calendar/CalendarCoach';
+
+import WriteMain from './domains/Curriculum/WriteMain';
+
 const App = () => {
   return (
        
@@ -65,8 +77,62 @@ const App = () => {
         <Route path="/home/members" element={<Members />} />        
         <Route path="/home/members/info" element={<MemberInfo />} />
         <Route path="/home/members/coachinfo" element={<CoachInfo />} />
+        <Route path="/home/write" element={<WriteMain />} />
         
       </Route>
+
+      <Route path="/coach" element={<CoachHome />}>
+        <Route path="/coach/login" element={<LoginPage />} />
+        <Route path="/coach/register" element={<RegisterPage />} />
+        <Route path="/coach/commodity" element={<CoachCommodity />} />
+        <Route path="/coach/commodity/detail" element={<CoachProductDetail/>} />
+        <Route path="/coach/calendar" element={<CalendarMain />}/>
+        <Route path="/coach/calendar/update" element={<CalendarUpdate />} />
+        <Route path="/coach/calendar/new" element={<NewCalendar />} />
+        <Route path="/coach/customers" element={<Customers />} />
+        <Route path="/coach/customers/info" element={<CustomerInfo />} />
+        <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
+        <Route path="/coach/customers/new" element={<NewCustomer />} />
+        <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
+        <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
+        <Route path="/coach/journaltable" element={<JournalTable />} />
+        <Route path="/coach/newjournal" element={<NewJournal />} />
+        <Route path="/coach/journal" element={<Journal />} />
+        <Route path="/coach/journal/edit" element={<JournalEdit/>} />
+        <Route path="/coach/journal/counseledit" element={<CJournalEdit />} />
+        <Route path="/coach/dashboard" element={<Dashboard />} />
+        <Route path="/coach/curriculum" element={<CoachCurriculum />} />
+        <Route path="/coach/curriculum/edit" element={<CoachEditCurriDetail />} />
+        <Route path="/coach/members" element={<CoachMembers />} />        
+        <Route path="/coach/members/info" element={<CoachMemberInfo />} />
+        <Route path="/coach/members/coachinfo" element={<CoachInfoforCoach />} />
+        <Route path="/coach/setting" element={<Setting />} />
+      </Route>
+
+      {/* <Route path="/coach" element={<CoachHome />} >
+        <Route path="/coach/login" element={<LoginPage />} />
+        <Route path="/coach/register" element={<RegisterPage />} />
+        <Route path="/coach/curriculum" element={<CoachCurriculum />} />
+        <Route path="/coach/setting" element={<Setting />} />
+        <Route path="/coach/calendar" element={<CalendarMain />}/>
+        <Route path="/coach/calendar/update" element={<CalendarUpdate />} />
+        <Route path="/coach/calendar/new" element={<NewCalendar />} />
+        <Route path="/coach/customers" element={<Customers />} />
+        <Route path="/coach/customers/info" element={<CustomerInfo />} />
+        <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
+        <Route path="/coach/customers/new" element={<NewCustomer />} />
+        <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
+        <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
+        <Route path="/coach/journaltable" element={<JournalTable />} />
+        <Route path="/coach/newjournal" element={<NewJournal />} />
+        <Route path="/coach/journal" element={<Journal />} />
+        <Route path="/coach/journal/edit" element={<JournalEdit/>} />
+        <Route path="/coach/journal/counseledit" element={<CJournalEdit />} />
+        <Route path="/coach/dashboard" element={<Dashboard />} />
+        <Route path="/coach/commodity" element={<CoachCommodity />} />
+        <Route path="/coach/commodity/detail" element={<CoachProductDetail/>} />
+        
+      </Route> */}
 
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />

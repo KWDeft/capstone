@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Curriculum.css";
 import {useNavigate} from 'react-router';
 import { PlusOutlined} from "@ant-design/icons";
-import client from '../../lib/api/client';
+import client from '../../../lib/api/client';
 import {
   Table,
   Modal,
@@ -11,19 +11,7 @@ import {
   Button,
 } from "antd";
 
-const Curriculum = () => {
-  const [fileList, setFileList] = useState([]);
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setFileList(e.target.files);
-  };
-
-
-  // 👇 files is not an array, but it's iterable, spread to get an array of files
-  const files = fileList ? [...fileList] : [];
-
-
+const CoachCurriculum = () => {
   const [size, setSize] = useState("large");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, SetTitle] = useState("");
@@ -91,10 +79,6 @@ const Curriculum = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     
-    const attachment = new FormData();
-    files.forEach((file, i) => {
-      attachment.append(`file-${i}`, file, file.name);
-    });
   
     let body = {
       title: title,
@@ -109,7 +93,7 @@ const Curriculum = () => {
          console.log(res)
          );
          alert("커리큘럼 등록 완료");
-        //  window.location.reload();
+         window.location.reload();
     };
 
   const columns = [
@@ -143,62 +127,6 @@ const Curriculum = () => {
   return (
     <div>
       <br />
-      <Button type="primary" onClick={showModal}>
-            <PlusOutlined />
-            커리큘럼 추가
-      </Button>
-      <Modal
-          title="커리큘럼 추가"
-          open={isModalOpen}
-          onOk={submitHandler}
-          onCancel={handleCancel}
-        >
-          <Divider orientation="left" orientationMargin="0">
-            제목
-          </Divider>
-          <Input
-            autoComplete="title"
-            name="title"
-            value={title}
-            onChange={titleHandler}
-          />
-          <Divider orientation="left" orientationMargin="0">
-            장애
-          </Divider>
-          <Input
-            autoComplete="detail"
-            name="detail"
-            value={detail}
-            onChange={detailHandler}
-          />
-          <Divider orientation="left" orientationMargin="0">
-            운동설명
-          </Divider>
-          <Input
-            autoComplete="content"
-            name="content"
-            value={content}
-            onChange={contentHandler}
-          />
-          <Divider orientation="left" orientationMargin="0">
-            효과
-          </Divider>
-          <Input
-            autoComplete="effect"
-            name="effect"
-            value={effect}
-            onChange={effectHandler}
-          />
-           <input type="file" onChange={handleFileChange} multiple />
-
-          <ul>
-            {files.map((file, i) => (
-              <li key={i}>
-                {file.name} - {file.type}
-              </li>
-            ))}
-          </ul>
-        </Modal>
       {loading ? (
         "Loading"
       ) : (
@@ -215,7 +143,7 @@ const Curriculum = () => {
             return {
               onClick: (e) => {
                 console.log(id);
-                navigate('/home/curriculum/edit', {
+                navigate('/coach/curriculum/edit', {
                     state: {
                       title: title,
                       detail: detail,
@@ -234,4 +162,4 @@ const Curriculum = () => {
   );
 };
 
-export default Curriculum;
+export default CoachCurriculum;
