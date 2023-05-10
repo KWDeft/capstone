@@ -19,7 +19,6 @@ import Commodity from './domains/Commodity/Commodity.js';
 import Members from './domains/Members/Members.js';
 import MemberInfo from './domains/Members/MemberInfo.js';
 import CoachInfo from './domains/Members/CoachInfo.js';
-import NewCustomer from './domains/Customers/NewCustomer.js';
 import PaymentInfo from './domains/Customers/PaymentInfo.js';
 import ProductDetail from './components/product/Detail.js';
 import FcHome from './pages/FcHome.js';
@@ -33,6 +32,8 @@ import EditPaymentInfo from "./domains/Customers/EditPaymentInfo";
 import CJournalEdit from "./domains/Customers/Journal/CJornalEdit";
 import FcJournalView from "./domains/forCustomers/FcJournalView";
 import FcConsultView from "./domains/forCustomers/FcCousultView";
+import MyComments from "./domains/Comments/MyComments";
+import MCdetail from "./domains/Comments/MCdetail";
 
 import CoachHome from "./pages/CoachHome";
 import CoachCommodity from "./domains/forCoachs/Commodity/CoachCommodity";
@@ -64,7 +65,7 @@ const App = () => {
         <Route path="/home/customers" element={<Customers />} />
         <Route path="/home/customers/info" element={<CustomerInfo />} />
         <Route path="/home/customers/infoedit" element={<CustomerEdit />} />
-        <Route path="/home/customers/new" element={<NewCustomer />} />
+        {/* <Route path="/home/customers/new" element={<NewCustomer />} /> */}
         <Route path="/home/customers/paymentinfo" element={<PaymentInfo />} />
         <Route path="/home/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
         <Route path="/home/journaltable" element={<JournalTable />} />
@@ -92,7 +93,7 @@ const App = () => {
         <Route path="/coach/customers" element={<Customers />} />
         <Route path="/coach/customers/info" element={<CustomerInfo />} />
         <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
-        <Route path="/coach/customers/new" element={<NewCustomer />} />
+        {/* <Route path="/coach/customers/new" element={<NewCustomer />} /> */}
         <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
         <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
         <Route path="/coach/journaltable" element={<JournalTable />} />

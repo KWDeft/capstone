@@ -84,7 +84,11 @@ const PostListPage = () => {
               defaultSelectedKeys={["1"]}
               style={{
                 height: "100%",
+                margintop: "4rem",
+                position: "fixed",
+                width: "13rem",
                 borderRight: 0
+                
               }}
               items={menuItems}
             >

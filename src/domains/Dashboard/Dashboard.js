@@ -44,16 +44,10 @@ const Dashboard = () => {
     return(
       <>
         <Row>
-          <Col
-            xs={{
-              span: 5,
-            }}
-            lg={{
-              span: 6,
-            }}
-          > <body style={{height:"100vh", width:"45vh"}}>
+          <Col xs={{ span: 24 }} sm={{ span:24}} md={{ span:24 }} lg={{ span: 24 }} xl={{span:5}}>
+            <body style={{height:"100vh", width:"36vh"}}>
             <Row>
-              <div className="container1" style={{height:"100vh", width:"45vh"}}>
+              <div className="container1" style={{width:"36vh"}}>
               <h3><PushpinFilled /> {username} 님, 오늘의 일정({today()})</h3>
               <List
                 size="small"
@@ -68,17 +62,12 @@ const Dashboard = () => {
             
           </Col>
           <Col
-            xs={{
-              span: 16,
-            }}
-            lg={{
-              span: 17,
-              offset: 1,
-            }}
+            xs={{ span: 24 }} sm={{ span:24 }} md={{ span:24 }} lg={{ span: 20, }} xl={{ span: 18, offset:1}}
           >
-            <h3><PushpinFilled /> 회원조회</h3>
-            <Customers
-            size="small"/>
+            <div className="read">
+              <h3><PushpinFilled /> 회원조회</h3>
+                <Customers/>                
+            </div>
           </Col>
       </Row>
       </>

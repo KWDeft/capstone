@@ -13,7 +13,7 @@ const HeaderContainer = () => {
     // navigate('/');
     window.location.href="/";
   };
-  return <Header user={user} onLogout={onLogout} />;
+  return <Header user={user} onLogout={onLogout} style={{position: "fixed"}}/>;
 };
 
 export default HeaderContainer;

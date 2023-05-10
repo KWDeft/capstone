@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
 import client from '../../lib/api/client';
-import {Input, Button, Modal} from 'antd';
+import {Input, Button, Modal, Row, Col} from 'antd';
 import {useLocation, useNavigate} from "react-router-dom";
 import {DeleteOutlined} from "@ant-design/icons";
 import { TextField } from "../../../node_modules/@material-ui/core/index";
+import "./Detail.css";
 
 const Detail = () => {
     const location = useLocation();
@@ -93,42 +94,62 @@ const Detail = () => {
 
     return ( 
         <>
-        <h3>{name}</h3>
+        <div className="body">
+        <h2>{name}</h2>
         <div className="comments-wrapper">
             <div className="comments-header">
-               <TextField
-                    className="comments-header-testarea"
-                    onChange={(e) => {
-                        setCount(e.target.value)
-                    }}
-                    placeholder= "횟수"
-                /> 
-                <TextField
-                    className="comments-header-testarea"
-                    onChange={(e) => {
-                        setPrice(e.target.value)
-                    }}
-                    placeholder= "가격"
-                /> 
-                {count !== "" ? (
-                    <Button onClick={submit}>등록하기</Button>
-                ): (
-                    <Button disabled={true}>
-                        등록하기
-                    </Button>
-                )}
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <TextField
+                        className="comments-header-testarea"
+                        onChange={(e) => {
+                            setCount(e.target.value)
+                        }}
+                        placeholder= "횟수"
+                    /> 
+                    </Col>
+                    <Col span={8}>
+                        <TextField
+                        className="comments-header-testarea"
+                        onChange={(e) => {
+                            setPrice(e.target.value)
+                        }}
+                        placeholder= "가격"
+                    /> 
+                    </Col>
+                    <Col span={5}>
+                         {count !== "" ? (
+                        <Button onClick={submit}>등록하기</Button>
+                    ): (
+                        <Button disabled={true}>
+                            등록하기
+                        </Button>
+                    )}
+                    </Col>
+                </Row>
+              
             </div>
             <div className="comments-body">
+                <div className="comments">
                 {detailList.map((item, index) => (
                     <div key={index} className="comments-comment">
-                        <div>{item.count}회</div>
-                        <div>{item.price}원</div>
-                        <div className="comment-delete" onClick={(e) => {DeleteProduct(item.id, e)}}><DeleteOutlined /></div>
+                        <Row>
+                            <Col span={16}>
+                                <div>{item.count}회</div>
+                                <div>{item.price}원</div>
+                            </Col>
+                            <Col span={7}>
+                                <div className="comment-delete" onClick={(e) => {DeleteProduct(item.id, e)}}><DeleteOutlined /></div>
+                            </Col>
+                        </Row>
+                        
                     </div>
                 ))}
-
+                </div>
             </div>
-            <Button onClick={Delete}>삭제</Button>
+            <br/>
+            <Button onClick={Delete}>상품 삭제</Button>
+        </div>
         </div>
         </>
     );
