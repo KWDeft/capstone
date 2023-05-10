@@ -15,6 +15,7 @@ const LoginForm = () => {
     authError: auth.authError,
     user: user.user,
   }));
+  console.log("허ㅓㅓㅇ",auth);
   // 인풋 변경 이벤트 핸들러
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -48,20 +49,49 @@ const LoginForm = () => {
     }
     if (auth) {
       console.log('로그인 성공');
+      console.log('이이이잉',auth);
+      console.log("핫쉬",user);
+      if(auth.role=='coach'){
+        navigate('/coach/dashboard');
+        try {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('auth', JSON.stringify(auth.role));
+
+        } catch (e) {
+          console.log('localStorage is not working');
+        }
+      }
+      if(auth.role=='admin') {
+        navigate('/home/dashboard');
+        try {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('auth', JSON.stringify(auth.role));
+        } catch (e) {
+          console.log('localStorage is not working');
+        }      }
+
+        if(auth.role=='user') {
+          navigate('/fc');
+          try {
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('auth', JSON.stringify(auth.role));
+          } catch (e) {
+            console.log('localStorage is not working');
+          }      }
       dispatch(check());
     }
   }, [auth, authError, dispatch]);
 
-  useEffect(() => {
-    if (user) {
-      navigate('/home/dashboard');
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate('/home/dashboard');
+  //     try {
+  //       localStorage.setItem('user', JSON.stringify(user));
+  //     } catch (e) {
+  //       console.log('localStorage is not working');
+  //     }
+  //   }
+  // }, [navigate, user]);
 
   return (
     <AuthForm

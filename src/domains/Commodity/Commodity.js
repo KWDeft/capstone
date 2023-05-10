@@ -4,8 +4,11 @@ import "./Commodity.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import client from '../../lib/api/client';
+import { useSelector } from 'react-redux';
 
 const Commodity = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -92,10 +95,15 @@ const Commodity = () => {
     ];
 
     const user = localStorage.getItem('user');
-    if (!user) {
+    const auth_ = localStorage.getItem('auth')
+
+  if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-
+  if (auth_!='"admin"'){
+      return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+    // }
+  }
 
   return (
     <>

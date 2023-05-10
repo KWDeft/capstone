@@ -29,10 +29,33 @@ const CustomerInfo = () => {
   const id = location.state.id;
   const navigate = useNavigate();
   const [customer, setCustomer] = useState([]);
+  const [manager, setManager] = useState('');
+  const [loading, setloading] = useState(true);
+  const [coachData,setCoachData] = useState("");
+
+
 
   useEffect(() => {
     getData();
+    getCoachData();
   }, []);
+
+  const getCoachData = async () => {
+    await client.get('/api/member/coach/coachname')
+    .then((res)=>{
+      setloading(false);
+      setCoachData(
+        res.data
+      )
+      console.log(res.data);
+  })}
+  let coachList=[];
+  for (let i=0; i<coachData.length;i++){
+    let op = {};
+    op.value=coachData[i];
+    op.label=coachData[i];
+    coachList.push(op);
+  }
 
   const getData = async () => {
     await client.get(`/api/consumer/info/${id}`).then((d) => {
@@ -120,6 +143,7 @@ const CustomerInfo = () => {
     alert('수정 완료');
     window.location.reload();
   };
+  
 
   return (
     <>
@@ -868,7 +892,7 @@ const CustomerInfo = () => {
                                   <h4>담당자</h4>
                                 </Col>
                                 <Col>
-                                  <InputNumber
+                                  {/* <InputNumber
                                     placeholder="담당자 번호"
                                     size="small"
                                     style={{ width: 120 }}
@@ -876,6 +900,41 @@ const CustomerInfo = () => {
                                     name="manager"
                                     id="manager"
                                     value={customer.manager}
+                                    onChange={(e) => {
+                                      let value = e;
+                                      setCustomer({
+                                        usernum: customer.usernum,
+                                        userheight: customer.userheight,
+                                        userwidth: customer.userwidth,
+                                        sex: customer.sex,
+                                        existence: customer.existence,
+                                        name: customer.name,
+                                        obstacle_type: customer.obstacle_type,
+                                        phone: customer.phone,
+                                        address: customer.address,
+                                        memo: customer.memo,
+                                        manager: value,
+                                        payment: customer.payment,
+                                        inflow: customer.inflow,
+                                        statement: customer.statement,
+                                        date_signup: customer.date_signup,
+                                        birthday: customer.birthday,
+                                        membership: customer.membership,
+                                        user_purpose: customer.user_purpose,
+                                        vaccinate: customer.vaccinate,
+                                        category: customer.category,
+                                      });
+                                    }}
+                                  /> */}
+                                  <Select
+                                    size="small"
+                                    style={{ width: 120 }}
+                                    autoComplete="manager"
+                                    name="manager"
+                                    id="manager"
+                                    value={customer.manager}
+                                    onChange = {handleChange}
+                                    options = {coachList}
                                     onChange={(e) => {
                                       let value = e;
                                       setCustomer({

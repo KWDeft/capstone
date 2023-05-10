@@ -110,6 +110,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               value={form.role}
               onChange={onChange}
               >
+                    <input type="radio" value="user" name="role"/> 회원
                     <input type="radio" value="admin" name="role"/> 관리자
                     <input type="radio" value="coach" name="role"/> 코치
             </div>

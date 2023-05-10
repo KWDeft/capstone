@@ -5,8 +5,11 @@ import PasswordSetting from './PasswordSetting.js';
 import './Setting.css';
 import axios from 'axios';
 import client from '../../lib/api/client';
+import { useSelector } from "react-redux";
 
 const Setting = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -65,9 +68,15 @@ const submitHandler = (e) => {
   };
 
   const user = localStorage.getItem('user');
+  const auth_ = localStorage.getItem('auth')
+  console.log("얘만왜",auth_);
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
+  if(auth_=='"user"'){
+      return <div>관리자 및 코치만 볼 수 있는 페이지입니다.</div>;
+  }
+ 
 
   return (
     <>

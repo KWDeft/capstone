@@ -8,7 +8,7 @@ import Setting from './domains/Setting/Setting';
 import EditCurriDetail from './domains/Curriculum/EditCurriDetail.js';
 import CalendarMain from './domains/Calendar/CalendarMain';
 import CalendarUpdate from './domains/Calendar/CalendarUpdate';
-import NewCalendar from './domains/Calendar/NewCalendar';
+
 import Customers from "./domains/Customers/Customers.js";
 import CustomerInfo from "./domains/Customers/CustomerInfo.js";
 import CustomerEdit from "./domains/Customers/CustomerEdit.js";
@@ -42,15 +42,17 @@ import CoachEditCurriDetail from "./domains/forCoachs/Curriculum/CoachEditCurriD
 import CoachMembers from "./domains/forCoachs/Members/Members";
 import CoachMemberInfo from "./domains/forCoachs/Members/MemberInfo";
 import CoachInfoforCoach from './domains/forCoachs/Members/CoachInfo';
-import CalendarCoach from './domains/Calendar/CalendarCoach';
-
+import CoachCalendar from './domains/forCoachs/Calendar/CoachCalendar';
+import CoachDashboard from './domains/forCoachs/Dashboard/CoachDashboard'
 import WriteMain from './domains/Curriculum/WriteMain';
 
 const App = () => {
   return (
        
     <Routes>
-      <Route path="/" element={<FirstPage />} />
+      {/* <Route path="/" element={<FirstPage />} /> */}
+      <Route path="/" element={<LoginPage />} />
+
       <Route path="/home" element={<Home />} >
         <Route path="/home/login" element={<LoginPage />} />
         <Route path="/home/register" element={<RegisterPage />} />
@@ -59,7 +61,6 @@ const App = () => {
         <Route path="/home/setting" element={<Setting />} />
         <Route path="/home/calendar" element={<CalendarMain />}/>
         <Route path="/home/calendar/update" element={<CalendarUpdate />} />
-        <Route path="/home/calendar/new" element={<NewCalendar />} />
         <Route path="/home/customers" element={<Customers />} />
         <Route path="/home/customers/info" element={<CustomerInfo />} />
         <Route path="/home/customers/infoedit" element={<CustomerEdit />} />
@@ -86,9 +87,8 @@ const App = () => {
         <Route path="/coach/register" element={<RegisterPage />} />
         <Route path="/coach/commodity" element={<CoachCommodity />} />
         <Route path="/coach/commodity/detail" element={<CoachProductDetail/>} />
-        <Route path="/coach/calendar" element={<CalendarMain />}/>
+        <Route path="/coach/calendar" element={<CoachCalendar />}/>
         <Route path="/coach/calendar/update" element={<CalendarUpdate />} />
-        <Route path="/coach/calendar/new" element={<NewCalendar />} />
         <Route path="/coach/customers" element={<Customers />} />
         <Route path="/coach/customers/info" element={<CustomerInfo />} />
         <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
@@ -100,7 +100,7 @@ const App = () => {
         <Route path="/coach/journal" element={<Journal />} />
         <Route path="/coach/journal/edit" element={<JournalEdit/>} />
         <Route path="/coach/journal/counseledit" element={<CJournalEdit />} />
-        <Route path="/coach/dashboard" element={<Dashboard />} />
+        <Route path="/coach/dashboard" element={<CoachDashboard />} />
         <Route path="/coach/curriculum" element={<CoachCurriculum />} />
         <Route path="/coach/curriculum/edit" element={<CoachEditCurriDetail />} />
         <Route path="/coach/members" element={<CoachMembers />} />        

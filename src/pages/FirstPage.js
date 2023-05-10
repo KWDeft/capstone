@@ -6,10 +6,21 @@ function FirstPage() {
   const navigate = useNavigate();
 
   const move = () => {
-    navigate('/home/login');
+    const auth = localStorage.getItem('auth')
+    console.log("이걸..",auth);
+    if(auth == '"coach"' ){
+      navigate('/home/login')
+    }
+    if(auth == '"admin"' ){
+      navigate('/home/login')
+    }
+    if(auth == '"user"' ){
+      alert("관리자 및 코치만 접근 가능");
+    }
   }
 
   const customermove = () => {
+   
     navigate('/fc/login');
   }
   return (

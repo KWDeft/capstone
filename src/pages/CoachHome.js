@@ -30,19 +30,9 @@ const menuItems = [
     icon: <UserOutlined />
   },
   {
-    label: <Link to="/coach/commodity">상품</Link>,
-    key: "상품",
-    icon: <ShoppingOutlined />
-  },
-  {
     label: <Link to="/coach/curriculum">커리큘럼</Link>,
     key: "커리큘럼",
     icon: <ProfileOutlined />
-  },
-  {
-    label: <Link to="/coach/members">구성원</Link>,
-    key: "구성원",
-    icon: <TeamOutlined />,
   },
   {
     label: <Link to="/coach/calendar">일정</Link>,

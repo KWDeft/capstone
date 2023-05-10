@@ -80,6 +80,8 @@ const columns = [
 ];
 
 const Members = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [page, setPage] = useState(1);
@@ -271,7 +273,10 @@ const Members = () => {
   };
   const submitCoach = (e) => {
     if (
-      [coachName, coachPhone, coachUserName, coachPassword, coachnum].includes(
+      // [coachName, coachPhone, coachUserName, coachPassword, coachnum].includes(
+      //   '',
+      // )
+      [coachName, coachPhone].includes(
         '',
       )
     ) {
@@ -283,21 +288,19 @@ const Members = () => {
     let body = {
       name: coachName,
       phone: coachPhone,
-      username: coachUserName,
-      password: coachPassword,
-      coachnum: coachnum,
+      coachnum: coachPhone.substr(7),
     };
 
-    let register = {
-      username: coachUserName,
-      password: coachPassword,
-      role: 'coach',
-    };
+    // let register = {
+    //   username: coachUserName,
+    //   password: coachPassword,
+    //   role: 'coach',
+    // };
 
     client
       .post('/api/member/coach/create', body)
       .then((res) => console.log(res));
-    client.post('/api/auth/register', register).then((res) => console.log(res));
+    // client.post('/api/auth/register', register).then((res) => console.log(res));
     alert('코치 등록 완료');
     window.location.reload();
     setIsModalOpen2(false);
@@ -305,11 +308,31 @@ const Members = () => {
   const handleCancel2 = () => {
     setIsModalOpen2(false);
   };
+  const auth_ = localStorage.getItem('auth')
 
   const user = localStorage.getItem('user');
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
+  if(auth_!='"admin"'){
+    return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+}
+  
+
+    const doubleCheck = async (coachPhone) => {
+      console.log("전번:",coachPhone);
+      await client.post('/api/member/coach/confirm/',{
+        phone:coachPhone,
+      })
+
+      .then((res)=> {
+        console.log("res.data는 : ",res.data);
+        alert(res.data);
+      });
+      
+    };
+    
+                      
 
   return (
     <>
@@ -471,6 +494,17 @@ const Members = () => {
                           onChange={coachPhoneHandler}
                         />
                       </Col>
+                      
+                      <Button
+                          // onClick={doubleCheck}
+                          onClick={
+                            () => {
+                              console.log(coachPhone);
+                              doubleCheck(coachPhone);
+                            }
+                          }
+                          type="primary"
+                        >확인</Button>
                     </Row>
                     <br></br>
                     <Row>
@@ -478,16 +512,18 @@ const Members = () => {
                         <h3>코치 번호</h3>
                       </Col>
                       <Col span={10}>
-                        <Input
+                        {/* <Input
                           autoComplete="coachnumd"
                           name="coachnum"
                           value={coachnum}
                           onChange={coachnumHandler}
-                        />
+                        /> */}
+                        {/* <h2>{coachPhone}</h2> */}
+                        <h2>{(coachPhone.substr(7))}</h2>
                       </Col>
                     </Row>
                   </Col>
-                  <Col span={12}>
+                  {/* <Col span={12}>
                     <br></br>
                     <Row>
                       <Col span={6}>
@@ -517,7 +553,7 @@ const Members = () => {
                       </Col>
                     </Row>
                     <br></br>
-                  </Col>
+                  </Col> */}
                 </Row>
               </>
             </Modal>

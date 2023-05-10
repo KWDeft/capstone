@@ -3,6 +3,7 @@ import { Row, Col, Button, Table, Modal, Input, Tabs } from 'antd';
 import { useNavigate } from 'react-router';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import client from '../../../lib/api/client';
+import { useSelector } from "react-redux";
 
 const onSearch = (value) => console.log(value);
 const { TextArea } = Input;
@@ -75,6 +76,8 @@ const columns = [
 ];
 
 const Members = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [page, setPage] = useState(1);
@@ -300,11 +303,16 @@ const Members = () => {
   const handleCancel2 = () => {
     setIsModalOpen2(false);
   };
+  const auth_ = localStorage.getItem('auth')
 
   const user = localStorage.getItem('user');
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
+  if (auth_!='"coach"'){
+    return <div>코치만 볼 수 있는 페이지입니다.</div>;
+  // }
+}
 
   return (
     <>

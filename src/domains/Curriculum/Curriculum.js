@@ -10,8 +10,11 @@ import {
   Divider,
   Button,
 } from "antd";
+import { useSelector } from 'react-redux';
 
 const Curriculum = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [fileList, setFileList] = useState([]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -136,11 +139,16 @@ const Curriculum = () => {
   ];
 
   const user = localStorage.getItem('user');
-  if (!user) {
-    return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
-  }
+  const auth_ = localStorage.getItem('auth')
 
-  return (
+if (!user) {
+  return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
+}
+if (auth_!='"admin"'){
+    return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+  // }
+}
+  return ( 
     <div>
       <br />
       <Button type="primary" onClick={showModal}>
