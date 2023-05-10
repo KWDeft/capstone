@@ -10,7 +10,8 @@ const FcHeaderContainer = () => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
-    navigate('/fc/login');
+    // navigate('/');
+    window.location.href="/";
   };
   return <FcHeader user={user} onLogout={onLogout} />;
 };

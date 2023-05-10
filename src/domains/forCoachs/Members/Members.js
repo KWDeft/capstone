@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Table, Modal, Input, Tabs } from 'antd';
 import { useNavigate } from 'react-router';
-import './Members.css';
-import NewMember from './NewMember.js';
-import { Link, Outlet } from 'react-router-dom';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
-import client from '../../lib/api/client';
-import user from '../../modules/user';
+import client from '../../../lib/api/client';
 import { useSelector } from "react-redux";
 
 const onSearch = (value) => console.log(value);
@@ -273,10 +269,7 @@ const Members = () => {
   };
   const submitCoach = (e) => {
     if (
-      // [coachName, coachPhone, coachUserName, coachPassword, coachnum].includes(
-      //   '',
-      // )
-      [coachName, coachPhone].includes(
+      [coachName, coachPhone, coachUserName, coachPassword, coachnum].includes(
         '',
       )
     ) {
@@ -288,19 +281,21 @@ const Members = () => {
     let body = {
       name: coachName,
       phone: coachPhone,
-      coachnum: coachPhone.substr(7),
+      username: coachUserName,
+      password: coachPassword,
+      coachnum: coachnum,
     };
 
-    // let register = {
-    //   username: coachUserName,
-    //   password: coachPassword,
-    //   role: 'coach',
-    // };
+    let register = {
+      username: coachUserName,
+      password: coachPassword,
+      role: 'coach',
+    };
 
     client
       .post('/api/member/coach/create', body)
       .then((res) => console.log(res));
-    // client.post('/api/auth/register', register).then((res) => console.log(res));
+    client.post('/api/auth/register', register).then((res) => console.log(res));
     alert('코치 등록 완료');
     window.location.reload();
     setIsModalOpen2(false);
@@ -314,114 +309,15 @@ const Members = () => {
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-  if(auth_!='"admin"'){
-    return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+  if (auth_!='"coach"'){
+    return <div>코치만 볼 수 있는 페이지입니다.</div>;
+  // }
 }
-  
-
-    const doubleCheck = async (coachPhone) => {
-      console.log("전번:",coachPhone);
-      await client.post('/api/member/coach/confirm/',{
-        phone:coachPhone,
-      })
-
-      .then((res)=> {
-        console.log("res.data는 : ",res.data);
-        alert(res.data);
-      });
-      
-    };
-    
-                      
 
   return (
     <>
       <Tabs defaultActiveKey="1" onChange={callback}>
         <TabPane tab="관리자" key="1">
-          <div className="commoDiv1">
-            <Button type="primary" onClick={showModal}>
-              <PlusOutlined />
-              신규 관리자 등록
-            </Button>
-            <Modal
-              title="신규 관리자 등록"
-              open={isModalOpen}
-              onOk={submitAdmin}
-              onCancel={handleCancel}
-              width={1000}
-            >
-              <>
-                <Row>
-                  <Col span={12}>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>이름</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="name"
-                          name="name"
-                          value={name}
-                          onChange={nameHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>전화번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="phone"
-                          name="phone"
-                          value={phone}
-                          onChange={phoneHandler}
-                          placeHolder="'-' 없이 11자리 입력 "
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                  </Col>
-                  <Col span={12}>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>아이디</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="username"
-                          name="username"
-                          value={username}
-                          onChange={usernameHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>비밀번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input.Password
-                          autoComplete="password"
-                          name="password"
-                          value={password}
-                          onChange={passwordHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={13}></Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </>
-            </Modal>
-          </div>
           <br />
           <Table
             columns={columns}
@@ -451,113 +347,6 @@ const Members = () => {
           />
         </TabPane>
         <TabPane tab="코치" key="2">
-          <div className="commoDiv1">
-            <Button type="primary" onClick={showModal2}>
-              <PlusOutlined />
-              신규 코치 등록
-            </Button>
-            <Modal
-              title="신규 코치 등록"
-              open={isModalOpen2}
-              onOk={submitCoach}
-              onCancel={handleCancel2}
-              width={1000}
-            >
-              <>
-                <Row>
-                  <Col span={12}>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>이름</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="coachName"
-                          name="coachName"
-                          value={coachName}
-                          onChange={coachNameHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>전화번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="coachPhone"
-                          name="coachPhone"
-                          placeholder="'-' 없이 11자리 입력 "
-                          value={coachPhone}
-                          onChange={coachPhoneHandler}
-                        />
-                      </Col>
-                      
-                      <Button
-                          // onClick={doubleCheck}
-                          onClick={
-                            () => {
-                              console.log(coachPhone);
-                              doubleCheck(coachPhone);
-                            }
-                          }
-                          type="primary"
-                        >확인</Button>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={4}>
-                        <h3>코치 번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        {/* <Input
-                          autoComplete="coachnumd"
-                          name="coachnum"
-                          value={coachnum}
-                          onChange={coachnumHandler}
-                        /> */}
-                        {/* <h2>{coachPhone}</h2> */}
-                        <h2>{(coachPhone.substr(7))}</h2>
-                      </Col>
-                    </Row>
-                  </Col>
-                  {/* <Col span={12}>
-                    <br></br>
-                    <Row>
-                      <Col span={6}>
-                        <h3>아이디</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="coachUserName"
-                          name="coachUserName"
-                          value={coachUserName}
-                          onChange={coachUserNameHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={6}>
-                        <h3>비밀번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input.Password
-                          autoComplete="coachPassword"
-                          name="coachPassword"
-                          value={coachPassword}
-                          onChange={coachPasswordHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                  </Col> */}
-                </Row>
-              </>
-            </Modal>
-          </div>
           <br />
           <Table
             columns={columns}
@@ -573,7 +362,7 @@ const Members = () => {
               return {
                 onClick: (e) => {
                   console.log(username);
-                  navigate('/home/members/coachinfo', {
+                  navigate('/coach/members/coachinfo', {
                     state: {
                       name: name,
                       phone: phone,

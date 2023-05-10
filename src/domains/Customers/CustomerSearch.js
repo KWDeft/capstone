@@ -700,7 +700,7 @@ const CustomerSearch = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              navigate('/customers/info', {
+              navigate('/home/customers/info', {
                   state: {
                     usernum: usernum,
                     userheight: userheight,

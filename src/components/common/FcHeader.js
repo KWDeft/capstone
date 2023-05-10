@@ -55,11 +55,11 @@ const FcHeader = ({ user, onLogout }) => {
           {user ? (
             <div className="right">
               <UserInfo>{user.username}</UserInfo>
-              <Button onClick={onLogout}>로그아웃</Button>
+              <Button onClick={onLogout}><Link to="/"></Link>로그아웃</Button>
             </div>
           ) : (
             <div className="right">
-              <Button to="/fc/login">로그인</Button>
+              <Button> <Link to='/'>로그인</Link></Button>
             </div>
           )}
         </Wrapper>

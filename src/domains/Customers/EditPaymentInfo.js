@@ -109,7 +109,7 @@ const EditPaymentInfo = () => {
         console.log(res)
         );
         alert("삭제완료");
-        navigate('/customers/paymentinfo', { state : 
+        navigate('/home/customers/paymentinfo', { state : 
                 {usernum: usernum,
                 id: id,
                 sex: sex,
@@ -138,60 +138,7 @@ const EditPaymentInfo = () => {
               <Divider orientation="left" orientationMargin="0">
         <h5>결제금액</h5>
       </Divider>
-      <p>
-        {state.pay_amount} 원
-      </p>
-      <Divider orientation="left" orientationMargin="0">
-        <h5>결제정보</h5>
-      </Divider>
-      <p>
-        {state.pay_method}
-      </p>
-      <Divider orientation="left" orientationMargin="0">
-        <h5>결제일시</h5>
-      </Divider>
-        <p>
-            {state.pay_date}
-        </p>
-          <br></br><br></br><br></br>
-          <Button type="primary" onClick={showModal}>
-            수정
-      </Button>
-      <Modal
-          title="커리큘럼 수정"
-          open={isModalOpen}
-          onOk={submitHandler}
-          onCancel={handleCancel}
-        >
-          <Row gutter={16}>
-                                <Col>
-                                    상품이름
-                                  </Col>
-                                  <Col>
-                                    <Input
-                                      size="small"
-                                      placeholder="상품이름"
-                                      style={{ width: 150 }}
-                                      name="product"
-                                      value={state.product}
-                                      onChange={e => {
-                                        let value = e.target.value;
-                                        setstate({
-                                          pay_amount: state.pay_amount,
-                                          product: value,
-                                          pay_method: state.pay_method,
-                                          pay_date: state.pay_date
-                                        });
-                                      }}
-                                    ></Input>
-                                </Col>
-                                <br></br><br></br>
-                                </Row>
-                                <Row gutter={16}>
-                                <Col>
-                                    결제금액
-                                </Col>
-                                <Col>
+      <Col>
                                       <Input
                                       size="small"
                                       placeholder="숫자만 입력해주세요"
@@ -210,13 +157,10 @@ const EditPaymentInfo = () => {
                                     />{" "}
                                     원
                                 </Col>
-                                </Row>
-                                <br></br>
-                                <Row gutter={16}>
-                                <Col>
-                                  결제정보
-                                  </Col>
-                                  <Col>
+      <Divider orientation="left" orientationMargin="0">
+        <h5>결제정보</h5>
+      </Divider>
+      <Col>
                                     <Input
                                       size="small"
                                       placeholder="결제정보"
@@ -234,13 +178,10 @@ const EditPaymentInfo = () => {
                                       }}
                                     ></Input>
                                 </Col>
-                                </Row>
-                                <br></br>
-                                <Row gutter={16}>
-                                <Col>
-                                    결제일시
-                                  </Col>
-                                  <Col>
+      <Divider orientation="left" orientationMargin="0">
+        <h5>결제일시</h5>
+      </Divider>
+      <Col>
                                     <Input
                                       size="small"
                                       placeholder="YYYY-MM-DD"
@@ -257,12 +198,14 @@ const EditPaymentInfo = () => {
                                         });
                                       }}
                                     ></Input>
-                                </Col>
-                             
-        </Row>
-        </Modal>
+                                </Col>  
+                                <br></br><br></br>    
+        <Button type="primary" onClick={submitHandler}>
+            수정
+        </Button>
         <Button onClick={DeletePayment} id={customerInfo.id} usernum={customerInfo.usernum}>삭제</Button>
        </Card>
+
     </>
   );
 };

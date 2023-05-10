@@ -72,7 +72,7 @@ const JournalEdit = () => {
           console.log(res)
           );
           alert("삭제완료");
-          navigate('/journal', {
+          navigate('/home/journal', {
             state: {
                 usernum: usernum,
             }
@@ -93,131 +93,21 @@ const JournalEdit = () => {
                                 <Text>제목</Text>
                             </Col>
                             <Col span={2}>
-                                <Text strong>{classList.subject}</Text>
-                            </Col>
-                        </Row>
-                        <br></br>
-                        <Row>
-                            <Col span={2}>
-                                <Text>수업 이름</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text strong>{classList.classname}</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text>관리자</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text strong>{classList.manager}</Text>
-                            </Col>
-                        </Row>
-                        <br></br>
-                        <Row>
-                            <Col span={2}>
-                                <Text>운동목적</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text strong>{classList.purpose}</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text>회차</Text>
-                            </Col>
-                            <Col span={3}>
-                                <Text strong>{classList.times}/{classList.times + classList.remains}</Text>
-                            </Col>
-                            </Row>
-                            <br></br>
-                            <Row>
-                            <Col span={2}>
-                                <Text>시작일시</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text strong>{classList.date_class}</Text>
-                            </Col>
-                            <Col span={2}>
-                                <Text>종료일시</Text>
-                            </Col>
-                            <Col span={3}>
-                                <Text strong>{classList.ndate_class}</Text>
-                            </Col>
-                        </Row>
-                        <br></br>
-                        <Row>
-                            <Col span={2}>
-                                <Text>수업 내용</Text>
-                            </Col>
-                            <Col span={11}>
-                            <TextArea
-                                value={classList.contents}
-                                style={{width :550}}
-                                autoSize={{
-                                minRows: 4,
-                                maxRows: 6,
-                                }}
-                            />
-                            </Col>
-                        </Row>
-                        <br></br>
-                        <div className="btn">
-                            <Button type="primary" onClick={showModal}>수정</Button>
-                            <Modal
-                            title="수업일지 수정"
-                            open={isModalOpen}
-                            onOk={editHandler}
-                            onCancel={handleCancel}
-                            width={1000}
-                        >
-                            <>
-                                <br></br>
-                                <h2>수업 일지</h2>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>회차</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <InputNumber
+                            <Input 
                                         size="small" 
-                                        style={{width :100}}
-                                        autoComplete="times"
-                                        name="times"
-                                        id="times"
-                                        value={classList.times}
-                                        onChange={e => {
-                                        let value = e.target.value;
-                                        setClassList({
-                                            times: value,
-                                            remains: classList.remains,
-                                            usernum: classList.usernum,
-                                            classname: classList.classname,
-                                            subject: classList.subject,
-                                            purpose: classList.purpose,
-                                            manager: classList.manager,
-                                            contents: classList.contents,
-                                            date_class: classList.date_class,
-                                            ndate_class: classList.ndate_class,
-                                        });
-                                        }}
-                                            />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Text>남은 수업 횟수</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <InputNumber
-                                        size="small" 
-                                        style={{width :100}}
-                                        autoComplete="remains"
-                                        name="remains"
-                                        id="remains"
-                                        value={classList.remains}
+                                        style={{width :510}} 
+                                        autoComplete="subject"
+                                        name="subject"
+                                        id="subject"
+                                        value={classList.subject}
                                         onChange={e => {
                                         let value = e.target.value;
                                         setClassList({
                                             times: classList.times,
-                                            remains: value,
+                                            remains: classList.remains,
                                             usernum: classList.usernum,
                                             classname: classList.classname,
-                                            subject: classList.subject,
+                                            subject: value,
                                             purpose: classList.purpose,
                                             manager: classList.manager,
                                             contents: classList.contents,
@@ -226,17 +116,17 @@ const JournalEdit = () => {
                                         });
                                         }}
                                         />
-                                    </Col>
-                                </Row>
-                                <br></br>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>수업 이름</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Input 
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col span={2}>
+                                <Text>수업 이름</Text>
+                            </Col>
+                            <Col span={2}>
+                            <Input 
                                         size="small" 
-                                        style={{width :100}}
+                                        style={{width :150}}
                                         autoComplete="classname"
                                         name="classname"
                                         id="classname"
@@ -257,28 +147,52 @@ const JournalEdit = () => {
                                         });
                                         }}
                                         />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Text>운동목적</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                    {/* <Input 
+                            </Col>
+                            <Col span={2}>
+                                <Text>관리자</Text>
+                            </Col>
+                            <Col span={2}>
+                            <Input 
                                         size="small" 
-                                        style={{width :100}}
-                                        name="purpose"
-                                        value={purpose}
-                                        onChange={purposeHandler}
-                                        /> */}
-                                    <Select
+                                        style={{width :150}} 
+                                        autoComplete="manager"
+                                        name="manager"
+                                        id="manager"
+                                        value={classList.manager}
+                                        onChange={e => {
+                                        let value = e.target.value;
+                                        setClassList({
+                                            times: classList.times,
+                                            remains: classList.remains,
+                                            usernum: classList.usernum,
+                                            classname: classList.classname,
+                                            subject: classList.subject,
+                                            purpose: classList.purpose,
+                                            manager: value,
+                                            contents: classList.contents,
+                                            date_class: classList.date_class,
+                                            ndate_class: classList.ndate_class,
+                                        });
+                                        }}
+                                        />
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col span={2}>
+                                <Text>운동목적</Text>
+                            </Col>
+                            <Col span={2}>
+                                <Select
                                         defaultValue="운동목적"
                                         size="small"
-                                        style={{ width: 100 }}
+                                        style={{ width: 150 }}
                                         autoComplete="purpose"
                                         name="purpose"
                                         id="purpose"
                                         value={classList.purpose}
                                         onChange={e => {
-                                        let value = e.target.value;
+                                        let value = e;
                                         setClassList({
                                             times: classList.times,
                                             remains: classList.remains,
@@ -343,43 +257,68 @@ const JournalEdit = () => {
                                         },
                                         ]}
                                     />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Text>관리자</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Input 
+                            </Col>
+                            <Col span={2}>
+                                <Text>회차</Text>
+                            </Col>
+                            <Col span={3}>
+                            <InputNumber
                                         size="small" 
-                                        style={{width :100}} 
-                                        autoComplete="manager"
-                                        name="manager"
-                                        id="manager"
-                                        value={classList.manager}
+                                        style={{width :40}}
+                                        autoComplete="times"
+                                        name="times"
+                                        id="times"
+                                        value={classList.times}
                                         onChange={e => {
                                         let value = e.target.value;
                                         setClassList({
-                                            times: classList.times,
+                                            times: value,
                                             remains: classList.remains,
                                             usernum: classList.usernum,
                                             classname: classList.classname,
                                             subject: classList.subject,
                                             purpose: classList.purpose,
-                                            manager: value,
+                                            manager: classList.manager,
+                                            contents: classList.contents,
+                                            date_class: classList.date_class,
+                                            ndate_class: classList.ndate_class,
+                                        });
+                                        }}
+                                            />
+                                <Text strong> 회 / </Text>
+                                <InputNumber
+                                        size="small" 
+                                        style={{width :40}}
+                                        autoComplete="remains"
+                                        name="remains"
+                                        id="remains"
+                                        value={classList.remains}
+                                        onChange={e => {
+                                        let value = e.target.value;
+                                        setClassList({
+                                            times: classList.times,
+                                            remains: value,
+                                            usernum: classList.usernum,
+                                            classname: classList.classname,
+                                            subject: classList.subject,
+                                            purpose: classList.purpose,
+                                            manager: classList.manager,
                                             contents: classList.contents,
                                             date_class: classList.date_class,
                                             ndate_class: classList.ndate_class,
                                         });
                                         }}
                                         />
-                                    </Col>
-                                </Row>
-                                <br></br>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>시작일시</Text>
-                                    </Col>
-                                    <Col span={5}>
-                                        <Input size="small" 
+                                        <Text strong> 회</Text>
+                            </Col>
+                            </Row>
+                            <br></br>
+                            <Row>
+                            <Col span={2}>
+                                <Text>시작일시</Text>
+                            </Col>
+                            <Col span={2}>
+                            <Input size="small" 
                                         style={{width :150}} 
                                         placeholder="YYYY-MM-DD hh-mm"
                                         autoComplete="date_class"
@@ -402,12 +341,12 @@ const JournalEdit = () => {
                                         });
                                         }}
                                         />
-                                    </Col>
-                                    <Col span={2}>
-                                        <Text>종료일시</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Input size="small" 
+                            </Col>
+                            <Col span={2}>
+                                <Text>종료일시</Text>
+                            </Col>
+                            <Col span={3}>
+                            <Input size="small" 
                                         style={{width :150}} 
                                         placeholder="YYYY-MM-DD hh-mm"
                                         autoComplete="ndate_class"
@@ -430,48 +369,16 @@ const JournalEdit = () => {
                                         });
                                         }}
                                         />
-                                    </Col>
-                                    
-                                </Row>
-                                <br></br>
-                                <Row>
-                                    <Col span={2}>
-                                        <Text>제목</Text>
-                                    </Col>
-                                    <Col span={3}>
-                                        <Input 
-                                        size="small" 
-                                        style={{width :415}} 
-                                        autoComplete="subject"
-                                        name="subject"
-                                        id="subject"
-                                        value={classList.subject}
-                                        onChange={e => {
-                                        let value = e.target.value;
-                                        setClassList({
-                                            times: classList.times,
-                                            remains: classList.remains,
-                                            usernum: classList.usernum,
-                                            classname: classList.classname,
-                                            subject: value,
-                                            purpose: classList.purpose,
-                                            manager: classList.manager,
-                                            contents: classList.contents,
-                                            date_class: classList.date_class,
-                                            ndate_class: classList.ndate_class,
-                                        });
-                                        }}
-                                        />
-                                    </Col>
-                                </Row>
-                                <br></br>
-                                <Row>
-                                <Col span={2}>
-                                        <Text>수업 내용</Text>
-                                    </Col>
-                                    <Col span={11}>
-                                    <TextArea
-                                        style={{width :550}}
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col span={2}>
+                                <Text>수업 내용</Text>
+                            </Col>
+                            <Col span={11}>
+                            <TextArea
+                                        style={{width :510}}
                                         autoSize={{
                                         minRows: 4,
                                         maxRows: 6,
@@ -496,10 +403,11 @@ const JournalEdit = () => {
                                         });
                                         }}
                                     />
-                                    </Col>
-                                </Row>
-                            </>
-                        </Modal>
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <div className="btn">
+                            <Button type="primary" onClick={editHandler}>수정</Button>
                             <Button type="primary" danger onClick={DeleteClass}>삭제</Button>
                         </div>
            

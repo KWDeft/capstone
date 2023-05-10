@@ -29,10 +29,33 @@ const CustomerInfo = () => {
   const id = location.state.id;
   const navigate = useNavigate();
   const [customer, setCustomer] = useState([]);
+  const [manager, setManager] = useState('');
+  const [loading, setloading] = useState(true);
+  const [coachData,setCoachData] = useState("");
+
+
 
   useEffect(() => {
     getData();
+    getCoachData();
   }, []);
+
+  const getCoachData = async () => {
+    await client.get('/api/member/coach/coachname')
+    .then((res)=>{
+      setloading(false);
+      setCoachData(
+        res.data
+      )
+      console.log(res.data);
+  })}
+  let coachList=[];
+  for (let i=0; i<coachData.length;i++){
+    let op = {};
+    op.value=coachData[i];
+    op.label=coachData[i];
+    coachList.push(op);
+  }
 
   const getData = async () => {
     await client.get(`/api/consumer/info/${id}`).then((d) => {
@@ -74,14 +97,14 @@ const CustomerInfo = () => {
           .delete(`/api/consumer/info/${id}`)
           .then((res) => console.log(res));
         alert('삭제완료');
-        navigate('/customers');
+        navigate('/home/customers');
       },
     });
   };
 
   // id, 이름, 성별, 전화번호, 생년월일, 주소, 장애유형, 유입경로, 운동목적 전달
   const move = () => {
-    navigate('/customers/paymentinfo', {
+    navigate('/home/customers/paymentinfo', {
       state: {
         id: customer.id,
         usernum: customer.usernum,
@@ -98,7 +121,7 @@ const CustomerInfo = () => {
   };
 
   const note = () => {
-    navigate('/journal', {
+    navigate('/home/journal', {
       state: {
         usernum: customer.usernum,
       },
@@ -120,6 +143,7 @@ const CustomerInfo = () => {
     alert('수정 완료');
     window.location.reload();
   };
+  
 
   return (
     <>
@@ -160,7 +184,7 @@ const CustomerInfo = () => {
                 </Col>
               </div>
 
-              <div className="Col2">
+              {/* <div className="Col2">
                 <Col>
                   <Row gutter={16}>
                     <Col>
@@ -244,10 +268,10 @@ const CustomerInfo = () => {
                   </Row>
                   <br></br>
                 </Col>
-              </div>
+              </div> */}
               <div className="Col3">
                 <Col>
-                  <Row gutter={16}>
+                  {/* <Row gutter={16}>
                     <Col>
                       <h4>유형</h4>
                     </Col>
@@ -320,33 +344,11 @@ const CustomerInfo = () => {
                       <h4>{customer.address}</h4>
                     </Col>
                   </Row>
-                  <br></br>
+                  <br></br> */}
                   <br></br>
                   <div className="btns">
-                    <Button type="primary" onClick={showModal}>
-                      수정
-                    </Button>
-                    <Modal
-                      title="회원 정보 수정"
-                      open={isModalOpen}
-                      onOk={editHandler}
-                      onCancel={handleCancel}
-                      width={1000}
-                    >
                       <div className="Div">
                         <Row gutter={[32, 16]}>
-                          <div className="Col1">
-                            <Col>
-                              <Image
-                                width={150}
-                                height={150}
-                                src="https://pbs.twimg.com/profile_images/1459562606956793856/rMEpug4T_400x400.jpg"
-                              />
-                              <br></br>
-                              <br></br>
-                            </Col>
-                          </div>
-
                           <div className="Col2">
                             <Col>
                               <Row gutter={16}>
@@ -890,7 +892,7 @@ const CustomerInfo = () => {
                                   <h4>담당자</h4>
                                 </Col>
                                 <Col>
-                                  <InputNumber
+                                  {/* <InputNumber
                                     placeholder="담당자 번호"
                                     size="small"
                                     style={{ width: 120 }}
@@ -898,6 +900,41 @@ const CustomerInfo = () => {
                                     name="manager"
                                     id="manager"
                                     value={customer.manager}
+                                    onChange={(e) => {
+                                      let value = e;
+                                      setCustomer({
+                                        usernum: customer.usernum,
+                                        userheight: customer.userheight,
+                                        userwidth: customer.userwidth,
+                                        sex: customer.sex,
+                                        existence: customer.existence,
+                                        name: customer.name,
+                                        obstacle_type: customer.obstacle_type,
+                                        phone: customer.phone,
+                                        address: customer.address,
+                                        memo: customer.memo,
+                                        manager: value,
+                                        payment: customer.payment,
+                                        inflow: customer.inflow,
+                                        statement: customer.statement,
+                                        date_signup: customer.date_signup,
+                                        birthday: customer.birthday,
+                                        membership: customer.membership,
+                                        user_purpose: customer.user_purpose,
+                                        vaccinate: customer.vaccinate,
+                                        category: customer.category,
+                                      });
+                                    }}
+                                  /> */}
+                                  <Select
+                                    size="small"
+                                    style={{ width: 120 }}
+                                    autoComplete="manager"
+                                    name="manager"
+                                    id="manager"
+                                    value={customer.manager}
+                                    onChange = {handleChange}
+                                    options = {coachList}
                                     onChange={(e) => {
                                       let value = e;
                                       setCustomer({
@@ -1198,18 +1235,27 @@ const CustomerInfo = () => {
                           </div>
                         </Row>
                       </div>
-                    </Modal>
-                    <Button type="primary" danger onClick={deleteInfo}>
-                      삭제
-                    </Button>
                   </div>
                 </Col>
               </div>
             </Row>
           </div>
         </Col>
-        <Col span={4}></Col>
       </Row>
+      <Row>
+        <Col span={4}></Col>
+        <Col span={4}></Col>
+        <Col span={4}></Col>
+        <Col span={4}>
+        <Button type="primary" onClick={editHandler}>
+                          수정
+                          </Button>
+                        {/* </Modal> */}
+                        <Button type="primary" danger onClick={deleteInfo}>
+                          삭제
+                        </Button>
+        </Col>
+        </Row>
     </>
   );
 };

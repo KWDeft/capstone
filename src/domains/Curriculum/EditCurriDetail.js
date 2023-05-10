@@ -2,10 +2,12 @@ import { useLocation} from 'react-router-dom';
 import {  useSelector  } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import client from '../../lib/api/client';
-import {Button, Modal, Divider, Input, Card} from 'antd';
+import {Button, Modal, Divider, Input, Card, Col} from 'antd';
 import {useNavigate} from 'react-router-dom';
 import Comments from '../../components/comment/Comment.js';
  
+const { TextArea } = Input;
+
 const EditCurriDetail = () => {
 
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const EditCurriDetail = () => {
   const [detail, SetDetail] = useState("");
   const [content, SetContent] = useState("");
   const [effect, SetEffect] = useState("");
+  
 
   const location = useLocation();
   console.log('state', location.state);
@@ -59,7 +62,7 @@ const EditCurriDetail = () => {
         console.log(res)
         );
         alert("삭제완료");
-        navigate('/curriculum')
+        navigate('/home/curriculum')
       },
     });
   };
@@ -107,62 +110,37 @@ const EditCurriDetail = () => {
   return (
     <>
           <Card
-              title={stateCust.title}
               bordered={false}
               // style={{
               //   width: 300,
               // }}
             >
+                <Divider orientation="left" orientationMargin="0">
+                 <h5>제목</h5>
+               </Divider>
+               <Col span={4}>
+               <Input
+                  autoComplete="title"
+                  name="title"
+                  id="title"
+                  value={stateCust.title}
+                  onChange={e => {
+                    let value = e.target.value;
+                    setstateCust({
+                      title: value,
+                      detail: stateCust.detail,
+                      content: stateCust.content,
+                      effect: stateCust.effect,
+                    });
+                  }}
+                />
+                
+               </Col>
               <Divider orientation="left" orientationMargin="0">
         <h5>장애</h5>
       </Divider>
-      <p>
-        {stateCust.detail}
-      </p>
-      <Divider orientation="left" orientationMargin="0">
-        <h5>운동설명</h5>
-      </Divider>
-      <p>
-        {stateCust.content}
-      </p>
-      <Divider orientation="left" orientationMargin="0">
-        <h5>효과</h5>
-      </Divider>
-      <p>
-        {stateCust.effect}
-      </p>
-          <br></br><br></br><br></br>
-          <Button type="primary" onClick={showModal}>
-            수정
-      </Button>
-      <Modal
-          title="커리큘럼 수정"
-          open={isModalOpen}
-          onOk={submitHandler}
-          onCancel={handleCancel}
-        >
-          <Divider orientation="left" orientationMargin="0">
-            제목
-          </Divider>
-          <Input
-            autoComplete="title"
-            name="title"
-            id="title"
-            value={stateCust.title}
-            onChange={e => {
-              let value = e.target.value;
-              setstateCust({
-                title: value,
-                detail: stateCust.detail,
-                content: stateCust.content,
-                effect: stateCust.effect,
-              });
-            }}
-          />
-          <Divider orientation="left" orientationMargin="0">
-            장애
-          </Divider>
-          <Input
+      <Col span={4}>
+      <Input
             autoComplete="detail"
             name="detail"
             value={stateCust.detail}
@@ -176,10 +154,12 @@ const EditCurriDetail = () => {
               });
             }}
           />
-          <Divider orientation="left" orientationMargin="0">
-            운동설명
-          </Divider>
-          <Input
+          </Col>
+      <Divider orientation="left" orientationMargin="0">
+        <h5>운동설명</h5>
+      </Divider>
+      <TextArea
+            style={{height :500}}
             autoComplete="content"
             name="content"
             value={stateCust.content}
@@ -193,10 +173,10 @@ const EditCurriDetail = () => {
               });
             }}
           />
-          <Divider orientation="left" orientationMargin="0">
-            효과
-          </Divider>
-          <Input
+      <Divider orientation="left" orientationMargin="0">
+        <h5>효과</h5>
+      </Divider> 
+      <TextArea
             autoComplete="effect"
             name="effect"
             value={stateCust.effect}
@@ -210,8 +190,11 @@ const EditCurriDetail = () => {
               });
             }}
           />
-        </Modal>
+          <br></br><br></br><br></br>
         <Button onClick={DeleteCurriculum}>삭제</Button>
+        <Button type="primary" onClick={submitHandler}>
+            수정
+        </Button>
             </Card>
         <Comments
             id = {id}

@@ -110,6 +110,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               value={form.role}
               onChange={onChange}
               >
+                    <input type="radio" value="user" name="role"/> 회원
                     <input type="radio" value="admin" name="role"/> 관리자
                     <input type="radio" value="coach" name="role"/> 코치
             </div>
@@ -122,9 +123,9 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">회원가입</Link>
+          <Link to="/home/register">회원가입</Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/">로그인</Link>
         )}
       </Footer>
     </AuthFormBlock>

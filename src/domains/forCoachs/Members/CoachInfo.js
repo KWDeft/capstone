@@ -1,10 +1,10 @@
 import {  Row, Col, Button, Typography, Input, Modal, InputNumber } from "antd";
 import React, {useState, useEffect} from "react";
-import Client from "./Client.js";
+import Client from "./CoachClient.js";
 import './MemberInfo.css';
 import {useNavigate} from 'react-router';
 import {useLocation} from 'react-router-dom';
-import client from '../../lib/api/client';
+import client from '../../../lib/api/client';
 
 const {Text} = Typography;
 const {TextArea} = Input;
@@ -41,38 +41,6 @@ const CoachInfo = () => {
         );
       };
 
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const showModal = () => {
-        setIsModalOpen(true);
-      };
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
-
-      const Delete = (e) => {
-        Modal.confirm({
-            title: "정말로 삭제하시겠습니까?",
-            okText: "Yes",
-            okType: "danger",
-            onOk: () => {
-              client.delete(`/api/member/coach/${id}`).then((res) => 
-              console.log(res)
-              );
-              alert("삭제완료");
-              navigate('/home/members'); 
-            },
-          });
-    };
-
-    const editHandler = (e) => {
-        client
-            .patch(`/api/member/coach/${id}`, coachList)
-            .then((res) =>
-                console.log(res)
-            );
-            alert("수정 완료");
-            window.location.reload();
-       };    
 
         return( 
         <>

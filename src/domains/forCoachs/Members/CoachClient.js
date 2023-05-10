@@ -3,12 +3,12 @@ import React,{useState, useEffect} from "react";
 // import CustomerSearch from "../CustomerSearch";
 import './MemberInfo.css';
 import {useLocation} from 'react-router-dom';
-import client from '../../lib/api/client';
+import client from '../../../lib/api/client';
 import {useNavigate} from 'react-router';
 
 
 
-const Client = (props) => {
+const CoachClient = (props) => {
 
         // const data = [
     //     '김수정(302)',
@@ -47,7 +47,7 @@ const Client = (props) => {
     console.log(data);
 
     const move = () => {
-        navigate('/home/customers/info', {
+        navigate('/coach/customers/info', {
             state: {
                 id: data[0].id
             }
@@ -73,15 +73,8 @@ const Client = (props) => {
                 </Row>
             </div>
             <div style={{height: 150}}></div>
-            <div className="customerSearch">
-                 {visible && <>
-                    {/* <CustomerSearch /> */}
-                    <Button type="primary">담당회원 추가하기</Button>
-                 </>}
-            </div>
-           
         </>
     )
 };
 
-export default Client;
+export default CoachClient;

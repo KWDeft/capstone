@@ -35,7 +35,6 @@ const id = location.state.id;
 
 const [stateCust, setstateCust] = useState({});
 const [stateinfo, setstateinfo] = useState({});
-const [stateCoach, setstateCoach] = useState({});
 
 
 
@@ -87,15 +86,7 @@ const beforeupdate = stateCust.date;
     })
 
 
-    client.get(`/api/member/coach/coachnum/${manNum}`)
-    .then(d => {
-      let managerdata = d.data;
-      setstateCoach({
-        coachname : managerdata.name,
-
-        
-      });
-    })
+    
 
 
 console.log("스케줄", stateCust);
@@ -125,7 +116,7 @@ console.log("스케줄", stateCust);
             .delete(`/api/schedule/admin/${id}`)
             .then((res) => console.log(res));
           alert('삭제완료');
-          navigate('/calendar');
+          navigate('/home/calendar');
         },
       });
     };
@@ -174,10 +165,10 @@ console.log("스케줄", stateCust);
                   </Row>
                   <Row gutter={20}>
                     <Col>
-                      <h3>담당자</h3>
+                      <h3>코치</h3>
                     </Col>
                     <Col>
-                      <h4>{stateCoach.coachname}</h4>
+                      <h4>{stateCust.manager}</h4>
                     </Col>
                   </Row>
                 </Space>
@@ -195,7 +186,7 @@ console.log("스케줄", stateCust);
                 date : stateCust.date,
                 name : stateCust.name,
                 phone : stateinfo.phone,
-                coachname : stateCoach.name,
+                coachname : stateCust.manager,
                 obstacle_type : stateinfo.obstacle_type,
                 startHour : stateCust.startHour,
                 startMinute : stateCust.startMinute,
@@ -231,7 +222,7 @@ console.log("스케줄", stateCust);
                       name : stateCust.name,
                       date : value,
                       phone : stateinfo.phone,
-                      coachname : stateCoach.name,
+                      coachname : stateCust.manager,
                       obstacle_type : stateinfo.obstacle_type,
                       startHour : stateCust.startHour,
                       startMinute : stateCust.startMinute,
@@ -363,7 +354,7 @@ console.log("스케줄", stateCust);
                       date : stateCust.date,
                       name : stateCust.name,
                       phone : stateinfo.phone,
-                      coachname : stateCoach.name,
+                      coachname : stateCust.manager,
                       obstacle_type : stateinfo.obstacle_type,
                       startHour : value,
                       startMinute : stateCust.startMinute,
@@ -416,7 +407,7 @@ console.log("스케줄", stateCust);
                       date : stateCust.date,
                       name : stateCust.name,
                       phone : stateinfo.phone,
-                      coachname : stateCoach.name,
+                      coachname : stateCust.manager,
                       obstacle_type : stateinfo.obstacle_type,
                       startHour : stateCust.startHour,
                       startMinute : value,
@@ -543,7 +534,7 @@ console.log("스케줄", stateCust);
                       date : stateCust.date,
                       name : stateCust.name,
                       phone : stateinfo.phone,
-                      coachname : stateCoach.name,
+                      coachname : stateCust.manager,
                       obstacle_type : stateinfo.obstacle_type,
                       startHour : stateCust.startHour,
                       startMinute : stateCust.startMinute,
@@ -596,7 +587,7 @@ console.log("스케줄", stateCust);
                       name : stateCust.name,
                       date : stateCust.date,
                       phone : stateinfo.phone,
-                      coachname : stateCoach.name,
+                      coachname : stateCust.manager,
                       obstacle_type : stateinfo.obstacle_type,
                       startHour : stateCust.startHour,
                       startMinute : stateCust.startMinute,
@@ -621,7 +612,7 @@ console.log("스케줄", stateCust);
                   name : stateCust.name,
                   date : stateCust.date,
                   phone : stateinfo.phone,
-                  coachname : stateCoach.name,
+                  coachname : stateCust.manager,
                   obstacle_type : stateinfo.obstacle_type,
                   startHour : stateCust.startHour,
                   startMinute : stateCust.startMinute,

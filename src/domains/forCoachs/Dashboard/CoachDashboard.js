@@ -1,8 +1,8 @@
 import {  Row, Col, DatePicker, List } from "antd";
 import React, {useEffect} from "react";
-import "./Dashboard.css";
+import "./CoachDashboard.css";
 import {  PushpinFilled } from "@ant-design/icons";
-import Customers from "../Customers/Customers";
+import Customers from "../../Customers/Customers";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
@@ -10,15 +10,24 @@ import { useNavigate } from "react-router";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useSelector(({ user }) => ({ user: user.user }));
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
+  // const prasedRole = JSON.prase(role);
+  console.log("유저",user);
+  
+  // console.log("권한",prasedRole);
+  console.log("졸려",auth);
+
   const auth_ = localStorage.getItem('auth')
 
-// console.log("이건진짜",auth.role);
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-  if(auth_!='"admin"'){
-    return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+  if (auth_!='"coach"'){
+    return <div>코치만 볼 수 있는 페이지입니다.</div>;
+  // }
 }
+
   const username = user.username;
     
     // 오늘 날짜 

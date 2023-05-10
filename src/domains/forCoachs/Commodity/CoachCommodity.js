@@ -3,10 +3,10 @@ import { Button, Table, Modal, Input, Form, Space } from "antd";
 import "./Commodity.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import client from '../../lib/api/client';
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import client from '../../../lib/api/client';
 
-const Commodity = () => {
+const CoachCommodity = () => {
   const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -96,55 +96,18 @@ const Commodity = () => {
 
     const user = localStorage.getItem('user');
     const auth_ = localStorage.getItem('auth')
-
-  if (!user) {
+    if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-  if (auth_!='"admin"'){
-      return <div>관리자만 볼 수 있는 페이지입니다.</div>;
-    // }
-  }
+  if (auth_!='"coach"'){
+    return <div>코치만 볼 수 있는 페이지입니다.</div>;
+  // }
+}
+
+
 
   return (
     <>
-      <div className="commoDiv1">
-        <Button type="primary" onClick={showModal}>
-          <PlusOutlined />
-          신규 상품 등록
-        </Button>
-        <Modal
-          title="신규 상품 등록"
-          open={isModalOpen}
-          onOk={submitHandler}
-          onCancel={handleCancel}
-          width={1000}
-        >
-          <div className="Div1">
-      <Form
-        {...formItemLayout}
-        layout={formLayout}
-        form={form}
-        initialValues={{
-          layout: formLayout
-        }}
-        style={{
-          resize: "none",
-          width: 800
-        }}
-      >
-        <Form.Item label="상품 이름">
-          <Input
-            placeholder="상품 이름을 입력해 주세요."
-            autoComplete="name"
-            name="name"
-            value={name}
-            onChange={nameHandler}
-            />
-        </Form.Item>
-      </Form>
-      </div>
-        </Modal>
-      </div>
       <br />
       <Table 
         columns={columns} 
@@ -156,7 +119,7 @@ const Commodity = () => {
             onClick: (e) => {
               console.log(id);
               console.log(name);
-              navigate('/home/commodity/detail', {
+              navigate('/coach/commodity/detail', {
                   state: {
                     name: name,
                     id: id
@@ -171,4 +134,4 @@ const Commodity = () => {
   );
 };
 
-export default Commodity;
+export default CoachCommodity;

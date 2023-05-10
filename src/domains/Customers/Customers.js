@@ -12,6 +12,8 @@ import {
   Radio,
   Checkbox,
 } from 'antd';
+import { useSelector } from "react-redux";
+
 import React, { useState, useEffect } from 'react';
 import NewCustomer from './NewCustomer.js';
 import client from '../../lib/api/client';
@@ -477,11 +479,16 @@ const options = [
 ];
 
 const Customers = () => {
+  const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { Search } = Input;
   const onSearch = (value: string) => console.log(value);
   const [customers, setCustomers] = useState([]);
+  const [coachs, setCoachs] = useState([]);
+
+  
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setloading] = useState(true);
@@ -506,7 +513,7 @@ const Customers = () => {
   const [user_purpose, setUser_purpose] = useState('');
   const [vaccinate, setVaccinate] = useState('');
   const [category, setCategory] = useState('');
-
+  const [coachData,setCoachData] = useState("");
   const categoryHandler = (e) => {
     setCategory(e);
   };
@@ -547,8 +554,10 @@ const Customers = () => {
     setMemo(e.target.value);
   };
   const managerHandler = (e) => {
+    console.log(`selected ${e}`);
     setManager(e);
   };
+  console.log("선택한 코치 : ",manager);
   const paymentHandler = (e) => {
     setPayment(e);
   };
@@ -629,6 +638,7 @@ const Customers = () => {
 
   useEffect(() => {
     getData();
+    getCoachData();
   }, []);
 
   const getData = async () => {
@@ -662,6 +672,26 @@ const Customers = () => {
     });
   };
 
+  const getCoachData = async () => {
+    await client.get('/api/member/coach/coachname')
+    .then((res)=>{
+      setloading(false);
+      setCoachData(
+        res.data
+      )
+      console.log(res.data);
+  })}
+  let coachList=[];
+  for (let i=0; i<coachData.length;i++){
+    let op = {};
+    op.value=coachData[i];
+    op.label=coachData[i];
+    coachList.push(op);
+  }
+  
+  // console.log("출ㄹㄱ해라",coachList);
+  
+
   const [isModal2Open, setIsModal2Open] = useState(false);
   const showNMModal = () => {
     setIsModal2Open(true);
@@ -684,9 +714,13 @@ const Customers = () => {
   };
 
   const user = localStorage.getItem('user');
+  const auth_ = localStorage.getItem('auth')
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
+  if(auth_=='"user"'){
+    return <div>관리자 및 코치만 볼 수 있는 페이지입니다.</div>;
+}
 
 
   return (
@@ -824,14 +858,17 @@ const Customers = () => {
                     <h4>담당자</h4>
                   </Col>
                   <Col>
-                    <InputNumber
-                      placeholder="담당자 번호"
-                      size="small"
-                      style={{ width: 150 }}
-                      name="manager"
-                      value={manager}
-                      onChange={managerHandler}
+                    
+                    <Select
+                    name="manager"
+                    showSearch
+                    placeholder="담당자"
+                    onChange = {managerHandler}
+                    options = {coachList}
                     />
+                
+                    
+                    
                   </Col>
                 </Row>
                 <br></br>
@@ -903,7 +940,7 @@ const Customers = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              navigate('/customers/info', {
+              navigate('/home/customers/info', {
                 state: {
                   usernum: usernum,
                   sex: sex,

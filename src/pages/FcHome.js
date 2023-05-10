@@ -1,5 +1,4 @@
 import React from "react";
-import "./FcHome.css";
 import {
   HomeOutlined,
   UserOutlined,

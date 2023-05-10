@@ -1,11 +1,11 @@
 
 import { Badge, Calendar, Radio,Button, Modal,Table, Input, Divider,Select  } from "antd";
+import { useSelector } from 'react-redux';
 
 import React, { useState, useEffect,  } from "react";
 // import "./CalendarMain.css";
 import {useNavigate} from 'react-router';
 import { PlusOutlined } from "@ant-design/icons";
-import NewCalendar from "./NewCalendar.js";
 import client from '../../lib/api/client';
 import { startLoading } from "../../modules/loading";
 import dayjs from 'dayjs';
@@ -31,6 +31,8 @@ import moment from "moment";
 
 
   const CalendarMain = () => {
+    const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+
     
     const [size, setSize] = useState("large");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,6 +48,9 @@ import moment from "moment";
     const [pageSize, setPageSize] = useState(10);
     const navigate = useNavigate();
     const [customers, setCustomers] = useState([{ }]);
+  const [consumer, setConsumer] = useState('');
+
+    
     for (let i=0; i < customers.length; i++){
       customers[i].key = i;
     }
@@ -58,6 +63,7 @@ import moment from "moment";
     const [state, setstate] = useState([]);
     const [managerfilter, setmanagerfilter] = useState([]);
     const [loading, setloading] = useState(true);
+    const [coachData,setCoachData] = useState("");
 
     const columns = [
       {
@@ -479,12 +485,29 @@ import moment from "moment";
     ];
     
 
-    const manager = "박코치";
+    // const manager = "박코치";
     useEffect(() => {
       getData();
       getManagerData();
       getCustomData();
+      getCoachData();
     }, []);
+    const getCoachData = async () => {
+      await client.get('/api/member/coach/coachname')
+      .then((res)=>{
+        setloading(false);
+        setCoachData(
+          res.data
+        )
+        console.log(res.data);
+    })}
+    let coachList=[];
+    for (let i=0; i<coachData.length;i++){
+      let op = {};
+      op.value=coachData[i];
+      op.label=coachData[i];
+      coachList.push(op);
+    }
     
     const showModal = () => {
       setIsModalOpen(true);
@@ -495,14 +518,18 @@ import moment from "moment";
     const handleCancel = () => {
       setIsModalOpen(false);
     };
-  
+    const [Selected, setSelected] = useState("");
+    const handleChange = (e) => {
+      SetManagerData(e);
+    };
   
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows,
         'usernum: ', selectedRows[0].usernum);
         SetUsernum(selectedRows[0].usernum);
-
+        console.log("이건데 선택한 회원의 코치", selectedRows[0].manager)
+        SetManagerData(selectedRows[0].manager);
       },
       getCheckboxProps: (record) => ({
         disabled: record.name === 'Disabled User',
@@ -539,7 +566,11 @@ import moment from "moment";
         SetDate(e);
     }
     
-    
+    const consumerHandler = (e) => {
+      console.log(`selected ${e}`);
+      setConsumer(e);
+    };
+    console.log("선택한 회원 : ", consumer);
 
     const startHourHandler = (e) =>{
       console.log("시작시간 : ", e);
@@ -628,18 +659,12 @@ import moment from "moment";
 
 
       const managerHandler = async (e) => {
+        if (e=="전체"){
+          getData();
+        }
+        
         console.log("코치 : ", e);   
-          SetmanagerSchedule(e);
-          console.log("제발", managerData);
-          for(let i=0;i<managerData.length;i++){
-            if(managerData[i].managername == e){
-              e = managerData[i].manager;
-            }
-          }
-          console.log("코치 고유번호", e);
-          if (e == "전체"){
-            getData();
-          }
+        SetmanagerSchedule(e);          
 
           await client.get(`/api/schedule/admin/manager/${e}`).then(
             res => {
@@ -673,13 +698,14 @@ import moment from "moment";
         let body = {
           usernum: usernum,
           date: date,
+          manager: managerData,
           startHour: startHour,
           startMinute: startMinute,
           endHour: endHour,
           endMinute: endMinute,
           memo: memo,
         };
-        console.log(body);
+        console.log("입력한정보",body);
         client
           .post("/api/schedule/admin", body)
           .then((res) => 
@@ -728,10 +754,16 @@ import moment from "moment";
     };
 
     const user = localStorage.getItem('user');
+    const auth_ = localStorage.getItem('auth')
+
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-
+  if (auth_!='"admin"'){
+      return <div>관리자만 볼 수 있는 페이지입니다.</div>;
+    // }
+  }
+  
     return (
       <div>
         <>
@@ -757,8 +789,7 @@ import moment from "moment";
           }}
           value={selectionType}
         >
-          {/* <Radio value="checkbox">Checkbox</Radio>
-          <Radio value="radio">radio</Radio> */}
+          
 </Radio.Group>
 
 
@@ -796,6 +827,7 @@ import moment from "moment";
            
             
           }}
+          onChange = {consumerHandler}
         />
         
 </Col>
@@ -1107,7 +1139,25 @@ import moment from "moment";
         },
       ]}
     />
+    <div>
+      {" "}
+      <br></br>{" "}
+    </div>
+
+    <h3>코치</h3>
+    <Select
+      size="small"
+      style={{ width: 120 }}
+      onChange = {handleChange}
+      showSearch
+      name="manager"
+      id="manager"
+      value={managerData}
+      options = {coachList}
+     />
+
     </Col>
+
   <Col>
   <Title level={4}>기타 메모</Title>
   <TextArea  rows={10} placeholder="메모를 작성하세요."
@@ -1161,7 +1211,7 @@ showCount/>
               function(info){
                 // alert('Event : ' + info.event.title);
                 console.log(info.event.id);
-                navigate('/calendar/update', {
+                navigate('/home/calendar/update', {
                   state:{
                     id : info.event.id
                   }
