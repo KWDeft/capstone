@@ -543,8 +543,8 @@ import moment from "moment";
         date: '',
         startHour: '',
         startMinute: '',
-        endHour: '',
-        endMinute: '',
+        // endHour: '',
+        // endMinute: '',
         memo: '',
     }
 
@@ -651,8 +651,8 @@ import moment from "moment";
           manager: managerData,
           startHour: startHour,
           startMinute: startMinute,
-          endHour: endHour,
-          endMinute: endMinute,
+          // endHour: endHour,
+          // endMinute: endMinute,
           memo: memo,
         };
         console.log("입력한정보",body);
@@ -662,7 +662,8 @@ import moment from "moment";
              console.log(res)
              );
         alert("일정 추가 성공");
-        window.location.reload();
+        navigate('/coach/calendar');
+
 
         };
 
@@ -725,8 +726,8 @@ import moment from "moment";
               date : row.date,
               startHour : row.startHour,
               startMinute : row.startMinute,
-              endHour : row.endHour,
-              endMinute : row.endMinute,
+              // endHour : row.endHour,
+              // endMinute : row.endMinute,
               memo : row.memo,
 
             }))
@@ -973,7 +974,7 @@ import moment from "moment";
         },
       ]}
     />
-    <SwapRightOutlined />
+    {/* <SwapRightOutlined />
 
     <Select
       name="endHour"
@@ -1120,7 +1121,7 @@ import moment from "moment";
           label: '50분',
         },
       ]}
-    />
+    /> */}
     <div>
       {" "}
       <br></br>{" "}
@@ -1182,7 +1183,7 @@ showCount/>
               function(info){
                 // alert('Event : ' + info.event.title);
                 console.log(info.event.id);
-                navigate('/home/calendar/update', {
+                navigate('/coach/calendar/update', {
                   state:{
                     id : info.event.id
                   }

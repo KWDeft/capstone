@@ -418,7 +418,7 @@ console.log("스케줄", stateCust);
                   });
                   }}
                 />
-                <SwapRightOutlined />
+                {/* <SwapRightOutlined />
 
                 <Select
                   showSearch
@@ -597,7 +597,7 @@ console.log("스케줄", stateCust);
                       completeCheck : stateCust.completeCheck, 
                   });
                   }}
-                />
+                /> */}
                 </Row>
                 <br></br><br></br><br></br>
             <Title level={4}>기타 메모</Title>

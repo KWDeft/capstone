@@ -29,6 +29,9 @@ const Dashboard = () => {
 }
 
   const username = user.username;
+  // const getCoachName = async () => {
+  //   client.get('')
+  // }
     
     // 오늘 날짜 
     const today = () => {

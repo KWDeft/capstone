@@ -543,8 +543,8 @@ import moment from "moment";
         date: '',
         startHour: '',
         startMinute: '',
-        endHour: '',
-        endMinute: '',
+        // endHour: '',
+        // endMinute: '',
         memo: '',
     }
 
@@ -620,8 +620,8 @@ import moment from "moment";
               date : row.date,
               startHour : row.startHour,
               startMinute : row.startMinute,
-              endHour : row.endHour,
-              endMinute : row.endMinute,
+              // endHour : row.endHour,
+              // endMinute : row.endMinute,
               memo : row.memo,
 
             }))
@@ -678,8 +678,8 @@ import moment from "moment";
                   date : row.date,
                   startHour : row.startHour,
                   startMinute : row.startMinute,
-                  endHour : row.endHour,
-                  endMinute : row.endMinute,
+                  // endHour : row.endHour,
+                  // endMinute : row.endMinute,
                   memo : row.memo,
   
                 }))
@@ -701,8 +701,8 @@ import moment from "moment";
           manager: managerData,
           startHour: startHour,
           startMinute: startMinute,
-          endHour: endHour,
-          endMinute: endMinute,
+          // endHour: endHour,
+          // endMinute: endMinute,
           memo: memo,
         };
         console.log("입력한정보",body);
@@ -991,9 +991,9 @@ import moment from "moment";
         },
       ]}
     />
-    <SwapRightOutlined />
+    {/* <SwapRightOutlined /> */}
 
-    <Select
+    {/* <Select
       name="endHour"
       showSearch
       placeholder="00시"
@@ -1138,7 +1138,7 @@ import moment from "moment";
           label: '50분',
         },
       ]}
-    />
+    /> */}
     <div>
       {" "}
       <br></br>{" "}

@@ -44,6 +44,8 @@ import CoachMembers from "./domains/forCoachs/Members/Members";
 import CoachMemberInfo from "./domains/forCoachs/Members/MemberInfo";
 import CoachInfoforCoach from './domains/forCoachs/Members/CoachInfo';
 import CoachCalendar from './domains/forCoachs/Calendar/CoachCalendar';
+import CoachCalendarUpdate from './domains/forCoachs/Calendar/CoachCalendarUpdate';
+
 import CoachDashboard from './domains/forCoachs/Dashboard/CoachDashboard'
 import WriteMain from './domains/Curriculum/WriteMain';
 
