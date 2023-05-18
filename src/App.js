@@ -51,11 +51,11 @@ const App = () => {
   return (
        
     <Routes>
-      {/* <Route path="/" element={<FirstPage />} /> */}
-      <Route path="/" element={<LoginPage />} />
+      <Route path="/" element={<LoginPage />}>
+
+      </Route>
 
       <Route path="/home" element={<Home />} >
-        {/* <Route path="/home/login" element={<LoginPage />} /> */}
         <Route path="/home/register" element={<RegisterPage />} />
         <Route path="/home/curriculum/edit" element={<EditCurriDetail />} />
         <Route path="/home/curriculum" element={<Curriculum />} />
@@ -65,7 +65,6 @@ const App = () => {
         <Route path="/home/customers" element={<Customers />} />
         <Route path="/home/customers/info" element={<CustomerInfo />} />
         <Route path="/home/customers/infoedit" element={<CustomerEdit />} />
-        {/* <Route path="/home/customers/new" element={<NewCustomer />} /> */}
         <Route path="/home/customers/paymentinfo" element={<PaymentInfo />} />
         <Route path="/home/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
         <Route path="/home/journaltable" element={<JournalTable />} />
@@ -80,7 +79,8 @@ const App = () => {
         <Route path="/home/members/info" element={<MemberInfo />} />
         <Route path="/home/members/coachinfo" element={<CoachInfo />} />
         <Route path="/home/write" element={<WriteMain />} />
-        
+        <Route path="/home/mycomments" element={<MyComments />} />
+        <Route path="/home/mycomments/detail" element={<MCdetail />} />
       </Route>
 
       <Route path="/coach" element={<CoachHome />}>
@@ -93,7 +93,6 @@ const App = () => {
         <Route path="/coach/customers" element={<Customers />} />
         <Route path="/coach/customers/info" element={<CustomerInfo />} />
         <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
-        {/* <Route path="/coach/customers/new" element={<NewCustomer />} /> */}
         <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
         <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
         <Route path="/coach/journaltable" element={<JournalTable />} />
@@ -108,32 +107,9 @@ const App = () => {
         <Route path="/coach/members/info" element={<CoachMemberInfo />} />
         <Route path="/coach/members/coachinfo" element={<CoachInfoforCoach />} />
         <Route path="/coach/setting" element={<Setting />} />
+        <Route path="/coach/mycomments" element={<MyComments />} />
+        <Route path="/coach/mycomments/detail" element={<MCdetail />} />
       </Route>
-
-      {/* <Route path="/coach" element={<CoachHome />} >
-        <Route path="/coach/login" element={<LoginPage />} />
-        <Route path="/coach/register" element={<RegisterPage />} />
-        <Route path="/coach/curriculum" element={<CoachCurriculum />} />
-        <Route path="/coach/setting" element={<Setting />} />
-        <Route path="/coach/calendar" element={<CalendarMain />}/>
-        <Route path="/coach/calendar/update" element={<CalendarUpdate />} />
-        <Route path="/coach/calendar/new" element={<NewCalendar />} />
-        <Route path="/coach/customers" element={<Customers />} />
-        <Route path="/coach/customers/info" element={<CustomerInfo />} />
-        <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
-        <Route path="/coach/customers/new" element={<NewCustomer />} />
-        <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
-        <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
-        <Route path="/coach/journaltable" element={<JournalTable />} />
-        <Route path="/coach/newjournal" element={<NewJournal />} />
-        <Route path="/coach/journal" element={<Journal />} />
-        <Route path="/coach/journal/edit" element={<JournalEdit/>} />
-        <Route path="/coach/journal/counseledit" element={<CJournalEdit />} />
-        <Route path="/coach/dashboard" element={<Dashboard />} />
-        <Route path="/coach/commodity" element={<CoachCommodity />} />
-        <Route path="/coach/commodity/detail" element={<CoachProductDetail/>} />
-        
-      </Route> */}
 
       <Route path="/fc" element={<FcHome />} >
         <Route path="/fc/dashboard" element={<FcDashboard />} />
