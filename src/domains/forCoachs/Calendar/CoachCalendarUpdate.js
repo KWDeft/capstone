@@ -89,7 +89,7 @@ const beforeupdate = stateCust.date;
     
 
 
-console.log("스케줄", stateCust);
+// console.log("스케줄", stateCust);
 // console.log("추가 회원 정보", stateinfo);
 
 
@@ -104,7 +104,7 @@ console.log("스케줄", stateCust);
          alert("수정 완료");
         //  window.location.reload();
     };
-    console.log("수정된 것",stateCust);
+    // console.log("수정된 것",stateCust);
     const deleteInfo = (e) => {
       Modal.confirm({
         title: '삭제',
@@ -113,7 +113,7 @@ console.log("스케줄", stateCust);
         okType: 'danger',
         onOk: () => {
           client
-            .delete(`/api/schedule/admin/${id}`)
+            .delete(`/api/schedule/coach/${id}`)
             .then((res) => console.log(res));
           alert('삭제완료');
           navigate('/coach/calendar');
@@ -211,7 +211,7 @@ console.log("스케줄", stateCust);
                 <Space direction="vertical" size={20}>
                   <DatePicker
                   // defaultValue ={dayjs(stateCust.date)}
-                  placeholder ={stateCust.date}
+                  placeholder ={dayjs(stateCust.date).format("YYYY-MM-DD")}
 
                   format={dateFormat}
                   onChange={e => {

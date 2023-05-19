@@ -97,35 +97,72 @@ const CustomerInfo = () => {
           .delete(`/api/consumer/info/${id}`)
           .then((res) => console.log(res));
         alert('삭제완료');
-        navigate('/home/customers');
+        const auth_ = localStorage.getItem('auth');
+          if (auth_ == '"coach"'){
+            navigate('/coach/customers');
+          }
+          else {
+            navigate('/home/customers');
+          }
       },
     });
   };
 
   // id, 이름, 성별, 전화번호, 생년월일, 주소, 장애유형, 유입경로, 운동목적 전달
   const move = () => {
-    navigate('/home/customers/paymentinfo', {
-      state: {
-        id: customer.id,
-        usernum: customer.usernum,
-        sex: customer.sex,
-        name: customer.name,
-        phone: customer.phone,
-        birthday: customer.birthday,
-        address: customer.address,
-        obstacle_type: customer.obstacle_type,
-        inflow: customer.inflow,
-        user_purpose: customer.user_purpose,
-      },
-    });
+    const auth_ = localStorage.getItem('auth');
+    if (auth_ == '"coach"'){
+      navigate('/coach/customers/paymentinfo', {
+        state: {
+          id: customer.id,
+          usernum: customer.usernum,
+          sex: customer.sex,
+          name: customer.name,
+          phone: customer.phone,
+          birthday: customer.birthday,
+          address: customer.address,
+          obstacle_type: customer.obstacle_type,
+          inflow: customer.inflow,
+          user_purpose: customer.user_purpose,
+        },
+      });
+    }
+    else {
+      navigate('/home/customers/paymentinfo', {
+        state: {
+          id: customer.id,
+          usernum: customer.usernum,
+          sex: customer.sex,
+          name: customer.name,
+          phone: customer.phone,
+          birthday: customer.birthday,
+          address: customer.address,
+          obstacle_type: customer.obstacle_type,
+          inflow: customer.inflow,
+          user_purpose: customer.user_purpose,
+        },
+      });
+    }
+    
   };
 
   const note = () => {
-    navigate('/home/journal', {
-      state: {
-        usernum: customer.usernum,
-      },
-    });
+    const auth_ = localStorage.getItem('auth');
+    if (auth_ == '"coach"'){
+      navigate('/coach/journal', {
+        state: {
+          usernum: customer.usernum,
+        },
+      });
+    }
+    else {
+      navigate('/home/journal', {
+        state: {
+          usernum: customer.usernum,
+        },
+      });
+    }
+    
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);

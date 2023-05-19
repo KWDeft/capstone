@@ -556,7 +556,7 @@ const Customers = () => {
     console.log(`selected ${e}`);
     setManager(e);
   };
-  console.log("선택한 코치 : ",manager);
+  // console.log("선택한 코치 : ",manager);
   const paymentHandler = (e) => {
     setPayment(e);
   };
@@ -571,7 +571,7 @@ const Customers = () => {
     e.preventDefault();
     setDate_signup(e.target.value);
   };
-  console.log(date_signup);
+  // console.log(date_signup);
   const birthdayHandler = (e) => {
     setBirthday(e.target.value);
   };
@@ -581,7 +581,7 @@ const Customers = () => {
   const vaccinateHandler = (e) => {
     setVaccinate(e.target.value);
   };
-  console.log(vaccinate);
+  // console.log(vaccinate);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -941,20 +941,40 @@ const Customers = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              navigate('/home/customers/info', {
-                state: {
-                  usernum: usernum,
-                  sex: sex,
-                  existence: existence,
-                  name: name,
-                  phone: phone,
-                  manager: manager,
-                  birthday: birthday,
-                  date_signup: date_signup,
-                  user_purpose: user_purpose,
-                  id: id,
-                },
-              });
+              const auth_ = localStorage.getItem('auth');
+              if (auth_ == '"coach"'){
+                navigate('/coach/customers/info', {
+                  state: {
+                    usernum: usernum,
+                    sex: sex,
+                    existence: existence,
+                    name: name,
+                    phone: phone,
+                    manager: manager,
+                    birthday: birthday,
+                    date_signup: date_signup,
+                    user_purpose: user_purpose,
+                    id: id,
+                  },
+                });
+              }
+              else {
+                navigate('/home/customers/info', {
+                  state: {
+                    usernum: usernum,
+                    sex: sex,
+                    existence: existence,
+                    name: name,
+                    phone: phone,
+                    manager: manager,
+                    birthday: birthday,
+                    date_signup: date_signup,
+                    user_purpose: user_purpose,
+                    id: id,
+                  },
+                });
+              }
+              
             },
           };
         }}

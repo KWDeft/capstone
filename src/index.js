@@ -35,13 +35,13 @@ sagaMiddleware.run(rootSaga);
 loadUser();
 
 ReactDOM.render(
+  <BrowserRouter>
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <BrowserRouter>
         <App />
-      </BrowserRouter>
     </PersistGate>
-  </Provider>,
+  </Provider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

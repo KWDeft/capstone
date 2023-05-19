@@ -72,11 +72,21 @@ const FcJournalView = () => {
           console.log(res)
           );
           alert("삭제완료");
-          navigate('/home/journal', {
-            state: {
-                usernum: usernum,
-            }
-        });
+          const auth_ = localStorage.getItem('auth');
+          if (auth_ == '"coach"'){
+            navigate('/coach/journal', {
+                state: {
+                    usernum: usernum,
+                }
+            });
+          }
+          else{
+            navigate('/home/journal', {
+                state: {
+                    usernum: usernum,
+                }
+            });
+          }
         },
       });
    };

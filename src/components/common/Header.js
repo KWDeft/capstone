@@ -53,7 +53,9 @@ const UserInfo = styled.div`
 // Button = styled.div`
 //   float:right;
 // `;
-
+function loginClick(e){
+  window.location.href="/";
+}
 const Header = ({ user, onLogout }) => {
   return (
     <>
@@ -69,7 +71,8 @@ const Header = ({ user, onLogout }) => {
             </div>
           ) : (
             <div className="right">
-              <Link to="/"><Button> 로그인</Button></Link>
+              <Button onClick={loginClick}>로그인</Button>
+              {/* <Link to="/"><Button> 로그인</Button></Link> */}
             </div>
           )}
         </Wrapper>

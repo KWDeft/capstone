@@ -10,8 +10,9 @@ const HeaderContainer = () => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
-    // navigate('/');
-    window.location.href="/";
+    navigate('/');
+    
+    // window.location.href="/";
   };
   return <Header user={user} onLogout={onLogout} style={{position: "fixed"}}/>;
 };

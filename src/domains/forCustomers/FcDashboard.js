@@ -56,8 +56,6 @@ const FcDashboard = () => {
                   date : row.date,
                   startHour : row.startHour,
                   startMinute : row.startMinute,
-                  endHour : row.endHour,
-                  endMinute : row.endMinute,
                   memo : row.memo,
             }))
           );

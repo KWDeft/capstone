@@ -46,6 +46,18 @@ import CoachInfoforCoach from './domains/forCoachs/Members/CoachInfo';
 import CoachCalendar from './domains/forCoachs/Calendar/CoachCalendar';
 import CoachCalendarUpdate from './domains/forCoachs/Calendar/CoachCalendarUpdate';
 
+import CoachCustomers from "./domains/Customers/Customers.js";
+import CoachCustomerInfo from "./domains/Customers/CustomerInfo.js";
+import CoachCustomerEdit from "./domains/Customers/CustomerEdit.js";
+import CoachJournal from "./domains/Customers/Journal/Journal.js";
+import CoachJournalEdit from "./domains/Customers/Journal/JournalEdit.js";
+import CoachPaymentInfo from './domains/Customers/PaymentInfo.js';
+import CoachJournalTable from "./domains/Customers/Journal/JournalTable";
+import CoachNewJournal from "./domains/Customers/Journal/NewJournal.js";
+import CoachEditPaymentInfo from "./domains/Customers/EditPaymentInfo";
+import CoachCJournalEdit from "./domains/Customers/Journal/CJornalEdit";
+
+
 import CoachDashboard from './domains/forCoachs/Dashboard/CoachDashboard'
 import WriteMain from './domains/Curriculum/WriteMain';
 
@@ -91,18 +103,18 @@ const App = () => {
         <Route path="/coach/commodity" element={<CoachCommodity />} />
         <Route path="/coach/commodity/detail" element={<CoachProductDetail/>} />
         <Route path="/coach/calendar" element={<CoachCalendar />}/>
-        <Route path="/coach/calendar/update" element={<CalendarUpdate />} />
-        <Route path="/coach/customers" element={<Customers />} />
-        <Route path="/coach/customers/info" element={<CustomerInfo />} />
-        <Route path="/coach/customers/infoedit" element={<CustomerEdit />} />
+        <Route path="/coach/calendar/update" element={<CoachCalendarUpdate />} />
+        <Route path="/coach/customers" element={<CoachCustomers />} />
+        <Route path="/coach/customers/info" element={<CoachCustomerInfo />} />
+        <Route path="/coach/customers/infoedit" element={<CoachCustomerEdit />} />
         {/* <Route path="/coach/customers/new" element={<NewCustomer />} /> */}
-        <Route path="/coach/customers/paymentinfo" element={<PaymentInfo />} />
-        <Route path="/coach/customers/paymentinfo/edit" element={<EditPaymentInfo />} />
-        <Route path="/coach/journaltable" element={<JournalTable />} />
-        <Route path="/coach/newjournal" element={<NewJournal />} />
-        <Route path="/coach/journal" element={<Journal />} />
-        <Route path="/coach/journal/edit" element={<JournalEdit/>} />
-        <Route path="/coach/journal/counseledit" element={<CJournalEdit />} />
+        <Route path="/coach/customers/paymentinfo" element={<CoachPaymentInfo />} />
+        <Route path="/coach/customers/paymentinfo/edit" element={<CoachEditPaymentInfo />} />
+        <Route path="/coach/journaltable" element={<CoachJournalTable />} />
+        <Route path="/coach/newjournal" element={<CoachNewJournal />} />
+        <Route path="/coach/journal" element={<CoachJournal />} />
+        <Route path="/coach/journal/edit" element={<CoachJournalEdit/>} />
+        <Route path="/coach/journal/counseledit" element={<CoachCJournalEdit />} />
         <Route path="/coach/dashboard" element={<CoachDashboard />} />
         <Route path="/coach/curriculum" element={<CoachCurriculum />} />
         <Route path="/coach/curriculum/edit" element={<CoachEditCurriDetail />} />

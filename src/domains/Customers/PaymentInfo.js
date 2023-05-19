@@ -273,20 +273,40 @@ const PaymentInfo = () => {
                             onClick: (e) => {
                               console.log(usernum);
                               console.log(id);
-                              navigate('/home/customers/paymentinfo/edit', {
-                                state: {
-                                  usernum: usernum,
-                                  id: id,
-                                  sex: sex,
-                                  name: name,
-                                  phone: phone,
-                                  birthday: birthday,
-                                  address: address,
-                                  obstacle_type: obstacle_type,
-                                  inflow: inflow,
-                                  user_purpose: user_purpose           
-                                },
-                              });
+                              const auth_ = localStorage.getItem('auth');
+                              if (auth_ == '"coach"'){
+                                navigate('/coach/customers/paymentinfo/edit', {
+                                  state: {
+                                    usernum: usernum,
+                                    id: id,
+                                    sex: sex,
+                                    name: name,
+                                    phone: phone,
+                                    birthday: birthday,
+                                    address: address,
+                                    obstacle_type: obstacle_type,
+                                    inflow: inflow,
+                                    user_purpose: user_purpose           
+                                  },
+                                });
+                              }
+                              else {
+                                navigate('/home/customers/paymentinfo/edit', {
+                                  state: {
+                                    usernum: usernum,
+                                    id: id,
+                                    sex: sex,
+                                    name: name,
+                                    phone: phone,
+                                    birthday: birthday,
+                                    address: address,
+                                    obstacle_type: obstacle_type,
+                                    inflow: inflow,
+                                    user_purpose: user_purpose           
+                                  },
+                                });
+                              }
+                              
                             }
                           };
                         }}

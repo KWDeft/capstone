@@ -89,7 +89,7 @@ const beforeupdate = stateCust.date;
     
 
 
-console.log("스케줄", stateCust);
+// console.log("스케줄", stateCust);
 // console.log("추가 회원 정보", stateinfo);
 
 
@@ -104,7 +104,7 @@ console.log("스케줄", stateCust);
          alert("수정 완료");
         //  window.location.reload();
     };
-    console.log("수정된 것",stateCust);
+    // console.log("수정된 것",stateCust);
     const deleteInfo = (e) => {
       Modal.confirm({
         title: '삭제',
