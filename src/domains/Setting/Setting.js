@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import './Setting.css';
 import client from '../../lib/api/client';
 import { useSelector } from "react-redux";
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 const Setting = () => {
   const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
-
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -49,6 +50,11 @@ const Setting = () => {
     SetPasswordCheck(e.target.value);
   };
 
+  const user = localStorage.getItem('user');
+  const move = () => {
+    navigate('/home/mycomments');
+  }
+
 const submitHandler = (e) => {
   e.preventDefault();
   console.log("비밀번호 변경 성공");
@@ -65,9 +71,10 @@ const submitHandler = (e) => {
     .then((res) => console.log(res));
   };
 
-  const user = localStorage.getItem('user');
+  
   const auth_ = localStorage.getItem('auth')
   console.log("얘만왜",auth_);
+  console.log(user);
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
@@ -150,7 +157,7 @@ const submitHandler = (e) => {
       </div>
       <div id='settingBox'>
         <h3>작성한 댓글</h3>
-        <Button type="default" href="/mycomments">
+        <Button type="default" onClick={move}>
             확인하기
           </Button>
       </div>
