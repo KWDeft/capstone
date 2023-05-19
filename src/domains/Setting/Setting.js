@@ -52,7 +52,13 @@ const Setting = () => {
 
   const user = localStorage.getItem('user');
   const move = () => {
-    navigate('/home/mycomments');
+    const auth_ = localStorage.getItem('auth');
+          if (auth_ == '"coach"'){
+            navigate('/coach/mycomments');
+          }
+          else {
+            navigate('/home/mycomments');
+          }
   }
 
 const submitHandler = (e) => {

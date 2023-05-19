@@ -56,7 +56,8 @@ import CoachJournalTable from "./domains/Customers/Journal/JournalTable";
 import CoachNewJournal from "./domains/Customers/Journal/NewJournal.js";
 import CoachEditPaymentInfo from "./domains/Customers/EditPaymentInfo";
 import CoachCJournalEdit from "./domains/Customers/Journal/CJornalEdit";
-
+import CoachMyComments from "./domains/Comments/MyComments";
+import CoachMCdetail from "./domains/Comments/MCdetail";
 
 import CoachDashboard from './domains/forCoachs/Dashboard/CoachDashboard'
 import WriteMain from './domains/Curriculum/WriteMain';
@@ -122,8 +123,8 @@ const App = () => {
         <Route path="/coach/members/info" element={<CoachMemberInfo />} />
         <Route path="/coach/members/coachinfo" element={<CoachInfoforCoach />} />
         <Route path="/coach/setting" element={<Setting />} />
-        <Route path="/coach/mycomments" element={<MyComments />} />
-        <Route path="/coach/mycomments/detail" element={<MCdetail />} />
+        <Route path="/coach/mycomments" element={<CoachMyComments />} />
+        <Route path="/coach/mycomments/detail" element={<CoachMCdetail />} />
       </Route>
 
       <Route path="/fc" element={<FcHome />} >
