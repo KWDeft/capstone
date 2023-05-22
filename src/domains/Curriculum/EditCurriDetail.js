@@ -115,6 +115,7 @@ const EditCurriDetail = () => {
               //   width: 300,
               // }}
             >
+              <h2>커리큘럼 상세</h2>
                 <Divider orientation="left" orientationMargin="0">
                  <h5>제목</h5>
                </Divider>

@@ -18,10 +18,11 @@
     }
   
     .comments-body {
-  
+      
       .comments-comment {
         margin: 0.5rem 0;
-  
+        width: 500px;
+        height: 60px;
         .comment-username-date {
           display: flex;
           align-items: baseline;
@@ -36,6 +37,7 @@
           white-space: pre-wrap;
           word-break: break-all;
           margin: 0.4rem auto;
+          
         }
       }
       .comment-username {
@@ -43,12 +45,16 @@
         flex-direction: row-reverse;
         align-items: baseline;
         font-weight: 600;
+        margin-right: 50px;
+        margin-top: -45px;
       }
       .comment-delete {
         display: flex;
         flex-direction: row-reverse;
         align-items: baseline;
         font-weight: 600;
+        margin-top: -35px;
+        margin-right: 20px;
       }
   
     }

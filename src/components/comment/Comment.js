@@ -107,9 +107,9 @@ const Comment = () => {
                                 {item.date}
                             </div>
                         </div>
-                        <div className="comment-content">{item.content}</div>
-                        <div className="comment-username">{item.userId}</div>
-                        <div className="comment-delete" onClick={(e) => {DeleteComment(item.id, e)}}><DeleteOutlined /></div>
+                        <p className="comment-content">{item.content}</p>
+                        <p className="comment-username">{item.userId}</p>
+                        <p className="comment-delete" onClick={(e) => {DeleteComment(item.id, e)}}><DeleteOutlined /></p>
                     </div>
                 ))}
 

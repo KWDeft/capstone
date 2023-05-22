@@ -78,15 +78,16 @@ const MemberInfo = () => {
       <Row gutter={10}>
         <Col span={12}>
             <br></br>
+            <h2>관리자 상세정보</h2>
             <h2 className="name">{adminList.name}</h2>
                     <>
                         <Col span={10}>
                         <br></br>
                         <Row>
-                            <Col span={10}>
-                            <h3>이름</h3>
+                            <Col span={8}>
+                            <div>이름</div>
                             </Col>
-                            <Col span={20}>
+                            <Col span={16}>
                             <Input 
                                 autoComplete="name"
                                 name="name"
@@ -109,10 +110,10 @@ const MemberInfo = () => {
                         </Row>
                         <br></br>
                         <Row>
-                            <Col span={10}>
-                            <h3>전화번호</h3>
+                            <Col span={8}>
+                            <div>전화번호</div>
                             </Col>
-                            <Col span={20}>
+                            <Col span={16}>
                             <Input 
                                 placeHolder="'-'없이 11자리 숫자 입력"
                                 autoComplete="phone"
@@ -136,10 +137,10 @@ const MemberInfo = () => {
                         </Row>
                         <br></br>
                         <Row>
-                            <Col span={10}>
-                            <h3>직무</h3>
+                            <Col span={8}>
+                            <div>직무</div>
                             </Col>
-                            <Col span={20}>
+                            <Col span={16}>
                             <Input 
                                 autoComplete="job"
                                 name="job"
@@ -165,9 +166,9 @@ const MemberInfo = () => {
                             <Col
                             span={8}
                             >
-                            <h3>직책</h3>
+                            <div>직책</div>
                             </Col>
-                            <Col span={20}>
+                            <Col span={16}>
                             <Input 
                                 autoComplete="position"
                                 name="position"
@@ -190,10 +191,10 @@ const MemberInfo = () => {
                         </Row>
                         <br></br>
                         <Row>
-                            <Col span={6}>
-                            <h3>이메일</h3>
+                            <Col span={8}>
+                            <div>이메일</div>
                             </Col>
-                            <Col span={20}>
+                            <Col span={16}>
                             <Input 
                                autoComplete="email"
                                name="email"
