@@ -304,7 +304,6 @@ const Members = () => {
       
       );
     // client.post('/api/auth/register', register).then((res) => console.log(res));
-    alert('코치 등록 완료');
     // alert('코치 등록 완료');
     window.location.reload();
     setIsModalOpen2(false);

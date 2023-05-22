@@ -1,17 +1,27 @@
 import {  Row, Col, DatePicker, List } from "antd";
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import "./CoachDashboard.css";
 import {  PushpinFilled } from "@ant-design/icons";
 import Customers from "../../Customers/Customers";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import client from '../../../lib/api/client';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useSelector(({ user }) => ({ user: user.user }));
   const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
+  const [state, setstate] = useState([]);
+  const [coachname, setName] = useState([]);
+  const [loading, setloading] = useState(true);
 
+  useEffect(() => {
+    getData();
+    getCoachName();
+  }, []);
   // const prasedRole = JSON.prase(role);
   console.log("유저",user);
   
@@ -45,13 +55,40 @@ const Dashboard = () => {
       console.log(date, dateString);
     };
 
-    const data = [
-      '9:00  유시영 PT',
-      '10:00  김지수 상담예약',
-      '11:00  문하늘 PT',
-      '12:00  이유민 PT',
-     
-    ];
+    const coachnum = user.username;
+
+    const getCoachName = async () => {
+      await client.get(`/api/member/coach/coachnum/${coachnum}`).then(
+        res => {
+          setloading(false);
+          setName(
+            res.data)
+        }
+      )}
+    const getData = async () => {
+      await client.get(`/api/schedule/coach/coachnum/${coachnum}`).then(
+        res => {
+          setloading(false);
+          setstate(
+            res.data.map(row => ({
+              id : row._id,
+              title: row.name,
+              usernum: row.usernum,
+              manager: row.manager,
+              date : row.date,
+              startHour : row.startHour,
+              startMinute : row.startMinute,
+              // endHour : row.endHour,
+              // endMinute : row.endMinute,
+              memo : row.memo,
+
+            }))
+          );
+
+        }
+      );
+
+      };
 
     return(
       <>
@@ -66,12 +103,34 @@ const Dashboard = () => {
           > <body style={{height:"100vh", width:"45vh"}}>
             <Row>
               <div className="container1" style={{height:"100vh", width:"45vh"}}>
-              <h3><PushpinFilled /> {username} 님, 오늘의 일정({today()})</h3>
-              <List
+              <h3><PushpinFilled /> {coachname.name}님, 오늘의 일정({today()})</h3>
+              {/* <List
                 size="small"
                 bordered
                 dataSource={data}
                 renderItem={(item) => <List.Item>{item}</List.Item>}
+              /> */}
+              <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView = 'dayGridWeek'
+              displayEventTime = {false}
+              events={state}
+              contentHeight = "700px"
+              headerToolbar= {false}
+              moreLinkClick = "popover"
+              eventDisplay = 'list-item'
+              locale = "ko"
+              eventClick = {
+                function(info){
+                  // alert('Event : ' + info.event.title);
+                  console.log(info.event.id);
+                  navigate('/coach/calendar/update', {
+                    state:{
+                      id : info.event.id
+                    }
+                  })
+                }
+              }
               />
               </div>
             </Row>

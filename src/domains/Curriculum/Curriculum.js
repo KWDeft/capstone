@@ -15,16 +15,7 @@ import { useSelector } from 'react-redux';
 const Curriculum = () => {
   const { auth } = useSelector(({ auth }) => ({ auth: auth.auth }));
 
-  const [fileList, setFileList] = useState([]);
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setFileList(e.target.files);
-  };
-
-
-  // 👇 files is not an array, but it's iterable, spread to get an array of files
-  const files = fileList ? [...fileList] : [];
+ 
 
 
   const [size, setSize] = useState("large");
@@ -93,11 +84,6 @@ const Curriculum = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    
-    const attachment = new FormData();
-    files.forEach((file, i) => {
-      attachment.append(`file-${i}`, file, file.name);
-    });
   
     let body = {
       title: title,
@@ -197,15 +183,6 @@ if (auth_!='"admin"'){
             value={effect}
             onChange={effectHandler}
           />
-           <input type="file" onChange={handleFileChange} multiple />
-
-          <ul>
-            {files.map((file, i) => (
-              <li key={i}>
-                {file.name} - {file.type}
-              </li>
-            ))}
-          </ul>
         </Modal>
         <br></br><br></br>
       {loading ? (

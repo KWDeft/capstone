@@ -4,7 +4,8 @@ import {useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import client from '../../lib/api/client'
 import {  PushpinFilled } from "@ant-design/icons";
-
+import FullCalendar from '@fullcalendar/react';
+import listPlugin from '@fullcalendar/list';
 
 
 
@@ -12,17 +13,20 @@ const FcDashboard = () => {
     const { user } = useSelector(({ user }) => ({ user: user.user }));
     console.log("출력", user);
     const usernum = user.username;
+
     // const name = user.name;
     const [journalList, setJournalList] = useState([]);
     const [scheduleList, setScheduleList] = useState([]);
     const [getcoachname, setCoachname] = useState([]);
+    const [username, setUsername] = useState([]);
 
 
     useEffect(() => {
       getClassData();
       getConsultData();
+      getUsernameData();
       getScheduleData();
-      getCoachNamadata();
+
     }, []);
 
     const getClassData = async () => {
@@ -42,7 +46,16 @@ const FcDashboard = () => {
         }
       );
     };
-    
+    const getUsernameData = async () => {
+      await client.get(`/api/consumer/info/usernum/${usernum}`)
+      .then(
+        res => {
+          setUsername(
+            res.data
+          )
+        }
+      )
+    }
     const getScheduleData = async () => {
       await client.get(`/api/schedule/consumer/${usernum}`)
       .then (
@@ -63,27 +76,9 @@ const FcDashboard = () => {
       );
     };
 
-    console.log(usernum,"의 모든 일정", scheduleList);
-
-    // const coachNum = scheduleList[0].manager;
-    // console.log(coachNum);
-
-    const getCoachNamadata = async () => {
-      // await client.get(`/api/member/coach/coachnum/${coachNum}`)
-      // .then (
-      //   res => {
-      //     setCoachname(
-      //       res.data.map(row => ({
-      //             coachname : row.name
-      //       }))
-      //     );
-      //   }
-      // );
-
-    }
+ 
      
     
-    console.log("코치 이름 : ", getcoachname);
 
     const getConsultData = async () => {
       await client
@@ -129,28 +124,41 @@ const FcDashboard = () => {
           dataIndex: 'subject',
         },
         ];
+// console.log("출..", scheduleList);
+let managernameList = [];
+let timeList = [];
+let dateList = [];
 
+for (let i=0;i<scheduleList.length;i++){
+  managernameList.push(scheduleList[i].manager.concat(" T"));
+  // timeList.push(scheduleList[i].startHour.concat(scheduleList[i].startMinute));
+  if(scheduleList[i].startHour.replace('시','').length == 1){
+    dateList.push(scheduleList[i].date.concat("T0")
+    .concat(scheduleList[i].startHour.replace('시',':'))
+    .concat(scheduleList[i].startMinute.replace('분',''))
+    .concat(":00"));
+  }
+  else{
+    dateList.push(scheduleList[i].date.concat("T")
+  .concat(scheduleList[i].startHour.replace('시',':'))
+  .concat(scheduleList[i].startMinute.replace('분',''))
+  .concat(":00"));
+  }
+  
+  
+  // console.log("방금",scheduleList[i].startHour.concat(scheduleList[i].startMinute).toLocaleTimeString());
 
-       
-
-    //       const data2 = [
-    //   '9:00  유시영 PT',
-    //   '10:00  김지수 상담예약',
-    //   '11:00  문하늘 PT',
-    //   '12:00  이유민 PT',
-     
-    // ];
-    
-
-    let scheduledata = [];
-    for (let i =0; i < scheduleList.length;i++){
-      let sliceDate = scheduleList[i].date.slice(0,10);
-      if (sliceDate == format){
-        let time = scheduleList[i].startHour.concat(scheduleList[i].startMinute);
-        scheduledata.push(time);
-      }
-      
-    }
+}
+// console.log("방금",managernameList);
+    let resList=[]
+for (let i=0; i<managernameList.length;i++){
+  let op={};
+  op.title=managernameList[i];
+  op.date=dateList[i];
+  // op.start=timeList[i];
+  resList.push(op);
+}
+console.log("학",resList);
 
     // console.log("회원이름", scheduleList[0].title);
     return(
@@ -158,18 +166,28 @@ const FcDashboard = () => {
       <Row gutter={20}>
         <Col span>
            <div className="회원 이름">
-              <h2>회원님, 안녕하세요!</h2>
+              <h2>{username.name}회원님, 안녕하세요!</h2>
             </div>
             <Row>
               <Col>
               <div className="container1" style={{height:"100%", width:"45vh"}}>
                 <h3><PushpinFilled /> 오늘의 일정  </h3>
-                <List
+                {/* <List
                   size="small"
                   bordered
                   dataSource={scheduledata}
                   renderItem={
                     (item) => <List.Item >{item}</List.Item>}
+                /> */}
+                <FullCalendar
+                  plugins={[ listPlugin ]}
+
+                  initialView='listWeek'
+                  events={resList}
+                  
+                  locale = "ko"
+                  headerToolbar= {false}
+
                 />
               </div>
             </Col>
