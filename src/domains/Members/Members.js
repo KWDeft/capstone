@@ -299,9 +299,14 @@ const Members = () => {
 
     client
       .post('/api/member/coach/create', body)
-      .then((res) => console.log(res));
+      .then((res) => 
+      console.log(res)
+      
+      );
     // client.post('/api/auth/register', register).then((res) => console.log(res));
     alert('코치 등록 완료');
+    // alert('코치 등록 완료');
+    window.location.reload();
     setIsModalOpen2(false);
   };
   const handleCancel2 = () => {
@@ -511,48 +516,10 @@ const Members = () => {
                         <h3>코치 번호</h3>
                       </Col>
                       <Col span={10}>
-                        {/* <Input
-                          autoComplete="coachnumd"
-                          name="coachnum"
-                          value={coachnum}
-                          onChange={coachnumHandler}
-                        /> */}
-                        {/* <h2>{coachPhone}</h2> */}
                         <h2>{(coachPhone.substr(7))}</h2>
                       </Col>
                     </Row>
                   </Col>
-                  {/* <Col span={12}>
-                    <br></br>
-                    <Row>
-                      <Col span={6}>
-                        <h3>아이디</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input
-                          autoComplete="coachUserName"
-                          name="coachUserName"
-                          value={coachUserName}
-                          onChange={coachUserNameHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                    <Row>
-                      <Col span={6}>
-                        <h3>비밀번호</h3>
-                      </Col>
-                      <Col span={10}>
-                        <Input.Password
-                          autoComplete="coachPassword"
-                          name="coachPassword"
-                          value={coachPassword}
-                          onChange={coachPasswordHandler}
-                        />
-                      </Col>
-                    </Row>
-                    <br></br>
-                  </Col> */}
                 </Row>
               </>
             </Modal>

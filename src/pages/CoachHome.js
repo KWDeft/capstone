@@ -3,19 +3,16 @@ import HeaderContainer from '../containers/common/HeaderContainer';
 import {
   HomeOutlined,
   UserOutlined,
-  ShoppingOutlined,
   ProfileOutlined,
-  MessageOutlined,
   TeamOutlined,
   CalendarOutlined,
   SettingOutlined
 } from "@ant-design/icons";
-import { Layout, Menu, Card, Col, Row, Button } from "antd";
+import { Layout, Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
-import Dashboard from "../domains/Dashboard/Dashboard.js";
 import {useNavigate} from 'react-router-dom'
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 
 const menuItems = [
@@ -33,6 +30,11 @@ const menuItems = [
     label: <Link to="/coach/curriculum">커리큘럼</Link>,
     key: "커리큘럼",
     icon: <ProfileOutlined />
+  },
+    {
+    label: <Link to="/coach/members">구성원</Link>,
+    key: "구성원",
+    icon: <TeamOutlined />,
   },
   {
     label: <Link to="/coach/calendar">일정</Link>,

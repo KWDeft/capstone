@@ -316,7 +316,35 @@ const Members = () => {
 
   return (
     <>
-      <Tabs defaultActiveKey="1" onChange={callback}>
+    <Table
+            columns={columns}
+            dataSource={coach}
+            size="middle"
+            onRow={(c, index) => {
+              const name = c.name;
+              const phone = c.phone;
+              const username = c.username;
+              const password = c.password;
+              const coachnum = c.coachnum;
+              const id = c.id;
+              return {
+                onClick: (e) => {
+                  console.log(username);
+                  navigate('/coach/members/coachinfo', {
+                    state: {
+                      name: name,
+                      phone: phone,
+                      username: username,
+                      password: password,
+                      coachnum: coachnum,
+                      id: id,
+                    },
+                  });
+                },
+              };
+            }}
+          />
+      {/* <Tabs defaultActiveKey="1" onChange={callback}>
         <TabPane tab="관리자" key="1">
           <br />
           <Table
@@ -377,7 +405,7 @@ const Members = () => {
             }}
           />
         </TabPane>
-      </Tabs>
+      </Tabs> */}
     </>
   );
 };

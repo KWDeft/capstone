@@ -56,8 +56,6 @@ const FcDashboard = () => {
                   date : row.date,
                   startHour : row.startHour,
                   startMinute : row.startMinute,
-                  endHour : row.endHour,
-                  endMinute : row.endMinute,
                   memo : row.memo,
             }))
           );
@@ -164,7 +162,7 @@ const FcDashboard = () => {
             </div>
             <Row>
               <Col>
-              <div className="container1" style={{height:"100vh", width:"45vh"}}>
+              <div className="container1" style={{height:"100%", width:"45vh"}}>
                 <h3><PushpinFilled /> 오늘의 일정  </h3>
                 <List
                   size="small"

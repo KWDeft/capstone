@@ -700,7 +700,9 @@ const CustomerSearch = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              navigate('/home/customers/info', {
+              const auth_ = localStorage.getItem('auth');
+              if (auth_ == '"coach"'){
+                navigate('/coach/customers/info', {
                   state: {
                     usernum: usernum,
                     userheight: userheight,
@@ -725,6 +727,35 @@ const CustomerSearch = () => {
                     id: id
                   },
                 });
+              }
+              else {
+                navigate('/home/customers/info', {
+                  state: {
+                    usernum: usernum,
+                    userheight: userheight,
+                    userwidth: userwidth,
+                    sex: sex,
+                    existence: existence,
+                    name: name,
+                    obstacle_type: obstacle_type,
+                    phone: phone,
+                    address: address,
+                    memo: memo,
+                    manager: manager,
+                    payment: payment,
+                    inflow: inflow,
+                    statement: statement,
+                    birthday: birthday,
+                    date_signup: date_signup,
+                    membership: membership,
+                    user_purpose: user_purpose,
+                    vaccinate: vaccinate,
+                    category: category,
+                    id: id
+                  },
+                });
+              }
+              
             }
           };
         }}

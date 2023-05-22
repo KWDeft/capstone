@@ -1,9 +1,7 @@
-import {  InputNumber, Row, Col, Button,Table, Modal, Select, Typography, Input, message, Upload   } from "antd";
+import {   Row, Col, Table, Typography, Input, message   } from "antd";
 import React, {useState, useEffect} from "react";
-import {useLocation} from 'react-router-dom';
 //import './NewJournal.css';
 import {useNavigate} from 'react-router';
-import { PlusOutlined, UploadOutlined} from "@ant-design/icons";
 import client from '../../lib/api/client'
 import { useSelector } from "react-redux";
 

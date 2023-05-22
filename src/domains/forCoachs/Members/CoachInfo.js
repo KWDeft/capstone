@@ -50,27 +50,8 @@ const CoachInfo = () => {
                 <h2 className="name">{coachList.name}</h2>
                 <Row>
                     <Col span={8}>이름</Col>
-                    <Col span={5}>
-                                <Input 
-                                    autoComplete="name"
-                                    name="name"
-                                    id="name"
-                                    value={coachList.name}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : value,
-                                        phone: coachList.phone,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: coachList.email,
-                                        job: coachList.job,
-                                        record: coachList.recrod,
-                                        coachnum: coachList.coachnum,
-                                    });
-                                    }}
-                                />
-                            </Col>
+                    <Col span={5}>{coachList.name}</Col>
+
                 </Row><br></br>
                 <Row>
                     <Col span={8}>직책</Col>
@@ -78,124 +59,27 @@ const CoachInfo = () => {
                 </Row><br></br>
                 <Row>
                 <Col span={8}>전화번호</Col>
-                <Col span={5}>
-                <Input 
-                                    autoComplete="phone"
-                                    name="phone"
-                                    id="phone"
-                                    value={coachList.phone}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : coachList.name,
-                                        phone: value,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: coachList.email,
-                                        job: coachList.job,
-                                        record: coachList.recrod,
-                                        coachnum: coachList.coachnum,
-                                    });
-                                    }}
-                                />
-                    </Col>
+                <Col span={5}>{coachList.phone}</Col>
+                
                </Row><br></br>
                <Row>
                 <Col span={8}>코치번호</Col>
-                <Col span={5}>
-                <Input
-                                    autoComplete="coachnum"
-                                    name="coachnum"
-                                    id="coachnum"
-                                    value={coachList.coachnum}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : coachList.name,
-                                        phone: coachList.phone,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: coachList.email,
-                                        job: coachList.job,
-                                        record: coachList.recrod,
-                                        coachnum: value,
-                                    });
-                                    }}
-                                />
-                </Col>
+                <Col span={5}>{coachList.coachnum}</Col>
+
+                
                </Row><br></br>
                 <Row>
                     <Col span={8}>이메일</Col>
-                    <Col span={5}>
-                    <Input 
-                                    autoComplete="email"
-                                    name="email"
-                                    id="email"
-                                    value={coachList.email}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : coachList.name,
-                                        phone: coachList.phone,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: value,
-                                        job: coachList.job,
-                                        record: coachList.recrod,
-                                        coachnum: coachList.coachnum,
-                                    });
-                                    }}
-                                />
-                    </Col>
+                    <Col span={5}>{coachList.email}</Col>
                 </Row><br></br>
                 <Row>
                     <Col span={8}>직무</Col>
-                    <Col span={5}>
-                    <Input 
-                                    autoComplete="job"
-                                    name="job"
-                                    id="job"
-                                    value={coachList.job}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : coachList.name,
-                                        phone: coachList.phone,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: coachList.email,
-                                        job: value,
-                                        record: coachList.recrod,
-                                        coachnum: coachList.coachnum,
-                                    });
-                                    }}
-                                />
-                    </Col>
+                    <Col span={5}>{coachList.job}</Col>
+
                 </Row><br></br>
                 <Row>
                     <Col span={8}>이력</Col>
-                    <Col span={5}>
-                    <TextArea
-                                    autoComplete="record"
-                                    name="record"
-                                    id="record"
-                                    value={coachList.record}
-                                    style={{height :200}}
-                                    onChange={e => {
-                                    let value = e.target.value;
-                                    setCoachList({
-                                        name : coachList.name,
-                                        phone: coachList.phone,
-                                        username: coachList.username,
-                                        password: coachList.password,
-                                        email: coachList.email,
-                                        job: coachList.job,
-                                        record: value,
-                                        coachnum: coachList.coachnum,
-                                    });
-                                    }}
-                                />
-                    </Col>
+                    <Col span={5}>{coachList.record}</Col>
                 </Row><br></br>
                 <Row>
                     <Col span={8}>담당회원</Col>

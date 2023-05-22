@@ -30,6 +30,7 @@ import moment from "moment";
 
 
 
+
   const CalendarMain = () => {
     
     
@@ -543,8 +544,8 @@ import moment from "moment";
         date: '',
         startHour: '',
         startMinute: '',
-        endHour: '',
-        endMinute: '',
+        // endHour: '',
+        // endMinute: '',
         memo: '',
     }
 
@@ -565,7 +566,13 @@ import moment from "moment";
       console.log("날짜 : ", e);       
         SetDate(e);
     }
-    
+
+    var datetoString = dayjs(date);
+    console.log("이가",datetoString)
+    datetoString = datetoString.format("YYYY-MM-DD");
+    console.log("바꼈나",datetoString)
+
+
     const consumerHandler = (e) => {
       console.log(`selected ${e}`);
       setConsumer(e);
@@ -641,18 +648,16 @@ import moment from "moment";
     
   
       console.log("매니저의 스케줄", state);
-
+      console.log("이거..",date);
       const submitHandler = (e) => {
         e.preventDefault();
       
         let body = {
           usernum: usernum,
-          date: date,
+          date: datetoString,
           manager: managerData,
           startHour: startHour,
           startMinute: startMinute,
-          endHour: endHour,
-          endMinute: endMinute,
           memo: memo,
         };
         console.log("입력한정보",body);
@@ -663,6 +668,7 @@ import moment from "moment";
              );
         alert("일정 추가 성공");
         window.location.reload();
+
 
         };
 
@@ -725,8 +731,8 @@ import moment from "moment";
               date : row.date,
               startHour : row.startHour,
               startMinute : row.startMinute,
-              endHour : row.endHour,
-              endMinute : row.endMinute,
+              // endHour : row.endHour,
+              // endMinute : row.endMinute,
               memo : row.memo,
 
             }))
@@ -818,9 +824,12 @@ import moment from "moment";
   <Title level={4}>수업 일시</Title>
     <Space direction="vertical" size={20}>
     <DatePicker 
+      dateFormat="yyyy-MM-dd" 
       name="date"
+      placeholderText="날짜 선택"
       onChange={dateHandler}      
       />
+      
     </Space>
     <div>
       {" "}
@@ -973,154 +982,7 @@ import moment from "moment";
         },
       ]}
     />
-    <SwapRightOutlined />
-
-    <Select
-      name="endHour"
-      showSearch
-      placeholder="00시"
-      optionFilterProp="endhour"
-      onChange={endHourHandler}
-      onSearch={onSearch}
-      filterOption={(input, option) =>
-        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-      }
-      options={[
-        {
-          value: '1시',
-          label: '1시',
-        },
-        {
-          value: '2시',
-          label: '2시',
-        },
-        {
-          value: '3시',
-          label: '3시',
-        },
-        {
-          value: '4시',
-          label: '4시',
-        },
-        {
-          value: '5시',
-          label: '5시',
-        },
-        {
-          value: '6시',
-          label: '6시',
-        },
-        {
-          value: '7시',
-          label: '7시',
-        },
-        {
-          value: '8시',
-          label: '8시',
-        },
-        {
-          value: '9시',
-          label: '9시',
-        },
-        {
-          value: '10시',
-          label: '10시',
-        },
-        {
-          value: '11시',
-          label: '11시',
-        },
-        {
-          value: '12시',
-          label: '12시',
-        },
-        {
-          value: '13시',
-          label: '13시',
-        },
-        {
-          value: '14시',
-          label: '14시',
-        },
-        {
-          value: '15시',
-          label: '15시',
-        },
-        {
-          value: '16시',
-          label: '16시',
-        },
-        {
-          value: '17시',
-          label: '17시',
-        },
-        {
-          value: '18시',
-          label: '18시',
-        },
-        {
-          value: '19시',
-          label: '19시',
-        },
-        {
-          value: '20시',
-          label: '20시',
-        },
-        {
-          value: '21시',
-          label: '21시',
-        },
-        {
-          value: '22시',
-          label: '22시',
-        },
-        {
-          value: '23시',
-          label: '23시',
-        },
-        {
-          value: '24시',
-          label: '24시',
-        },
-      ]}
-    />
-    <Select
-      name="endMinute"
-      onChange={endMinuteHandler}
-      showSearch
-      placeholder="00분"
-      optionFilterProp="endminute"
-      onSearch={onSearch}
-      filterOption={(input, option) =>
-        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-      }
-      options={[
-        {
-          value: '00분',
-          label: '00분',
-        },
-        {
-          value: '10분',
-          label: '10분',
-        },
-        {
-          value: '20분',
-          label: '20분',
-        },
-        {
-          value: '30분',
-          label: '30분',
-        },
-        {
-          value: '40분',
-          label: '40분',
-        },
-        {
-          value: '50분',
-          label: '50분',
-        },
-      ]}
-    />
+    
     <div>
       {" "}
       <br></br>{" "}
@@ -1182,7 +1044,7 @@ showCount/>
               function(info){
                 // alert('Event : ' + info.event.title);
                 console.log(info.event.id);
-                navigate('/home/calendar/update', {
+                navigate('/coach/calendar/update', {
                   state:{
                     id : info.event.id
                   }
@@ -1201,22 +1063,22 @@ showCount/>
 
 
 
-  const format = "YYYY-MM-DD";
-  const { RangePicker } = DatePicker;
+  // const format = "YYYY-MM-DD";
+  // const { RangePicker } = DatePicker;
   
-  const customFormat = (value) => `custom format: ${value.format(format)}`;
-  
+  // const customFormat = (value) => `custom format: ${value.format(format)}`;
   const { TextArea } = Input;
   const { Title } = Typography;
   
   
-  dayjs.extend(customParseFormat);
-  const onChange = (time) => {
-    console.log("Time : ", time);
-  };
-  const onChange2 = (date) => {
-    console.log('Date: ', date);
-  };
+  // dayjs.extend(customParseFormat);
+  // dayjs(date,"YYYY-MM-DD")
+  // const onChange = (time) => {
+  //   console.log("Time : ", time);
+  // };
+  // const onChange2 = (date) => {
+  //   console.log('Date: ', date);
+  // };
   const onSearch = (value) => console.log(value);
 
   export default CalendarMain;

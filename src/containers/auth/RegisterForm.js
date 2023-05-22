@@ -6,6 +6,8 @@ import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -68,6 +70,7 @@ const RegisterForm = () => {
 
     if (auth) {
       console.log('회원가입 성공');
+
       console.log(auth);
       dispatch(check());
       alert('회원가입에 성공했습니다. 로그인 해주세요.');

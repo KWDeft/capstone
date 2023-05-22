@@ -400,21 +400,42 @@ const JournalTable = () => {
                         return {
                           onClick: (e) => {
                             console.log(usernum);
-                            navigate('/home/journal/edit', {
-                                state: {
-                                    times: times,
-                                    remains: remains,
-                                    usernum: usernum,
-                                    classname: classname,
-                                    subject: subject,
-                                    purpose: purpose,
-                                    manager: manager,
-                                    contents: contents,
-                                    date_class: date_class,
-                                    ndate_class: ndate_class,
-                                    id: id,
-                                },
-                              });
+                            const auth_ = localStorage.getItem('auth');
+                            if (auth_ == '"coach"'){
+                                navigate('/coach/journal/edit', {
+                                    state: {
+                                        times: times,
+                                        remains: remains,
+                                        usernum: usernum,
+                                        classname: classname,
+                                        subject: subject,
+                                        purpose: purpose,
+                                        manager: manager,
+                                        contents: contents,
+                                        date_class: date_class,
+                                        ndate_class: ndate_class,
+                                        id: id,
+                                    },
+                                  });
+                            }
+                            else {
+                                navigate('/home/journal/edit', {
+                                    state: {
+                                        times: times,
+                                        remains: remains,
+                                        usernum: usernum,
+                                        classname: classname,
+                                        subject: subject,
+                                        purpose: purpose,
+                                        manager: manager,
+                                        contents: contents,
+                                        date_class: date_class,
+                                        ndate_class: ndate_class,
+                                        id: id,
+                                    },
+                                  });
+                            }
+                            
                           }
                         };
                       }}

@@ -343,7 +343,9 @@ const ConsultTable = () => {
                         return {
                           onClick: (e) => {
                             console.log(usernum);
-                            navigate('/home/journal/counseledit', {
+                            const auth_ = localStorage.getItem('auth');
+                            if (auth_ == '"coach"'){
+                              navigate('/coach/journal/counseledit', {
                                 state: {
                                   usernum: usernum,
                                   purpose: purpose,
@@ -356,6 +358,22 @@ const ConsultTable = () => {
                                   id: id,
                                 },
                               });
+                            }
+                            else{
+                              navigate('/home/journal/counseledit', {
+                                state: {
+                                  usernum: usernum,
+                                  purpose: purpose,
+                                  manager: manager,
+                                  method: method,
+                                  reception: reception,
+                                  detail: detail,
+                                  date_counsel: date_counsel,
+                                  ndate_counsel: ndate_counsel,
+                                  id: id,
+                                },
+                              });
+                            }
                           }
                         };
                       }}
