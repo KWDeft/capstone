@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Button, Table, Modal, Input, Tabs } from 'antd';
-import { useNavigate } from 'react-router';
-import './Members.css';
-import NewMember from './NewMember.js';
-import { Link, Outlet } from 'react-router-dom';
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
-import client from '../../lib/api/client';
-import user from '../../modules/user';
+import React, { useState, useEffect } from "react";
+import { Row, Col, Button, Table, Modal, Input, Tabs } from "antd";
+import { useNavigate } from "react-router";
+import "./Members.css";
+import NewMember from "./NewMember.js";
+import { Link, Outlet } from "react-router-dom";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import client from "../../lib/api/client";
+import user from "../../modules/user";
 import { useSelector } from "react-redux";
 
 const onSearch = (value) => console.log(value);
@@ -14,8 +14,8 @@ const { TextArea } = Input;
 
 const columns = [
   {
-    title: '이름',
-    dataIndex: 'name',
+    title: "이름",
+    dataIndex: "name",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -66,16 +66,16 @@ const columns = [
     },
   },
   {
-    title: '연락처',
-    dataIndex: 'phone',
+    title: "연락처",
+    dataIndex: "phone",
   },
   {
-    title: '이메일',
-    dataIndex: 'email',
+    title: "이메일",
+    dataIndex: "email",
   },
   {
-    title: '직무',
-    dataIndex: 'job',
+    title: "직무",
+    dataIndex: "job",
   },
 ];
 
@@ -90,22 +90,22 @@ const Members = () => {
   const [coach, setCoach] = useState([]);
   const [loading, setloading] = useState(true);
 
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState([]);
   const [position, setPosition] = useState([]);
   const [job, setJob] = useState([]);
 
-  const [coachName, setCoachName] = useState('');
-  const [coachPhone, setCoachPhone] = useState('');
-  const [coachUserName, setCoachUserName] = useState('');
-  const [coachPassword, setCoachPassword] = useState('');
+  const [coachName, setCoachName] = useState("");
+  const [coachPhone, setCoachPhone] = useState("");
+  const [coachUserName, setCoachUserName] = useState("");
+  const [coachPassword, setCoachPassword] = useState("");
   const [coachEmail, setCoachEmail] = useState([]);
   const [coachJob, setCoachJob] = useState([]);
   const [record, setRecord] = useState([]);
-  const [coachnum, setCoachnum] = useState('');
+  const [coachnum, setCoachnum] = useState("");
 
   const TabPane = Tabs.TabPane;
   const navigate = useNavigate();
@@ -190,7 +190,7 @@ const Members = () => {
   };
 
   const getAdminData = async () => {
-    await client.get('/api/member/admin').then((res) => {
+    await client.get("/api/member/admin").then((res) => {
       setloading(false);
       setAdmin(
         res.data.map((row) => ({
@@ -202,7 +202,7 @@ const Members = () => {
           password: row.password,
           job: row.job,
           id: row._id,
-        })),
+        }))
       );
     });
   };
@@ -210,7 +210,7 @@ const Members = () => {
   console.log(admin);
 
   const getCoachData = async () => {
-    await client.get('/api/member/coach').then((res) => {
+    await client.get("/api/member/coach").then((res) => {
       setloading(false);
       setCoach(
         res.data.map((row) => ({
@@ -223,7 +223,7 @@ const Members = () => {
           record: row.record,
           coachnum: row.coachnum,
           id: row._id,
-        })),
+        }))
       );
     });
   };
@@ -232,10 +232,10 @@ const Members = () => {
     setIsModalOpen(true);
   };
   const submitAdmin = (e) => {
-    if ([name, phone, username, password].includes('')) {
-      alert('빈 칸을 모두 입력하세요.');
-      return;
-    }
+    // if ([name, phone, username, password].includes('')) {
+    //   alert('빈 칸을 모두 입력하세요.');
+    //   return;
+    // }
 
     e.preventDefault();
 
@@ -249,18 +249,38 @@ const Members = () => {
     let register = {
       username: username,
       password: password,
-      role: 'admin',
+      role: "admin",
     };
 
-    client
-      .post('/api/member/admin/create', body)
-      .then((res) => console.log(res));
+    let result1 = name.replace(/ /g, "");
+    let result2 = phone.replace(/ /g, "");
+    let result3 = username.replace(/ /g, "");
+    let result4 = password.replace(/ /g, "");
 
-    client
-      .post('/api/auth/register', register)
-      .then((res2) => console.log(res2));
+    if (result1 == "" || result2 == "" || result3 == "" || result4 == "") {
+      alert("빈 칸을 모두 입력하세요.");
+      return;
+    } else {
+      client
+        .post("/api/member/admin/create", body)
+        .then((res) => console.log(res));
 
-    alert('관리자 등록 완료');
+      client
+        .post("/api/auth/register", register)
+        .then((res2) => console.log(res2));
+
+      alert("관리자 등록 완료");
+    }
+
+    // client
+    //   .post('/api/member/admin/create', body)
+    //   .then((res) => console.log(res));
+
+    // client
+    //   .post('/api/auth/register', register)
+    //   .then((res2) => console.log(res2));
+
+    // alert('관리자 등록 완료');
     setIsModalOpen2(false);
     window.location.reload();
   };
@@ -276,11 +296,9 @@ const Members = () => {
       // [coachName, coachPhone, coachUserName, coachPassword, coachnum].includes(
       //   '',
       // )
-      [coachName, coachPhone].includes(
-        '',
-      )
+      [coachName, coachPhone].includes("")
     ) {
-      alert('빈 칸을 모두 입력하세요.');
+      alert("빈 칸을 모두 입력하세요.");
       return;
     }
     e.preventDefault();
@@ -297,13 +315,24 @@ const Members = () => {
     //   role: 'coach',
     // };
 
-    client
-      .post('/api/member/coach/create', body)
-      .then((res) => 
-      console.log(res)
-      
-      );
-    // client.post('/api/auth/register', register).then((res) => console.log(res));
+    let result1 = coachName.replace(/ /g, "");
+    let result2 = coachPhone.replace(/ /g, "");
+
+    if (result1 == "" || result2 == "") {
+      alert("빈 칸을 모두 입력하세요.");
+      return;
+    } else {
+      client
+        .post("/api/member/coach/create", body)
+        .then((res) => console.log(res));
+      // client.post('/api/auth/register', register).then((res) => console.log(res));
+      alert("코치 등록 완료");
+    }
+
+    // client
+    //   .post('/api/member/coach/create', body)
+    //   .then((res) => console.log(res));
+    // // client.post('/api/auth/register', register).then((res) => console.log(res));
     // alert('코치 등록 완료');
     window.location.reload();
     setIsModalOpen2(false);
@@ -311,31 +340,28 @@ const Members = () => {
   const handleCancel2 = () => {
     setIsModalOpen2(false);
   };
-  const auth_ = localStorage.getItem('auth')
+  const auth_ = localStorage.getItem("auth");
 
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-  if(auth_!='"admin"'){
+  if (auth_ != '"admin"') {
     return <div>관리자만 볼 수 있는 페이지입니다.</div>;
-}
-  
+  }
 
-    const doubleCheck = async (coachPhone) => {
-      console.log("전번:",coachPhone);
-      await client.post('/api/member/coach/confirm/',{
-        phone:coachPhone,
+  const doubleCheck = async (coachPhone) => {
+    console.log("전번:", coachPhone);
+    await client
+      .post("/api/member/coach/confirm/", {
+        phone: coachPhone,
       })
 
-      .then((res)=> {
-        console.log("res.data는 : ",res.data);
+      .then((res) => {
+        console.log("res.data는 : ", res.data);
         alert(res.data);
       });
-      
-    };
-    
-                      
+  };
 
   return (
     <>
@@ -439,7 +465,7 @@ const Members = () => {
               return {
                 onClick: (e) => {
                   console.log(username);
-                  navigate('/home/members/info', {
+                  navigate("/home/members/info", {
                     state: {
                       name: name,
                       phone: phone,
@@ -497,17 +523,17 @@ const Members = () => {
                           onChange={coachPhoneHandler}
                         />
                       </Col>
-                      
+
                       <Button
-                          // onClick={doubleCheck}
-                          onClick={
-                            () => {
-                              console.log(coachPhone);
-                              doubleCheck(coachPhone);
-                            }
-                          }
-                          type="primary"
-                        >확인</Button>
+                        // onClick={doubleCheck}
+                        onClick={() => {
+                          console.log(coachPhone);
+                          doubleCheck(coachPhone);
+                        }}
+                        type="primary"
+                      >
+                        확인
+                      </Button>
                     </Row>
                     <br></br>
                     <Row>
@@ -515,7 +541,7 @@ const Members = () => {
                         <h3>코치 번호</h3>
                       </Col>
                       <Col span={10}>
-                        <h2>{(coachPhone.substr(7))}</h2>
+                        <h2>{coachPhone.substr(7)}</h2>
                       </Col>
                     </Row>
                   </Col>
@@ -538,7 +564,7 @@ const Members = () => {
               return {
                 onClick: (e) => {
                   console.log(username);
-                  navigate('/home/members/coachinfo', {
+                  navigate("/home/members/coachinfo", {
                     state: {
                       name: name,
                       phone: phone,
