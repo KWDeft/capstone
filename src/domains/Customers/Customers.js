@@ -11,17 +11,17 @@ import {
   Typography,
   Radio,
   Checkbox,
-} from 'antd';
+} from "antd";
 import { useSelector } from "react-redux";
 
-import React, { useState, useEffect } from 'react';
-import client from '../../lib/api/client';
+import React, { useState, useEffect } from "react";
+import client from "../../lib/api/client";
 import {
   SearchOutlined,
   PlusOutlined,
   DeleteOutlined,
-} from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+} from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -35,18 +35,18 @@ const today = () => {
   let thisyear = now.getFullYear();
   let todayMonth = now.getMonth() + 1;
   let todayDate = now.getDate();
-  return thisyear + '. ' + todayMonth + '. ' + todayDate;
+  return thisyear + ". " + todayMonth + ". " + todayDate;
 };
 
 // 번호, 성명, 유형, 상태, 성별, 생년월일, 담당자, 운동목적, 장애유형, 전화번호, 회원권, 결제정보, 소개정보
 const columns = [
   {
-    title: '번호',
-    dataIndex: 'usernum',
+    title: "번호",
+    dataIndex: "usernum",
   },
   {
-    title: '성명',
-    dataIndex: 'name',
+    title: "성명",
+    dataIndex: "name",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -97,30 +97,30 @@ const columns = [
     },
   },
   {
-    title: '장애',
-    dataIndex: 'existence',
+    title: "장애",
+    dataIndex: "existence",
     filters: [
-      { text: '유', value: '유' },
-      { text: '무', value: '무' },
+      { text: "유", value: "유" },
+      { text: "무", value: "무" },
     ],
     onFilter: (value, record) => {
       return record.existence === value;
     },
   },
   {
-    title: '성별',
-    dataIndex: 'sex',
+    title: "성별",
+    dataIndex: "sex",
     filters: [
-      { text: '남', value: '남' },
-      { text: '여', value: '여' },
+      { text: "남", value: "남" },
+      { text: "여", value: "여" },
     ],
     onFilter: (value, record) => {
       return record.sex === value;
     },
   },
   {
-    title: '담당자',
-    dataIndex: 'manager',
+    title: "담당자",
+    dataIndex: "manager",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -171,8 +171,8 @@ const columns = [
     },
   },
   {
-    title: '전화번호',
-    dataIndex: 'phone',
+    title: "전화번호",
+    dataIndex: "phone",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -223,20 +223,20 @@ const columns = [
     },
   },
   {
-    title: '결제정보',
-    dataIndex: 'payment',
+    title: "결제정보",
+    dataIndex: "payment",
     filters: [
-      { text: '실비', value: '실비' },
-      { text: '바우처+실비', value: '바우처+실비' },
-      { text: '바우처', value: '바우처' },
+      { text: "실비", value: "실비" },
+      { text: "바우처+실비", value: "바우처+실비" },
+      { text: "바우처", value: "바우처" },
     ],
     onFilter: (value, record) => {
       return record.payment === value;
     },
   },
   {
-    title: '장애유형',
-    dataIndex: 'obstacle_type',
+    title: "장애유형",
+    dataIndex: "obstacle_type",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -287,8 +287,8 @@ const columns = [
     },
   },
   {
-    title: '소개정보',
-    dataIndex: 'inflow',
+    title: "소개정보",
+    dataIndex: "inflow",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -339,8 +339,8 @@ const columns = [
     },
   },
   {
-    title: '회원권',
-    dataIndex: 'membership',
+    title: "회원권",
+    dataIndex: "membership",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -391,8 +391,8 @@ const columns = [
     },
   },
   {
-    title: '운동목적',
-    dataIndex: 'user_purpose',
+    title: "운동목적",
+    dataIndex: "user_purpose",
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -443,14 +443,14 @@ const columns = [
     },
   },
   {
-    title: '상태',
-    dataIndex: 'statement',
+    title: "상태",
+    dataIndex: "statement",
     filters: [
-      { text: '이용중', value: '이용중' },
-      { text: '휴면고객', value: '휴면고객' },
-      { text: '상담예정', value: '상담예정' },
-      { text: '상담완료', value: '상담완료' },
-      { text: '단순문의', value: '단순문의' },
+      { text: "이용중", value: "이용중" },
+      { text: "휴면고객", value: "휴면고객" },
+      { text: "상담예정", value: "상담예정" },
+      { text: "상담완료", value: "상담완료" },
+      { text: "단순문의", value: "단순문의" },
     ],
     onFilter: (value, record) => {
       return record.statement === value;
@@ -460,20 +460,20 @@ const columns = [
 
 const options = [
   {
-    value: 'today',
-    label: '오늘',
+    value: "today",
+    label: "오늘",
   },
   {
-    value: 'yesterday',
-    label: '어제',
+    value: "yesterday",
+    label: "어제",
   },
   {
-    value: 'thisweek',
-    label: '이번 주',
+    value: "thisweek",
+    label: "이번 주",
   },
   {
-    value: 'lastweek',
-    label: '지난 주',
+    value: "lastweek",
+    label: "지난 주",
   },
 ];
 
@@ -487,32 +487,32 @@ const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [coachs, setCoachs] = useState([]);
 
-  
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setloading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [usernum, setUsernum] = useState('');
-  const [userheight, setUserheight] = useState('');
-  const [userwidth, setUserwidth] = useState('');
-  const [sex, setSex] = useState('');
-  const [existence, setExistence] = useState('');
-  const [name, setName] = useState('');
-  const [obstacle_type, setObstacle_type] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [memo, setMemo] = useState('');
-  const [manager, setManager] = useState('');
-  const [payment, setPayment] = useState('');
-  const [inflow, setInflow] = useState('');
-  const [statement, setStatement] = useState('');
-  const [date_signup, setDate_signup] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [membership, setMembership] = useState('');
-  const [user_purpose, setUser_purpose] = useState('');
-  const [vaccinate, setVaccinate] = useState('');
-  const [category, setCategory] = useState('');
-  const [coachData,setCoachData] = useState("");
+  const [usernum, setUsernum] = useState("");
+  const [userheight, setUserheight] = useState("");
+  const [userwidth, setUserwidth] = useState("");
+  const [sex, setSex] = useState("");
+  const [existence, setExistence] = useState("");
+  const [name, setName] = useState("");
+  const [obstacle_type, setObstacle_type] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [memo, setMemo] = useState("");
+  const [manager, setManager] = useState("");
+  const [payment, setPayment] = useState("");
+  const [inflow, setInflow] = useState("");
+  const [statement, setStatement] = useState("");
+  const [date_signup, setDate_signup] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [membership, setMembership] = useState("");
+  const [user_purpose, setUser_purpose] = useState("");
+  const [vaccinate, setVaccinate] = useState("");
+  const [category, setCategory] = useState("");
+  const [coachData, setCoachData] = useState("");
+  const [amountData, setAmountData] = useState("");
   const categoryHandler = (e) => {
     setCategory(e);
   };
@@ -591,7 +591,7 @@ const Customers = () => {
   const handleOk = (e) => {
     if (
       [
-        usernum,
+        // usernum,
         sex,
         existence,
         name,
@@ -600,15 +600,15 @@ const Customers = () => {
         date_signup,
         birthday,
         user_purpose,
-      ].includes('')
+      ].includes("")
     ) {
-      alert('빈칸을 모두 입력하세요.');
+      alert("빈칸을 모두 입력하세요.");
       return;
     }
 
     e.preventDefault();
     let body = {
-      usernum: usernum,
+      //   usernum: usernum,
       sex: sex,
       existence: existence,
       name: name,
@@ -621,9 +621,9 @@ const Customers = () => {
     };
 
     client
-      .post('/api/consumer/info/create', body)
+      .post("/api/consumer/info/create", body)
       .then((res) => console.log(res));
-    alert('등록 완료');
+    alert("등록 완료");
     window.location.reload();
   };
   const handleCancel = () => {
@@ -638,58 +638,68 @@ const Customers = () => {
   useEffect(() => {
     getData();
     getCoachData();
+    getAmountData();
   }, []);
 
   const getData = async () => {
-    await client.get('/api/consumer/info').then((res) => {
+    await client.get("/api/consumer/info").then((res) => {
       setloading(false);
       setCustomers(
         res.data.map((row) => ({
           usernum: row.usernum,
-              userheight: row.userheight,
-              userwidth: row.userwidth,
-              sex: row.sex,
-              existence: row.existence,
-              name: row.name,
-              obstacle_type: row.obstacle_type,
-              phone: row.phone,
-              address: row.address,
-              memo: row.memo,
-              manager: row.manager,
-              payment: row.payment,
-              inflow: row.inflow,
-              statement: row.statement,
-              date_signup: row.date_signup,
-              birthday: row.birthday,
-              membership: row.membership,
-              user_purpose: row.user_purpose,
-              vaccinate: row.vaccinate,
-              category: row.category,
-              id: row._id
-        })),
+          userheight: row.userheight,
+          userwidth: row.userwidth,
+          sex: row.sex,
+          existence: row.existence,
+          name: row.name,
+          obstacle_type: row.obstacle_type,
+          phone: row.phone,
+          address: row.address,
+          memo: row.memo,
+          manager: row.manager,
+          payment: row.payment,
+          inflow: row.inflow,
+          statement: row.statement,
+          date_signup: row.date_signup,
+          birthday: row.birthday,
+          membership: row.membership,
+          user_purpose: row.user_purpose,
+          vaccinate: row.vaccinate,
+          category: row.category,
+          id: row._id,
+        }))
       );
     });
   };
 
   const getCoachData = async () => {
-    await client.get('/api/member/coach/coachname')
-    .then((res)=>{
+    await client.get("/api/member/coach/coachname").then((res) => {
       setloading(false);
-      setCoachData(
-        res.data
-      )
+      setCoachData(res.data);
       console.log(res.data);
-  })}
-  let coachList=[];
-  for (let i=0; i<coachData.length;i++){
+    });
+  };
+  let coachList = [];
+  for (let i = 0; i < coachData.length; i++) {
     let op = {};
-    op.value=coachData[i];
-    op.label=coachData[i];
+    op.value = coachData[i];
+    op.label = coachData[i];
     coachList.push(op);
   }
-  
+
+  const getAmountData = async () => {
+    await client.get("/api/consumer/info/useramount").then((res) => {
+      setloading(false);
+      setAmountData(res.data);
+      console.log(res.data);
+    });
+  };
+
+  let amountValue = amountData;
+
+  // console.log('출력', amountValue);
+
   // console.log("출ㄹㄱ해라",coachList);
-  
 
   const [isModal2Open, setIsModal2Open] = useState(false);
   const showNMModal = () => {
@@ -708,19 +718,18 @@ const Customers = () => {
 
   const [value, setValue] = useState(1);
   const onChange1 = (e) => {
-    console.log('radio checked', e.target.value);
+    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
 
-  const user = localStorage.getItem('user');
-  const auth_ = localStorage.getItem('auth')
+  const user = localStorage.getItem("user");
+  const auth_ = localStorage.getItem("auth");
   if (!user) {
     return <div>로그인 하지 않으면 볼 수 없는 페이지입니다.</div>;
   }
-  if(auth_=='"user"'){
+  if (auth_ == '"user"') {
     return <div>관리자 및 코치만 볼 수 있는 페이지입니다.</div>;
-}
-
+  }
 
   return (
     <>
@@ -728,7 +737,8 @@ const Customers = () => {
         <PlusOutlined />
         신규회원 등록
       </Button>
-      <br/><br/>
+      <br />
+      <br />
       <Modal
         title="신규회원 추가"
         open={isModalOpen}
@@ -744,8 +754,12 @@ const Customers = () => {
                   height={150}
                   src="https://pbs.twimg.com/profile_images/1459562606956793856/rMEpug4T_400x400.jpg"
                 />
-                <br></br><br></br>
-                <Button size="small">사진 추가/변경</Button><Button size="small"><DeleteOutlined /></Button>
+                <br></br>
+                <br></br>
+                <Button size="small">사진 추가/변경</Button>
+                <Button size="small">
+                  <DeleteOutlined />
+                </Button>
                 <br></br>
               </Col>
             </div>
@@ -757,19 +771,20 @@ const Customers = () => {
                     <div>회원번호</div>
                   </Col>
                   <Col>
-                    <InputNumber
+                    {/* <InputNumber
                       size="small"
                       style={{ width: 80 }}
                       name="usernum"
                       value={usernum}
                       onChange={usernumHandler}
-                    />
+                    /> */}
+                    <h2 name="usernum">{amountValue}</h2>
                   </Col>
                 </Row>
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>이름</div>
+                    <div>이름</div>
                   </Col>
                   <Col>
                     <Input
@@ -784,7 +799,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>성별</div>
+                    <div>성별</div>
                   </Col>
                   <Col>
                     <div
@@ -802,7 +817,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>생년월일</div>
+                    <div>생년월일</div>
                   </Col>
                   <Col>
                     <Input
@@ -811,13 +826,13 @@ const Customers = () => {
                       name="birthday"
                       value={birthday}
                       onChange={birthdayHandler}
-                    />{' '}
+                    />{" "}
                   </Col>
                 </Row>
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>장애 유무</div>
+                    <div>장애 유무</div>
                   </Col>
                   <Col>
                     <div
@@ -835,7 +850,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={10}>
                   <Col>
-                  <div>전화번호</div>
+                    <div>전화번호</div>
                   </Col>
                   <Col>
                     <Input
@@ -856,26 +871,22 @@ const Customers = () => {
               <Col>
                 <Row gutter={16}>
                   <Col>
-                  <div>담당자</div>
+                    <div>담당자</div>
                   </Col>
                   <Col>
-                    
                     <Select
-                    name="manager"
-                    showSearch
-                    placeholder="담당자"
-                    onChange = {managerHandler}
-                    options = {coachList}
+                      name="manager"
+                      showSearch
+                      placeholder="담당자"
+                      onChange={managerHandler}
+                      options={coachList}
                     />
-                
-                    
-                    
                   </Col>
                 </Row>
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>운동목적</div>
+                    <div>운동목적</div>
                   </Col>
                   <Col>
                     <Select
@@ -885,18 +896,18 @@ const Customers = () => {
                       style={{ width: 200 }}
                       onChange={handleChange}
                       options={[
-                        { value: '근력강화', label: '근력강화' },
-                        { value: '체형교정', label: '체형교정' },
-                        { value: '신체컨디셔닝', label: '신체컨디셔닝' },
-                        { value: '트랜스퍼', label: '트랜스퍼' },
-                        { value: '건강관리', label: '건강관리' },
-                        { value: '운동습관형성', label: '운동습관형성' },
-                        { value: '통증경감', label: '통증경감' },
-                        { value: '체력향상', label: '체력향상' },
-                        { value: '일상기능회복', label: '일상기능회복' },
-                        { value: '전문적운동지도', label: '전문적운동지도' },
-                        { value: '골프트레이닝', label: '골프트레이닝' },
-                        { value: '기타', label: '기타' },
+                        { value: "근력강화", label: "근력강화" },
+                        { value: "체형교정", label: "체형교정" },
+                        { value: "신체컨디셔닝", label: "신체컨디셔닝" },
+                        { value: "트랜스퍼", label: "트랜스퍼" },
+                        { value: "건강관리", label: "건강관리" },
+                        { value: "운동습관형성", label: "운동습관형성" },
+                        { value: "통증경감", label: "통증경감" },
+                        { value: "체력향상", label: "체력향상" },
+                        { value: "일상기능회복", label: "일상기능회복" },
+                        { value: "전문적운동지도", label: "전문적운동지도" },
+                        { value: "골프트레이닝", label: "골프트레이닝" },
+                        { value: "기타", label: "기타" },
                       ]}
                     />
                   </Col>
@@ -904,7 +915,7 @@ const Customers = () => {
                 <br></br>
                 <Row gutter={16}>
                   <Col>
-                  <div>가입날짜</div>
+                    <div>가입날짜</div>
                   </Col>
                   <Col>
                     <Input
@@ -941,9 +952,24 @@ const Customers = () => {
           return {
             onClick: (e) => {
               console.log(id);
-              const auth_ = localStorage.getItem('auth');
-              if (auth_ == '"coach"'){
-                navigate('/coach/customers/info', {
+              const auth_ = localStorage.getItem("auth");
+              if (auth_ == '"coach"') {
+                navigate("/coach/customers/info", {
+                  state: {
+                    usernum: usernum,
+                    sex: sex,
+                    existence: existence,
+                    name: name,
+                    phone: phone,
+                    manager: manager,
+                    birthday: birthday,
+                    date_signup: date_signup,
+                    user_purpose: user_purpose,
+                    id: id,
+                  },
+                });
+              } else {
+                navigate("/home/customers/info", {
                   state: {
                     usernum: usernum,
                     sex: sex,
@@ -958,23 +984,6 @@ const Customers = () => {
                   },
                 });
               }
-              else {
-                navigate('/home/customers/info', {
-                  state: {
-                    usernum: usernum,
-                    sex: sex,
-                    existence: existence,
-                    name: name,
-                    phone: phone,
-                    manager: manager,
-                    birthday: birthday,
-                    date_signup: date_signup,
-                    user_purpose: user_purpose,
-                    id: id,
-                  },
-                });
-              }
-              
             },
           };
         }}
