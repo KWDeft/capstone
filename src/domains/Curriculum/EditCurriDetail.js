@@ -66,6 +66,38 @@ const EditCurriDetail = () => {
       },
     });
   };
+  
+const [fileList, setFileList] = useState([]);
+
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  e.preventDefault();
+  setFileList(e.target.files);
+};
+
+// 👇 files is not an array, but it's iterable, spread to get an array of files
+const files = fileList ? [...fileList] : [];
+
+const fileSubmitHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  e.preventDefault();
+  
+  const attachment = new FormData();
+  files.forEach((file, i) => {
+    attachment.append(`file-${i}`, file, file.name);
+  });
+
+  await client({
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    url: `/api/course/file/upload/${id}`, 
+    method: "PATCH",
+    data: attachment
+    }).then((res) => 
+       console.log(res)
+       );
+       alert("첨부파일 업로드 완료");
+      //  window.location.reload();
+  };
 
   const submitHandler = (e) => {
     console.log(stateCust);
@@ -190,6 +222,19 @@ const EditCurriDetail = () => {
               });
             }}
           />
+        <Divider orientation="left" orientationMargin="0">
+        <h5>첨부파일</h5>
+      </Divider> 
+        <input onChange={handleFileChange} multiple />
+
+        <ul>
+          {files.map((file, i) => (
+            <li key={i}>
+              {file.name} - {file.type}
+            </li>
+          ))}
+        </ul>
+        <Button onClick ={fileSubmitHandler}>첨부파일 업로드</Button>
           <br></br><br></br><br></br>
         <Button onClick={DeleteCurriculum}>삭제</Button>
         <Button type="primary" onClick={submitHandler}>

@@ -8,6 +8,7 @@ import {
    Table, 
    Button,
    InputNumber,
+   Select,
    Modal} from "antd";
 import React, {useState, useEffect} from "react";
 import "./PaymentInfo.css";
@@ -64,6 +65,7 @@ const PaymentInfo = () => {
     const inflow = location.state.inflow;
     const user_purpose = location.state.user_purpose;
     const [state, setstate] = useState([]);
+    const [commodity, setCommodity] = useState([]);
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10);
 
@@ -94,8 +96,11 @@ const PaymentInfo = () => {
       setIsModalOpen(true);
     };
 
+    const [options, setOptions] = useState([]);
+
     useEffect(() => {
       getData();
+      getCommodity();
     }, []);
 
     const getData = async () => {
@@ -112,6 +117,21 @@ const PaymentInfo = () => {
             }))
           );
         }
+      );
+    };
+
+    const getCommodity = async () => {
+      await client.get("/api/product/list").then(
+        res => {          
+          setCommodity(
+            res.data.map(row => ({
+              name: row.name,
+              id: row._id
+            }))
+          );
+          console.log(res);
+        },
+        
       );
     };
 

@@ -9,8 +9,8 @@ const MyComments = () => {
    
     const navigate = useNavigate();
     const { user } = useSelector(({ user }) => ({ user: user.user }));
-    const [state, setState] = useState([]);
     const [commentList, setCommentList] = useState([]);
+    const [singleCommentList, setSingleCommentList] = useState([]);
     
     
     
@@ -20,12 +20,12 @@ const MyComments = () => {
         {
           key: "1",
           title: "작성 날짜",
-          dataIndex: "date"
+          dataIndex: "Date"
         },
         {
             key: "2",
             title: "댓글",
-            dataIndex: "content"
+            dataIndex: "Content"
           }
       ]
 
@@ -34,14 +34,14 @@ const MyComments = () => {
         
     const getCommentList = async () => {
       
-        client.get(`/api/course/comment/setting/${username}`).then(
+        client.get(`/api/course/comment/user/${username}`).then(
             res => {
                 console.log(res);
                 setCommentList(
                 res.data.map(row => ({
-                  courseId: row.courseId,
-                  content: row.content,
-                  date: row.date,
+                  CourseId: row.courseId,
+                  Content: row.content,
+                  Date: row.date,
                   id: row._id
                 }))
               );
@@ -60,18 +60,28 @@ const MyComments = () => {
           <h2>내가 작성한 댓글</h2>
             <Table
               columns={columns}
-              dataSource={state}
+              dataSource={commentList}
               onRow={(record, index) => {
-                const date = record.date;
-                const content = record.Content;
+                const courseId = record.CourseId;
+                const id = record._id;
                 return {
                   onClick: (e) => {
-                    navigate('/home/curriculum/edit', {
+
+                    const auth_ = localStorage.getItem('auth');
+
+                    if (auth_ == '"coach"'){
+                      navigate('/coach/curriculum/edit', {
                         state: {
-                          content: content,
-                          date: date,
+                          id: courseId,
                         },
                       });
+                    } else {
+                      navigate('/home/curriculum/edit', {
+                        state: {
+                          id: courseId,
+                        },
+                      });
+                    }
                   }
                 };
               }}
