@@ -46,7 +46,7 @@ const submitHandler = (e) => {
   };
 
   axios
-    .post("http://15.164.8.218:4000/api/auth/updatePW", body)
+    .post("http://3.39.139.203:4000/api/auth/updatePW", body)
     .then((res) => console.log(res));
 };
 

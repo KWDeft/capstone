@@ -61,7 +61,7 @@ function WriteMain() {
     //  console.log(response)
     // });
     const fd2 = new FormData();
-    await axios.post('http://15.164.8.218:8080/board/WriteBoard.do', fd, {
+    await axios.post('http://3.39.139.203:8080/board/WriteBoard.do', fd, {
   headers: {
     "Content-Type": `multipart/form-data; `,
   }

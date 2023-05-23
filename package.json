@@ -80,7 +80,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://15.164.8.218:4000/",
+  "proxy": "http://3.39.139.203:4000/",
   "devDependencies": {
     "redux-persist": "^6.0.0"
   }
