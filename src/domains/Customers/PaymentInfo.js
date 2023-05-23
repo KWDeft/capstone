@@ -16,6 +16,7 @@ import {  PushpinFilled, PlusOutlined } from "@ant-design/icons";
 import { useLocation,useNavigate } from "react-router-dom";
 import client from '../../lib/api/client';
 import EditPaymentInfo from "./EditPaymentInfo";
+import { SelectAll } from "../../../node_modules/@material-ui/icons/index";
 
 const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
@@ -73,15 +74,16 @@ const PaymentInfo = () => {
     const [product, setProduct] = useState("");
     const [pay_method, setPay_method] = useState("");
     const [pay_date, setPay_date] = useState("");
+    const [product_name, setProductNameData] = useState('');
 
     const pay_amountHandler = (e) => {
-      e.preventDefault();
-      setPay_amount(e.target.value);
+      setPay_amount(e);
     };
     const productHandler = (e) => {
-      e.preventDefault();
-      setProduct(e.target.value);
+      setProduct(e);
+      console.log(e);
     };
+
     const pay_methodHandler = (e) => {
       e.preventDefault();
       setPay_method(e.target.value);
@@ -122,18 +124,20 @@ const PaymentInfo = () => {
 
     const getCommodity = async () => {
       await client.get("/api/product/list").then(
-        res => {          
-          setCommodity(
-            res.data.map(row => ({
-              name: row.name,
-              id: row._id
-            }))
-          );
-          console.log(res);
-        },
-        
+        (res) => {
+          setProductNameData(res.data);
+          console.log(res.data);
+        }
       );
     };
+
+    let productnameList = [];
+    for (let i = 0; i < product_name.length; i++) {
+      let op = {};
+      op.value = product_name[i].name;
+      op.label = product_name[i].name;
+      productnameList.push(op);
+    }  
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -214,14 +218,15 @@ const PaymentInfo = () => {
                                     상품이름
                                   </Col>
                                   <Col>
-                                    <Input
+                                    <Select
                                       size="small"
                                       placeholder="상품이름"
                                       style={{ width: 150 }}
                                       name="product"
                                       value={product}
+                                      options={productnameList}
                                       onChange={productHandler}
-                                    ></Input>
+                                    ></Select>
                                 </Col>
                                 <br></br><br></br>
                                 </Row>
@@ -230,14 +235,24 @@ const PaymentInfo = () => {
                                     결제금액
                                 </Col>
                                 <Col>
-                                      <Input
+                                      {/* <Input
                                       size="small"
                                       placeholder="숫자만 입력해주세요"
                                       style={{ width: 150 }}
                                       name="pay_amount"
                                       value={pay_amount}
                                       onChange={pay_amountHandler}
-                                    />{" "}
+                                    /> */}
+                                     <Select
+                                      size="small"
+                                      placeholder="숫자만 입력해주세요"
+                                      style={{ width: 150 }}
+                                      name="pay_amount"
+                                      value={pay_amount}
+                                      onChange={pay_amountHandler}
+                                    />                                     
+                                    
+                                    {" "}
                                     원
                                 </Col>
                                 </Row>

@@ -73,7 +73,7 @@ const Dashboard = () => {
           <Col xs={{ span: 24 }} sm={{ span:24}} md={{ span:24 }} lg={{ span: 24 }} xl={{span:5}}>
             <body style={{height:"100vh", width:"45vh"}}>
             <Row>
-              <div className="container1" style={{width:"45vh"}}>
+              <div className="container1" style={{height:"100vh", width:"45vh"}}>
               <h3><PushpinFilled />오늘의 일정({today()})</h3>
               <FullCalendar 
               plugins={[dayGridPlugin]}
