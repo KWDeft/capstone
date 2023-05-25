@@ -10,13 +10,13 @@ import {
   Checkbox,
   Input,
   InputNumber,
-} from "antd";
-import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import { DeleteOutlined, FileTextOutlined } from "@ant-design/icons";
-import "./CustomerInfo.css";
-import client from "../../lib/api/client";
-import { InputNumberProps } from "../../../node_modules/antd/es/index";
+} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { DeleteOutlined, FileTextOutlined } from '@ant-design/icons';
+import './CustomerInfo.css';
+import client from '../../lib/api/client';
+import { InputNumberProps } from '../../../node_modules/antd/es/index';
 const { Text } = Typography;
 
 const handleChange = (value: string) => {
@@ -25,21 +25,23 @@ const handleChange = (value: string) => {
 
 const CustomerInfo = () => {
   const location = useLocation();
-  console.log("state", location.state);
+  console.log('state', location.state);
   const id = location.state.id;
   const navigate = useNavigate();
   const [customer, setCustomer] = useState([]);
-  const [manager, setManager] = useState("");
+  const [manager, setManager] = useState('');
   const [loading, setloading] = useState(true);
-  const [coachData, setCoachData] = useState("");
+  const [coachData, setCoachData] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     getData();
     getCoachData();
+    getProfileUrl();
   }, []);
 
   const getCoachData = async () => {
-    await client.get("/api/member/coach/coachname").then((res) => {
+    await client.get('/api/member/coach/coachname').then((res) => {
       setloading(false);
       setCoachData(res.data);
       console.log(res.data);
@@ -52,6 +54,14 @@ const CustomerInfo = () => {
     op.label = coachData[i];
     coachList.push(op);
   }
+
+  const getProfileUrl = async () => {
+    await client.get(`/api/consumer/profile/url/${id}`).then((res) => {
+      setloading(false);
+      setImageUrl(res.data);
+      console.log(res.data);
+    });
+  };
 
   const getData = async () => {
     await client.get(`/api/consumer/info/${id}`).then((d) => {
@@ -85,20 +95,20 @@ const CustomerInfo = () => {
 
   const deleteInfo = (e) => {
     Modal.confirm({
-      title: "삭제",
-      content: "해당 회원 정보를 삭제하시겠습니까?",
-      onText: "Yes",
-      okType: "danger",
+      title: '삭제',
+      content: '해당 회원 정보를 삭제하시겠습니까?',
+      onText: 'Yes',
+      okType: 'danger',
       onOk: () => {
         client
           .delete(`/api/consumer/info/${id}`)
           .then((res) => console.log(res));
-        alert("삭제완료");
-        const auth_ = localStorage.getItem("auth");
+        alert('삭제완료');
+        const auth_ = localStorage.getItem('auth');
         if (auth_ == '"coach"') {
-          navigate("/coach/customers");
+          navigate('/coach/customers');
         } else {
-          navigate("/home/customers");
+          navigate('/home/customers');
         }
       },
     });
@@ -106,9 +116,9 @@ const CustomerInfo = () => {
 
   // id, 이름, 성별, 전화번호, 생년월일, 주소, 장애유형, 유입경로, 운동목적 전달
   const move = () => {
-    const auth_ = localStorage.getItem("auth");
+    const auth_ = localStorage.getItem('auth');
     if (auth_ == '"coach"') {
-      navigate("/coach/customers/paymentinfo", {
+      navigate('/coach/customers/paymentinfo', {
         state: {
           id: customer.id,
           usernum: customer.usernum,
@@ -123,7 +133,7 @@ const CustomerInfo = () => {
         },
       });
     } else {
-      navigate("/home/customers/paymentinfo", {
+      navigate('/home/customers/paymentinfo', {
         state: {
           id: customer.id,
           usernum: customer.usernum,
@@ -141,15 +151,15 @@ const CustomerInfo = () => {
   };
 
   const note = () => {
-    const auth_ = localStorage.getItem("auth");
+    const auth_ = localStorage.getItem('auth');
     if (auth_ == '"coach"') {
-      navigate("/coach/journal", {
+      navigate('/coach/journal', {
         state: {
           usernum: customer.usernum,
         },
       });
     } else {
-      navigate("/home/journal", {
+      navigate('/home/journal', {
         state: {
           usernum: customer.usernum,
         },
@@ -169,8 +179,37 @@ const CustomerInfo = () => {
     client
       .patch(`/api/consumer/info/${id}`, customer)
       .then((res) => console.log(res));
-    alert("수정 완료");
+    alert('수정 완료');
     window.location.reload();
+  };
+
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    // Create a new FormData instance
+    const formData = new FormData();
+
+    // Append the file to the FormData object
+    formData.append('file', file);
+
+    // Make the patch request using axios
+    client
+      .patch(`/api/consumer/profile/upload/${id}`, formData)
+      .then((response) => {
+        // Handle the response
+        console.log(response.data);
+        alert('프로필 변경 완료');
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error(error);
+        alert('프로필 변경 실패했습니다. *.jpg, *.jpeg, *.png만 가능합니다.');
+      });
   };
 
   return (
@@ -189,6 +228,22 @@ const CustomerInfo = () => {
                     alt="프로필 이미지"
                   />
                   <br></br>
+                  <br></br>
+                  <div>
+                    <form encType="multipart/form-data">
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleFileChange}
+                      />
+                      <br></br>
+                      <br></br>
+                      <button type="button" onClick={handleUpload}>
+                        프로필 변경
+                      </button>
+                    </form>
+                  </div>
+
                   <br></br>
                   <Row>
                     <Button type="dashed" size="small" onClick={note}>
@@ -499,13 +554,13 @@ const CustomerInfo = () => {
                                     });
                                   }}
                                 >
-                                  <input type="radio" value="남" name="sex" />{" "}
+                                  <input type="radio" value="남" name="sex" />{' '}
                                   남
                                   <input
                                     type="radio"
                                     value="여"
                                     name="sex"
-                                  />{" "}
+                                  />{' '}
                                   여
                                 </div>
                               </Col>
@@ -549,7 +604,7 @@ const CustomerInfo = () => {
                                       category: customer.category,
                                     });
                                   }}
-                                />{" "}
+                                />{' '}
                               </Col>
                             </Row>
                             <br></br>
@@ -587,7 +642,7 @@ const CustomerInfo = () => {
                                       category: customer.category,
                                     });
                                   }}
-                                />{" "}
+                                />{' '}
                                 cm /
                               </Col>
                               <Col>
@@ -623,7 +678,7 @@ const CustomerInfo = () => {
                                       category: customer.category,
                                     });
                                   }}
-                                />{" "}
+                                />{' '}
                                 kg
                               </Col>
                             </Row>
@@ -668,13 +723,13 @@ const CustomerInfo = () => {
                                     type="radio"
                                     value="유"
                                     name="existence"
-                                  />{" "}
+                                  />{' '}
                                   유
                                   <input
                                     type="radio"
                                     value="무"
                                     name="existence"
-                                  />{" "}
+                                  />{' '}
                                   무
                                 </div>
                               </Col>
@@ -761,13 +816,13 @@ const CustomerInfo = () => {
                                     type="radio"
                                     value="유"
                                     name="vaccinate"
-                                  />{" "}
+                                  />{' '}
                                   유
                                   <input
                                     type="radio"
                                     value="무"
                                     name="vaccinate"
-                                  />{" "}
+                                  />{' '}
                                   무
                                 </div>
                               </Col>
@@ -831,9 +886,9 @@ const CustomerInfo = () => {
                                   size="small"
                                   onChange={handleChange}
                                   options={[
-                                    { value: "온라인", label: "온라인" },
-                                    { value: "오프라인", label: "오프라인" },
-                                    { value: "가정방문", label: "가정방문" },
+                                    { value: '온라인', label: '온라인' },
+                                    { value: '오프라인', label: '오프라인' },
+                                    { value: '가정방문', label: '가정방문' },
                                   ]}
                                   autoComplete="category"
                                   name="category"
@@ -878,11 +933,11 @@ const CustomerInfo = () => {
                                   size="small"
                                   onChange={handleChange}
                                   options={[
-                                    { value: "이용증", label: "이용중" },
-                                    { value: "휴면고객", label: "휴면고객" },
-                                    { value: "상담예정", label: "상담예정" },
-                                    { value: "상담완료", label: "상담완료" },
-                                    { value: "단순문의", label: "단순문의" },
+                                    { value: '이용증', label: '이용중' },
+                                    { value: '휴면고객', label: '휴면고객' },
+                                    { value: '상담예정', label: '상담예정' },
+                                    { value: '상담완료', label: '상담완료' },
+                                    { value: '단순문의', label: '단순문의' },
                                   ]}
                                   autoComplete="statement"
                                   name="statement"
@@ -1004,33 +1059,33 @@ const CustomerInfo = () => {
                                   size="small"
                                   onChange={handleChange}
                                   options={[
-                                    { value: "근력강화", label: "근력강화" },
-                                    { value: "체형교정", label: "체형교정" },
+                                    { value: '근력강화', label: '근력강화' },
+                                    { value: '체형교정', label: '체형교정' },
                                     {
-                                      value: "신체컨디셔닝",
-                                      label: "신체컨디셔닝",
+                                      value: '신체컨디셔닝',
+                                      label: '신체컨디셔닝',
                                     },
-                                    { value: "트랜스퍼", label: "트랜스퍼" },
-                                    { value: "건강관리", label: "건강관리" },
+                                    { value: '트랜스퍼', label: '트랜스퍼' },
+                                    { value: '건강관리', label: '건강관리' },
                                     {
-                                      value: "운동습관형성",
-                                      label: "운동습관형성",
+                                      value: '운동습관형성',
+                                      label: '운동습관형성',
                                     },
-                                    { value: "통증경감", label: "통증경감" },
-                                    { value: "체력향상", label: "체력향상" },
+                                    { value: '통증경감', label: '통증경감' },
+                                    { value: '체력향상', label: '체력향상' },
                                     {
-                                      value: "일상기능회복",
-                                      label: "일상기능회복",
-                                    },
-                                    {
-                                      value: "전문적운동지도",
-                                      label: "전문적운동지도",
+                                      value: '일상기능회복',
+                                      label: '일상기능회복',
                                     },
                                     {
-                                      value: "골프트레이닝",
-                                      label: "골프트레이닝",
+                                      value: '전문적운동지도',
+                                      label: '전문적운동지도',
                                     },
-                                    { value: "기타", label: "기타" },
+                                    {
+                                      value: '골프트레이닝',
+                                      label: '골프트레이닝',
+                                    },
+                                    { value: '기타', label: '기타' },
                                   ]}
                                   autoComplete="user_purpose"
                                   name="user_purpose"
@@ -1084,11 +1139,11 @@ const CustomerInfo = () => {
                                   size="small"
                                   onChange={handleChange}
                                   options={[
-                                    { value: "바우처", label: "바우처" },
-                                    { value: "실비", label: "실비" },
+                                    { value: '바우처', label: '바우처' },
+                                    { value: '실비', label: '실비' },
                                     {
-                                      value: "바우처+실비",
-                                      label: "바우처+실비",
+                                      value: '바우처+실비',
+                                      label: '바우처+실비',
                                     },
                                   ]}
                                   autoComplete="payment"
@@ -1134,15 +1189,15 @@ const CustomerInfo = () => {
                                   size="small"
                                   onChange={handleChange}
                                   options={[
-                                    { value: "숨고", label: "숨고" },
-                                    { value: "지인소개", label: "지인소개" },
-                                    { value: "강사추천", label: "강사추천" },
-                                    { value: "병원추천", label: "병원추천" },
+                                    { value: '숨고', label: '숨고' },
+                                    { value: '지인소개', label: '지인소개' },
+                                    { value: '강사추천', label: '강사추천' },
+                                    { value: '병원추천', label: '병원추천' },
                                     {
-                                      value: "인터넷 검색",
-                                      label: "인터넷 검색",
+                                      value: '인터넷 검색',
+                                      label: '인터넷 검색',
                                     },
-                                    { value: "SNS", label: "SNS" },
+                                    { value: 'SNS', label: 'SNS' },
                                   ]}
                                   autoComplete="inflow"
                                   name="inflow"
