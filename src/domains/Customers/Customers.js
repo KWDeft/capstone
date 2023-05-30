@@ -695,7 +695,7 @@ const Customers = () => {
     });
   };
 
-  let amountValue = amountData;
+  let amountValue = amountData + 100;
 
   // console.log('출력', amountValue);
 
