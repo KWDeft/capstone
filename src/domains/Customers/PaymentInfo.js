@@ -15,6 +15,7 @@ import "./PaymentInfo.css";
 import {  PushpinFilled, PlusOutlined } from "@ant-design/icons";
 import { useLocation,useNavigate } from "react-router-dom";
 import client from '../../lib/api/client';
+import axios from 'axios';
 import EditPaymentInfo from "./EditPaymentInfo";
 import { SelectAll } from "../../../node_modules/@material-ui/icons/index";
 
@@ -66,9 +67,11 @@ const PaymentInfo = () => {
     const inflow = location.state.inflow;
     const user_purpose = location.state.user_purpose;
     const [state, setstate] = useState([]);
+    const [detail, setDetail] = useState();
     const [commodity, setCommodity] = useState([]);
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10);
+    const [priceList, setPriceList] = useState([]);
 
     const [pay_amount, setPay_amount] = useState("");
     const [product, setProduct] = useState("");
@@ -82,7 +85,37 @@ const PaymentInfo = () => {
     const productHandler = (e) => {
       setProduct(e);
       console.log(e);
+      getProductDetail(e);
     };
+
+    const getProductDetail = async (e) => {
+      client.get(`/api/product/get/${e}`).then(
+        res => {
+          console.log(res);
+          console.log(res.data._id);
+          setDetail(res.data._id);
+          getPriceList(res.data._id);
+        }
+      );
+    };
+
+    const getPriceList = async (e) => {
+      client.get(`/api/product/detail/${e}`).then(
+          res => {
+              console.log(res);
+              setPriceList(res.data);
+          }
+      )
+  };
+
+  let productpriceList = [];
+    for (let i = 0; i < priceList.length; i++) {
+      let op = {};
+      op.value = priceList[i].price;
+      op.label = priceList[i].price;
+      productpriceList.push(op);
+    }  
+    
 
     const pay_methodHandler = (e) => {
       e.preventDefault();
@@ -245,10 +278,11 @@ const PaymentInfo = () => {
                                     /> */}
                                      <Select
                                       size="small"
-                                      placeholder="숫자만 입력해주세요"
+                                      placeholder=""
                                       style={{ width: 150 }}
                                       name="pay_amount"
                                       value={pay_amount}
+                                      options={productpriceList}
                                       onChange={pay_amountHandler}
                                     />                                     
                                     
