@@ -340,7 +340,7 @@ const EditCurriDetail = () => {
         <h4>{videourl}</h4>
         <br></br>
         <br></br>
-        <Button onClick={DeleteCurriculum}>삭제</Button>
+        <Button type="primary" danger onClick={DeleteCurriculum}>삭제</Button>
         <Button type="primary" onClick={submitHandler}>
           수정
         </Button>

@@ -174,10 +174,10 @@ const beforeupdate = stateCust.date;
                 </Space>
                 
                 <br></br><br></br>
-            <Title level={4}>진행 여부</Title>
+            {/* <Title level={4}>진행 여부</Title> */}
             <br></br>
              {/* <Checkbox onChange={onChange2}>수업 완료</Checkbox> */}
-             <Checkbox 
+             {/* <Checkbox 
              checked = {stateCust.completeCheck}
              onChange={e => {
               let value = e.target.checked;
@@ -195,7 +195,7 @@ const beforeupdate = stateCust.date;
                 memo : stateCust.memo,
                 completeCheck : value, 
               });
-            }}>수업 완료</Checkbox>
+            }}>수업 완료</Checkbox> */}
 
 
 
@@ -418,186 +418,7 @@ const beforeupdate = stateCust.date;
                   });
                   }}
                 />
-                {/* <SwapRightOutlined />
-
-                <Select
-                  showSearch
-                  placeholder={stateCust.endHour}
-                  optionFilterProp="endhour"
-                  onSearch={onSearch}
-                  filterOption={(input, option) =>
-                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                  }
-                  options={[
-                    {
-                      value: '1시',
-                      label: '1시',
-                    },
-                    {
-                      value: '2시',
-                      label: '2시',
-                    },
-                    {
-                      value: '3시',
-                      label: '3시',
-                    },
-                    {
-                      value: '4시',
-                      label: '4시',
-                    },
-                    {
-                      value: '5시',
-                      label: '5시',
-                    },
-                    {
-                      value: '6시',
-                      label: '6시',
-                    },
-                    {
-                      value: '7시',
-                      label: '7시',
-                    },
-                    {
-                      value: '8시',
-                      label: '8시',
-                    },
-                    {
-                      value: '9시',
-                      label: '9시',
-                    },
-                    {
-                      value: '10시',
-                      label: '10시',
-                    },
-                    {
-                      value: '11시',
-                      label: '11시',
-                    },
-                    {
-                      value: '12시',
-                      label: '12시',
-                    },
-                    {
-                      value: '13시',
-                      label: '13시',
-                    },
-                    {
-                      value: '14시',
-                      label: '14시',
-                    },
-                    {
-                      value: '15시',
-                      label: '15시',
-                    },
-                    {
-                      value: '16시',
-                      label: '16시',
-                    },
-                    {
-                      value: '17시',
-                      label: '17시',
-                    },
-                    {
-                      value: '18시',
-                      label: '18시',
-                    },
-                    {
-                      value: '19시',
-                      label: '19시',
-                    },
-                    {
-                      value: '20시',
-                      label: '20시',
-                    },
-                    {
-                      value: '21시',
-                      label: '21시',
-                    },
-                    {
-                      value: '22시',
-                      label: '22시',
-                    },
-                    {
-                      value: '23시',
-                      label: '23시',
-                    },
-                    {
-                      value: '24시',
-                      label: '24시',
-                    },
-                  ]}
-                  defaultValue = {stateCust.endHour}
-                  onChange={e => {
-                    let value = e;
-                    setstateCust({
-                      usernum : stateCust.usernum,
-                      date : stateCust.date,
-                      name : stateCust.name,
-                      phone : stateinfo.phone,
-                      coachname : stateCust.manager,
-                      obstacle_type : stateinfo.obstacle_type,
-                      startHour : stateCust.startHour,
-                      startMinute : stateCust.startMinute,
-                      endHour : value,
-                      endMinute : stateCust.endMinute,
-                      memo : stateCust.memo,
-                      completeCheck : stateCust.completeCheck, 
-                  });
-                  }}
-                />
-                <Select
-                  showSearch
-                  placeholder={stateCust.endMinute}
-                  optionFilterProp="endminute"
-                  onSearch={onSearch}
-                  filterOption={(input, option) =>
-                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                  }
-                  options={[
-                    {
-                      value: '00분',
-                      label: '00분',
-                    },
-                    {
-                      value: '10분',
-                      label: '10분',
-                    },
-                    {
-                      value: '20분',
-                      label: '20분',
-                    },
-                    {
-                      value: '30분',
-                      label: '30분',
-                    },
-                    {
-                      value: '40분',
-                      label: '40분',
-                    },
-                    {
-                      value: '50분',
-                      label: '50분',
-                    },
-                  ]}
-                  defaultValue = {stateCust.endMinute}
-                  onChange={e => {
-                    let value = e;
-                    setstateCust({
-                      usernum : stateCust.usernum,
-                      name : stateCust.name,
-                      date : stateCust.date,
-                      phone : stateinfo.phone,
-                      coachname : stateCust.manager,
-                      obstacle_type : stateinfo.obstacle_type,
-                      startHour : stateCust.startHour,
-                      startMinute : stateCust.startMinute,
-                      endHour : stateCust.endHour,
-                      endMinute : value,
-                      memo : stateCust.memo,
-                      completeCheck : stateCust.completeCheck, 
-                  });
-                  }}
-                /> */}
+                
                 </Row>
                 <br></br><br></br><br></br>
             <Title level={4}>기타 메모</Title>

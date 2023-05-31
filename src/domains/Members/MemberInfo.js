@@ -47,6 +47,7 @@ const MemberInfo = () => {
         setIsModalOpen(false);
       };
 
+
     const Delete = (e) => {
         Modal.confirm({
             title: "정말로 삭제하시겠습니까?",
@@ -218,9 +219,14 @@ const MemberInfo = () => {
                         </Col> 
                     </>
         </Col>
-        <Col span={12}></Col>
+        
       </Row>
+      
       <br></br><br></br>
+      <Button type="primary" danger onClick={Delete}>삭제</Button>
+        <Button type="primary" onClick={editHandler}>
+          수정
+        </Button>
       </>
     )
 };

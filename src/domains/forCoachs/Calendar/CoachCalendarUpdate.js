@@ -174,10 +174,10 @@ const beforeupdate = stateCust.date;
                 </Space>
                 
                 <br></br><br></br>
-            <Title level={4}>진행 여부</Title>
+            {/* <Title level={4}>진행 여부</Title> */}
             <br></br>
              {/* <Checkbox onChange={onChange2}>수업 완료</Checkbox> */}
-             <Checkbox 
+             {/* <Checkbox 
              checked = {stateCust.completeCheck}
              onChange={e => {
               let value = e.target.checked;
@@ -195,7 +195,7 @@ const beforeupdate = stateCust.date;
                 memo : stateCust.memo,
                 completeCheck : value, 
               });
-            }}>수업 완료</Checkbox>
+            }}>수업 완료</Checkbox> */}
 
 
 
