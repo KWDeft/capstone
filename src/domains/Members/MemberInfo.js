@@ -223,10 +223,12 @@ const MemberInfo = () => {
       </Row>
       
       <br></br><br></br>
-      <Button type="primary" danger onClick={Delete}>삭제</Button>
-        <Button type="primary" onClick={editHandler}>
+      <div className="btn">
+      <Button type="primary" onClick={editHandler}>
           수정
         </Button>
+      <Button type="primary" danger onClick={Delete}>삭제</Button>
+      </div>
       </>
     )
 };

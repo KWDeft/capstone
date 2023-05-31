@@ -183,6 +183,8 @@ const CustomerInfo = () => {
     window.location.reload();
   };
 
+  let sexList = ["남", "여"];
+
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -564,7 +566,9 @@ const CustomerInfo = () => {
                                   여
                                 </div>
                               </Col>
+                              
                             </Row>
+                            
                             <br></br>
                             <Row gutter={16}>
                               <Col>

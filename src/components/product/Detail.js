@@ -148,7 +148,7 @@ const Detail = () => {
                 </div>
             </div>
             <br/>
-            <Button onClick={Delete}>상품 삭제</Button>
+            <Button type="primary" danger onClick={Delete}>상품 삭제</Button>
         </div>
         </div>
         </>
