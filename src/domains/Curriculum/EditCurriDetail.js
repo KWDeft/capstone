@@ -315,27 +315,23 @@ const EditCurriDetail = () => {
         <Divider orientation="left" orientationMargin="0">
           <h5>첨부파일 (이미지, 동영상 각각 최대 1개씩 업로드 가능)</h5>
         </Divider>
-        <div>
           <form encType="multipart/form-data">
             <input type="file" name="image" onChange={handleFileChange} />
             <button type="button" onClick={handleUpload}>
               이미지 변경
             </button>
           </form>
-        </div>
-        <br></br> <Image width={100} height={100} src={file_url} />
+        <br></br> <Image width={500} height={500} src={file_url} />
         <br></br>
         <br></br>
-        <div>
           <form encType="multipart/form-data">
             <input type="file" name="video" onChange={handleVideoChange} />
             <button type="button" onClick={handleUploadVideo}>
               동영상 변경
             </button>
           </form>
-        </div>
         <br></br>
-        <video src={videourl} controls width={150} />
+        <video src={videourl} controls width={500} />
         <Button onClick={VideoModal}>동영상이 보이지 않아요!</Button>
         <h4>{videourl}</h4>
         <br></br>

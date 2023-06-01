@@ -73,7 +73,6 @@ const RegisterForm = () => {
 
       console.log(auth);
       dispatch(check());
-      alert('회원가입에 성공했습니다. 로그인 해주세요.');
     }
   }, [auth, authError, dispatch]);
 
